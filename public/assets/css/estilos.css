@@ -1,0 +1,85 @@
+body
+{
+	/*border: 1px solid #000088;*/
+	border-radius: 5px;
+	margin: 0 auto;
+	max-width: 1024px;
+}
+
+footer
+{
+	font-weight: bold;
+	text-align: center;
+}
+
+header nav ul
+{
+	text-align: center;
+}
+
+header nav ul li
+{
+	display: inline-block;
+}
+
+header .page-header
+{
+	margin-left: 15px;
+}
+
+img
+{
+	border-radius: 500px;
+}
+
+#altaUsuarios
+{
+	display: none; /*Ocultamos el DIV*/
+	margin: 0 auto;
+	width: 350px;
+}
+
+#banco{
+	display: none;
+}
+
+#btnEntregas
+{
+	display: none;
+}
+
+#nav2
+{
+	display: none;
+}
+
+#documentacion{
+	display: none;
+}
+
+#panelEntrada
+{
+	display:none;
+	margin: 0 auto;
+	width: 300px;
+}
+
+#informacion{
+	text-align: center;
+}
+
+#info1{
+	text-align: left;
+	font-weight: bold;
+}
+
+#fecha{
+	color: red;
+}
+
+
+
+
+
+
+
