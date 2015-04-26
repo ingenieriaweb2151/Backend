@@ -37,7 +37,7 @@ function conectaBD()
 	//Servidor, Usuario, Contraseña
 	$conexion =  mysql_connect("localhost","root","");
 	//Seleccionamos la BD
-	mysql_select_db("pw15");
+	mysql_select_db("residenciasitc");
 	return $conexion;
 }	
 
