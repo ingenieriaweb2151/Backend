@@ -1,6 +1,6 @@
 -- create database residencias;
--- use residencias;
-select * from alureg where aluctr = 1151006;
+use residencias;
+-- select * from alureg where aluctr = 1151006;
 CREATE TABLE IF NOT EXISTS `dalumn` (
   `aluctr` varchar(9) NOT NULL,
   `aluapp` varchar(30) NOT NULL,
