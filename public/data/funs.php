@@ -35,7 +35,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 function conectaBD()
 {
 	$conexion = mysql_connect('localhost','root','');
-	mysql_select_db('residencias',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
+	mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
 	return $conexion;
 }
 
@@ -53,20 +53,51 @@ function EntradaAlum()
 	$u = GetSQLValueString($_POST["aluctr"],"text");
 	   //["campo de la BD"] ,"tipo del dato"
 	$c = GetSQLValueString($_POST["alupas"],"text");
+
+	if(buscaralumno($u))
+	{
+		$consulta = sprintf("select * from dalumn where aluctr=%s and alupas=%s", $u,$c);
+		$resultado = mysql_query($consulta);
+		$nombre = "";
+		if($registro = mysql_fetch_array($resultado))
+		{
+			$res = true;
+			$nombre = $registro["alunom"]." ".$registro["aluapp"];
+		}
+		$salidaJSON = array('respuesta' => $res,
+							'nombre'    => $nombre);
+		print json_encode($salidaJSON);
+	}
+	else
+	{
+		$msj = "Lo sentimos el alumno no esta en proceso de recidencias";
+		$res = false;
+		$salidaJSON = array('respuesta' => $res,
+							'nombre'    => $msj);
+		print json_encode($salidaJSON);
+	}
+
+
+}
+//Funcion para buscar al alumno en la tabla alureg, dicha tabla almacena a los
+//alumnos que estan en proceso de recidencias
+
 	
-	$consulta = sprintf("select * from dalumn where aluctr=%s and alupas=%s", $u,$c);
+function buscaralumno($aluctr)
+{
+	$respuesta = false;
+	$conexion = conectaBD();
+	$consulta = sprintf("Select * from alureg where aluctr=%s",$aluctr);
 	$resultado = mysql_query($consulta);
-	$nombre = "";
 	if($registro = mysql_fetch_array($resultado))
 	{
-		$res = true;
-		$nombre = $registro["alunom"]." ".$registro["aluapp"];
+		$respuesta = true;
+		return $respuesta;
 	}
-	$salidaJSON = array('respuesta' => $res,
-						'nombre'    => $nombre);
-	print json_encode($salidaJSON);
+	elseif (condition) {
+		# code...
+	}
 }
-
 /*
 *
 *SECCION DE FUNCIONES INTERNAS A USAR POR LAS FUNCIONES SELECCIONADAS SEGUN EL OPC
