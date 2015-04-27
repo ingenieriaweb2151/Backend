@@ -1,0 +1,165 @@
+body
+{
+  /*border: 1px solid #000088;*/
+  border-radius: 5px;
+  margin: 0 auto;
+  max-width: 1024px;
+  min-width: 1024px;
+}
+
+footer
+{
+  font-weight: bold;
+  text-align: center;
+}
+
+header nav ul
+{
+  text-align: center;
+}
+
+header nav ul li
+{
+  display: inline-block;
+}
+
+header .page-header
+{
+  margin-left: 15px;
+}
+img
+{
+  border-radius: 500px;
+}
+#altaProyectos
+{
+  display: none; /*Ocultamos el DIV*/
+  margin: 0 auto;
+  width: 350px;
+}
+
+#banco{
+  display: none;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+#btnEntregas
+{
+  display: none;
+} 
+
+#entregas{
+   display: none;
+}
+
+#proyectosbox{
+  display: none;
+}
+
+#nav2
+{
+  display: none;
+}
+
+#documentacion{
+  display: none;
+  text-align: center;
+}
+
+/*#seccionlinks article{
+  display: inline-block;
+  text-align: top;
+}*/
+
+#docsGenerales{
+  display: none;
+}
+
+#panelEntrada
+{
+  display:none;
+  margin: 0 auto;
+  width: 300px;
+}
+
+#AmbosPlanes{
+  text-align: left;
+}
+
+#logotec{
+  margin-top:15px;
+  position: absolute;
+  top: -10px;
+  left: 1000px;
+  width: 120px;
+  height: 120px;
+}
+
+#PlanNuevo{
+  text-align: left;
+}
+
+#PlanViejo{
+  text-align: left;
+}
+#btnRegistrar{
+  display: none;
+}
+#informacion{
+  text-align: center;
+}
+
+#infoarticle{
+  text-align: left;
+}
+
+#fecha{
+  color: gray;
+}
+#imgInicio
+{
+  position: relative;
+  margin-left: 20px;
+  width: 642px;
+  height: 429px;
+}
+#rp
+{
+	font-weight: bold;
+}
+#imgMini
+{
+  width: 250px;
+  height: 200px;
+}
+#seccionInfo article
+{
+  margin: auto;
+  display: inline-block;
+  vertical-align: top;
+  width: 33%;
+  padding:20px 20px 20px 20px; 
+  position: relative;
+
+}
+.page-header{
+  height: 130;
+}
+
+.Titulos{
+  text-align: left;
+  font-size: bold;
+}
+
+
+.usuarios{
+  text-align: right;
+}
+
+
+
+
+
+
+

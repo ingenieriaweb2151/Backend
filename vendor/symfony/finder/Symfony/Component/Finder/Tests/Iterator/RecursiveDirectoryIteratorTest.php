@@ -73,7 +73,7 @@ class RecursiveDirectoryIteratorTest extends IteratorTestCase
         // ftp
         $contains = array(
             'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'README',
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'index.html',
+            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'index.php',
             'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'pub',
         );
         $data[] = array('ftp://ftp.mozilla.org/', false, $contains);
