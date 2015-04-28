@@ -1,6 +1,4 @@
--- create database residencias;
--- use residencias;
-select * from alureg where aluctr = 1151006;
+
 CREATE TABLE IF NOT EXISTS `dalumn` (
   `aluctr` varchar(9) NOT NULL,
   `aluapp` varchar(30) NOT NULL,
@@ -274,6 +272,8 @@ CREATE TABLE IF NOT EXISTS `dcalum` (
 
 
 CREATE TABLE IF NOT EXISTS `ddepto` (
+
+
   `depcve` varchar(3) NOT NULL DEFAULT '',
   `depnom` varchar(60) NOT NULL DEFAULT '',
   `depnco` varchar(20)  DEFAULT NULL,
@@ -284,7 +284,32 @@ CREATE TABLE IF NOT EXISTS `ddepto` (
   PRIMARY KEY (`depnom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `dlista` (
+  `pdocve` varchar(4) NOT NULL,
+  `aluctr` varchar(9) NOT NULL,
+  `matcve` varchar(10) NOT NULL,
+  `gpocve` varchar(2) NOT NULL,
+  FOREIGN KEY (pdocve) REFERENCES dperio(pdocve),
+  FOREIGN KEY (aluctr) REFERENCES dalumn(aluctr),
+  FOREIGN KEY (matcve) REFERENCES dmater (matcve)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+CREATE TABLE IF NOT EXISTS `dmater` (
+  `matcve` varchar(10) NOT NULL,
+  `matnom` varchar(65) NOT NULL,
+  `matnco` varchar(20) NOT NULL,
+  `matcre` int(4) NOT NULL,
+  `mathte` int(4) NOT NULL,
+  `mathpr` int(4) NOT NULL,
+  `mathcu` varchar(3) NOT NULL,
+  `matpla` mediumint(4) NOT NULL,
+  `depcve` int(3) NOT NULL,
+  primary key (matcve)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- INFORMACION DE LA EMPRESA
 CREATE TABLE IF NOT EXISTS `empresas` (
   `cveempr` char(9) NOT NULL,
   `nombre` char(85) NOT NULL,
@@ -312,7 +337,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   PRIMARY KEY (`cveempr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- INFORMACION DEL PROYECTO
 CREATE TABLE IF NOT EXISTS `proyectos` (
   `cveproy` char(9) PRIMARY KEY NOT NULL,
   `cveempr` char(9) NOT NULL,
@@ -335,6 +360,7 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   FOREIGN KEY (`carcve`) REFERENCES `dcarre` (`carcve`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ASIGNA EL PROYECTO AL RECIDENTE
 CREATE TABLE IF NOT EXISTS `asignproyectos` (
   `pdocve` varchar(4) NOT NULL,
   `aluctr` varchar(9) NOT NULL,
@@ -348,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `asignproyectos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
+-- TABLA QUE ASIGNA A LOS PROYECTOS CON EL ASESOR
 CREATE TABLE IF NOT EXISTS `asignaseinternos` (
   `pdocve` varchar(4) NOT NULL,
   `percve` varchar(10) NOT NULL,
@@ -361,7 +387,7 @@ CREATE TABLE IF NOT EXISTS `asignaseinternos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
+--  GUARDAMOS EL NOMBRE DE LOS FORMATOS
 CREATE TABLE IF NOT EXISTS formatos (
 	forcve INT(2) NOT NULL,
     fornom VARCHAR (100) NOT NULL,
@@ -369,7 +395,7 @@ CREATE TABLE IF NOT EXISTS formatos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
+-- ESTRUCTURA DE LA TABLA proyalumfor: en esta tabla guardaremos la ruta del documento que envio el alumno.
 CREATE TABLE IF NOT EXISTS proyalumfor(
 	pafcve INT NOT NULL,
 	forcve INT (2) NOT NULL,
@@ -399,6 +425,7 @@ CREATE TABLE IF NOT EXISTS solicitudes(
     FOREIGN KEY (aluctr) REFERENCES dalumn (aluctr)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ESTRUCTURA DE LA TABLA anteproyectos: 
 CREATE TABLE IF NOT EXISTS `anteproyectos` (
   `pdocve` varchar(4) NOT NULL,
   `aluctr` varchar(9) NOT NULL,
@@ -412,9 +439,8 @@ CREATE TABLE IF NOT EXISTS `anteproyectos` (
   FOREIGN KEY (`cveproy`) REFERENCES `proyectos` (`cveproy`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ESTRUCTURA DE LA TABLA alureg: En esta tabla estan los alumnos que se encuentran en proceso de recidencias
 CREATE TABLE IF NOT EXISTS alureg(
 	aluctr varchar(9) NOT NULL,
-    otrocamp varchar(4) NOT NULL,
-    PRIMARY KEY (aluctr),
-    foreign key (aluctr) references dalumn(aluctr)
+    PRIMARY KEY (aluctr)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
