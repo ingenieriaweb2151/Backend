@@ -98,18 +98,21 @@
 		<p> Entregables </p>
 	</div>
 
+
 	<div class="panel panel-primary" id="panelEntrada">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Proporcione sus datos</h3>
+	    <h3 class="form-signin-heading ">Proporcione sus datos</h3>
 	  </div>
-	  <div class="panel-body" >
-	  	<input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" autofocus>
-	  	<input type="password" id="txtClave" class="form-control" placeholder="Contraseña">
-	  	<button id="btnEntrar" class="btn btn-success btn-lg btn-block">
-	  		Entrar
-	  		<span class="glyphicon glyphicon-credit-card"></span>
-	  	</button>
-	  </div>
+
+	  {{ Form::open(array('url'=>'signin', 'class'=>'form-signin')) }}
+
+			{{ Form::text('aluctr', null, array('class'=>'form-control', 'placeholder'=>'Usuario')) }}
+			{{ Form::password('alucll', array('class'=>'form-control', 'placeholder'=>'Contraseña')) }}
+
+			{{ Form::submit('Entrar', array('class'=>'btn btn-large btn-primary btn-block'))}}
+	  {{ Form::close() }}
+
+	  
 	</div>
 	<div id="datosUsuarios">
 		<img src="" alt="">
