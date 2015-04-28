@@ -34,7 +34,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 //Funcion para conectarnos a la BD residenciasitc
 function conectaBD()
 {
-	$conexion = mysql_connect('localhost','root','');
+	$conexion = mysql_connect('localhost','alumno','');
 	mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
 	return $conexion;
 }
@@ -48,21 +48,27 @@ function conectaBD()
 function EntradaAlum()
 {
 	$conexion = conectaBD();
-	$res = false;
-	//Cachamos los valores que hay en los campos aluctr y aluapas
-	$u = GetSQLValueString($_POST["aluctr"],"text");
-	   //["campo de la BD"] ,"tipo del dato"
-	$c = GetSQLValueString($_POST["alupas"],"text");
-
+	//$res = false;
+	$u = $_POST["aluctr"];
+	$c = $_POST["alupas"];
+	//$nombre="";
 	if(buscaralumno($u))
 	{
-		$consulta = sprintf("select * from dalumn where aluctr=%s and alupas=%s", $u,$c);
+		$consulta  = sprintf("select * from dalumn where aluctr=%s and alupas=%s",$u,$c);
+		//Ejecutamos la consulta.
 		$resultado = mysql_query($consulta);
-		$nombre = "";
-		if($registro = mysql_fetch_array($resultado))
+		//Validamos los datos.
+		$res = false; //Saber el correcto
+		$nombre = ""; //Nombre completo
+		$registro = mysql_fetch_array($resultado);
+		if($registro>0)
 		{
 			$res = true;
 			$nombre = $registro["alunom"]." ".$registro["aluapp"];
+		}
+		else{
+			$res = false;
+			print("algo salio mal :c");				
 		}
 		$salidaJSON = array('respuesta' => $res,
 							'nombre'    => $nombre);
@@ -76,7 +82,7 @@ function EntradaAlum()
 							'nombre'    => $msj);
 		print json_encode($salidaJSON);
 	}
-
+	
 
 }
 //Funcion para buscar al alumno en la tabla alureg, dicha tabla almacena a los
@@ -85,129 +91,49 @@ function EntradaAlum()
 	
 function buscaralumno($aluctr)
 {
-	$respuesta = false;
 	$conexion = conectaBD();
-	$consulta = sprintf("Select * from alureg where aluctr=%s",$aluctr);
+	$consulta = sprintf("Select * from alureg where aluctr=%s",$aluctr); //Verificamos si ya esta registrado
 	$resultado = mysql_query($consulta);
 	if($registro = mysql_fetch_array($resultado))
 	{
-		$respuesta = true;
-		return $respuesta;
+		return true;
+		print("El alumno esta en proceso de recidencias");
+	}//sino esta registrado verificamos si cargo la mat. residencias y así darlo de alta
+	elseif(cargoresidencias($aluctr)){
+		$registrar = registraalumno($aluctr);
+		return $registrar; 
 	}
-	elseif (condition) {
-		# code...
-	}
-}
-/*
-*
-*SECCION DE FUNCIONES INTERNAS A USAR POR LAS FUNCIONES SELECCIONADAS SEGUN EL OPC
-*
-
-
-//Funcion para saber si el alumno ya esta en proceso de recidencias
-function busalumn()
-{
-	$conexion = conectaBD();
-	$aluctr = GetSQLValueString($_POST["aluctr"],"text");
-	$alupas = GetSQLValueString($_POST["alupas"],"text");
-
-	$res = false;
-	$consulta  = sprintf("select * from alureg where aluctr=%s", $aluctr);
-	$resultado = mysql_query($consulta);
-	$registro = mysql_fetch_array($resultado);
-	//Si la consulta regresa un valor damos por echo que el alumno ya esta dado de alta en el proceso de recidencias
-	if(	$registro)
-	{
-		$res = true;
-		print("Alumno en proceso de recidencias");
-		EntradaAlum();
-	}
-	//sino verificamos si cuenta con los creditos necesarios para realizar el proceso de recidencias
-	//tambien verificamos que plan es para verificar si es plan viejo o nuevo 
 	else
-	{
-		//$res = true;
-		print("El alumno no esta registrado");
-		busplan();
-
-	} ----prubea salidajson
-	$salidaJSON = array('respuesta' => $res,
-						'nombre'    => $nombre);
-	print json_encode($salidaJSON);
+		return false;
 }
 
-
-//funcion para verificar el tipo de plan al que pertenece el alumno
-function busplan()
+//funcion para registrar al alumno en el proceso de recidencias
+function registraalumno($aluctr)
 {
 	$conexion = conectaBD();
-	//$variable = GetSQLValueString($_POST["aluctr"],"text");
-	$aluctr = GetSQLValueString($_POST["aluctr"],"text");
-	//Deacuerdo a los 2 primeros dijitos del numero de control sabemos a que año pertenece el alumno
-	// >=9: Plan viejo
-	//<9: Plan nuevo
-	$num = substr($aluctr, 0,2);
-	$numplan = (int)$num;
-
-	$consulta = sprintf("select * from dalumn where aluctr=%s", $aluctr);
-	$resultado = mysql_query($consulta);
-	$nombre = "";
-	if($registro = mysql_fetch_array($resultado)>0) //verificamos si el alumno esta en la base de datos residenciasitc
-	{
-		if($numplan > 9)
-		{
-			//Verificamos si cuenta con los creditos necesarios para darse de alta en el sistema de residencias
-				//Si cuenta con los creditos necesarios: verificamos si ya realizo su servicio social
-			$consulta = sprintf("select * from dcalum where caltcala >= 220 and aluctr=%s",$aluctr); //Consulta para verificar si tiene vas de 220(es un ejemplo)
-			$resultado = mysql_query($consulta);
-			if($registro = mysql_fetch_array($resultado) > 0)
-			{
-				//Buscamos si ya realizo el servicio social
-				$consulta = "insert into alureg values (".$aluctr."dfd)";//cambiar al estado anterior u.u
-				$resultado = mysql_query($consulta);
-				printf("resultado <br>");
-				if(mysql_affected_rows() > 0 )
-					printf("LISTO!!");
-			}
-			else
-				printf("NO CUMPLE CON LOS CREDITOS REQUERIDOS PARA REALIZAR EL PROCESO DE RESIDENCIAS");
+	$consulta = sprintf("insert into alureg values (%s)",$aluctr);
+		$resultado = mysql_query($consulta,$conexion);
+		if (mysql_affected_rows() > 0) {
+			return true;
+			print("Registrado con exito");
 		}
-		else
-		{
-			//Verificamos si cuenta con los creditos necesarios para darse de alta en el sistema de residencias
-			$consulta = sprintf("select * from dcalum where caltcala >= 220 and aluctr=%s",$aluctr); //Consulta para verificar si tiene vas de 220
-			$resultado = mysql_query($consulta);
-			if($registro = mysql_fetch_assoc($resultado) > 0)
-			{	
-				$consulta = sprintf("insert into alureg values (%s, %s)", $aluctr,"def"); //NO SE COMO SACAR EL PARFOL1 u.u
-				$resultado = mysql_query($consulta);
-
-				if (mysql_affected_rows() > 0) 
-				{
-					printf("ALUMNO REGISTRADO CORRECTAMENTE");
-					EntradaAlum();
-				}
-				else
-					printf("NO SE PUDO REGISTRAR");
-			}
-			else
-				printf("EL ALUMNO NO CUENTA CON LOS CREDITOS NECESARIOS PARA REALIZAR EL PROCESO DE RECIDENCIASP PROFECIONALES");
-
+		else{
+			return false;
+			print("No se pudo registrar");
 		}
-    }
-    else
-    	print("EL ALUMNO NO ESTA EN LA BASE DE DATOS residenciasitc.");
-	
+			
 }
-
-*/
-
-/*
-*
-*SECCION DE OPCIONES (OPC) PARA ELEGIR LA FUNCION CORRESPONDIENTE QUE PIDE JS
-*
-*/
-
+function cargoresidencias($aluctr)
+{
+	$conexion = conectaBD();
+	//Consulara para buscar al alumno en la tabla DLISTA: aqui se almacena las materias que cargo 
+	$consulta = sprintf("select * from buscarmat where aluctr=%s",$aluctr);
+	$resultado = mysql_query($consulta);
+	if($registro = mysql_fetch_array($resultado))
+		return true;
+	else
+		return false;
+}
 
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
