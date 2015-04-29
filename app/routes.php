@@ -17,7 +17,7 @@ Route::get('/', function()
     return View::make('home');
 });
 */
-Route::get('/','loginController@index');
+//Route::get('/','loginController@index');
 
-Route::get('index/','loginController@login');
+Route::get('login','loginController@login');
 //Route::get(['/', 'as' => 'home' , 'uses' => 'HomeController@index']);
