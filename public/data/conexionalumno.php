@@ -1,15 +1,15 @@
 <?php 
 
-function conectaBDalumno()
+function conectaBDalumno($tipousuario)
 {
-  $conexion = mysql_connect('localhost','alumno','');
+  $conexion = mysql_connect('localhost',$tipousuario,'');
   mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
   return $conexion;
 }
 
 function EntraAlumn($u,$c)
 {
-  $conexion = conectaBDalumno();
+  $conexion = conectaBDalumno('alumno');
       if(buscaralumno($u))
       {
         $consulta  = sprintf("select * from dalumn where aluctr=%s and alupas=%s",$u,$c);
@@ -25,8 +25,7 @@ function EntraAlumn($u,$c)
           $nombre = $registro["alunom"]." ".$registro["aluapp"];
         }
         else{
-         $res = false;
-          print("algo salio mal :c");       
+         $res = false;     
         }
         $salidaJSON = array('respuesta' => $res,
                   'nombre'    => $nombre);
@@ -47,7 +46,7 @@ function EntraAlumn($u,$c)
  //Busca al alumno en la tabla alureg: esta tabla almacena a todos los alumnos que estan en proceso de residencias
 function buscaralumno($aluctr)
 {
-  $conexion = conectaBDalumno();
+  $conexion = conectaBDalumno('alumno');
   $consulta = sprintf("Select * from alureg where aluctr=%s",$aluctr); //Verificamos si ya esta registrado
   $resultado = mysql_query($consulta);
   if($registro = mysql_fetch_array($resultado))
@@ -66,16 +65,16 @@ function buscaralumno($aluctr)
 //funcion para registrar al alumno en el proceso de recidencias
 function registraalumno($aluctr)
 {
-  $conexion = conectaBD();
+  $conexion = conectaBDalumno('alumno');
   $consulta = sprintf("insert into alureg values (%s)",$aluctr);
     $resultado = mysql_query($consulta,$conexion);
     if (mysql_affected_rows() > 0) {
       return true;
-      print("Registrado con exito");
+      //print("Registrado con exito");
     }
     else{
       return false;
-      print("No se pudo registrar");
+      //print("No se pudo registrar");
     }
       
 }
@@ -84,7 +83,7 @@ function registraalumno($aluctr)
 //buscamat: vista que contiene la consulta para buscar al alumno.
 function cargoresidencias($aluctr)
 {
-  $conexion = conectaBD();
+  $conexion = conectaBDalumno();
   //Consulara para buscar al alumno en la tabla DLISTA: aqui se almacena las materias que cargo 
   $consulta = sprintf("select * from buscarmat where aluctr=%s",$aluctr);
   $resultado = mysql_query($consulta);

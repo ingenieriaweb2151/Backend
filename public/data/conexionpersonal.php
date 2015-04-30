@@ -9,10 +9,10 @@ function conectaBDpersonal($tipousuario)
 
 function EntraAsesor($u,$c)
 {	
-	$conexion = conectaBDpersonal('alumno');
+	$conexion = conectaBDpersonal('asesor');
 	$res = false;
 	$nombre = "";
-	$consulta = sprintf("select * from dperso where percve=%s and perdepa=%s",$u,$c);
+	$consulta = sprintf("select * from dperso where not (perdepa ='') and not (pernom = '.') and percve=%s and perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
 	 
     if($registro = mysql_fetch_array($resultado))
@@ -28,15 +28,15 @@ function EntraAsesor($u,$c)
 
 function EntraVinculacion($u,$c)
 {
-	$conectaBDpersonal('vinculacion');
+	$conexion = $conectaBDpersonal('vinculacion');
 	$res = false;
 	$nombre = "";
-	$consulta = sprintf("select * from dperso where percve=%s and perdep=%s",$u,$c);
+	$consulta = sprintf("select * from dperso where percve=%s and perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
 	if($registro = mysql_fetch_array($resultado))
 	{
 		$res = true;
-        $nombre = $registro["pernom"]." ".$registro["perape"];
+    $nombre = $registro["pernom"]." ".$registro["perape"];
 	}
 	$salidaJSON = array('respuesta' => $res,
                   'nombre'    => $nombre);
@@ -46,10 +46,10 @@ function EntraVinculacion($u,$c)
 
 function EntraDivespro($u,$c)
 {
-	$conectaBDpersonal('divestpro');
+	$conexion = conectaBDpersonal('divestpro');
 	$res = false;
 	$nombre = "";
-	$consulta = sprintf("select * from dperso where percve=%s and perdep=%s",$u,$c);
+	$consulta = sprintf("select * from dperso where percve=%s and perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
 	if($registro = mysql_fetch_array($resultado))
 	{

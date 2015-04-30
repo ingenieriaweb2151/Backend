@@ -25,13 +25,13 @@ function ValidaEntrada()
 
 	elseif ($tipousuario == 'divestpro') 
 	{
-		# $respuesta = EntraDivespro($u,$c);
-		#prin json_encode($respuesta);
+		 $respuesta = EntraDivespro($u,$c);
+		print json_encode($respuesta);
 	}
 
 	elseif ($tipousuario == 'vinculacion') {
-		#$respuesta =  EntraVinculacion($u,$c);
-		#prin json_encode($respuesta);
+		$respuesta =  EntraVinculacion($u,$c);
+		print json_encode($respuesta);
 	}
 
 }
