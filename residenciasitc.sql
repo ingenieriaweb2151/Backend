@@ -1,31 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.2.7.1
--- http://www.phpmyadmin.net
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2015 a las 20:10:08
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Base de datos: `residenciasitc`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `alureg`
---
-
 CREATE TABLE IF NOT EXISTS `alureg` (
   `aluctr` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1754,6 +1726,19 @@ ALTER TABLE `solicitudes`
 ADD CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`pdocve`) REFERENCES `dperio` (`pdocve`),
 ADD CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`aluctr`) REFERENCES `dalumn` (`aluctr`);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE IF NOT EXISTS `sesiones` (
+`clave` int(11) NOT NULL COMMENT 'id del token',
+  `nomusuario` varchar(30) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `token` varchar(12) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+
+ALTER TABLE `sesiones`
+ ADD PRIMARY KEY (`clave`);
+
+ALTER TABLE `sesiones`
+MODIFY `clave` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del token',AUTO_INCREMENT=1;
