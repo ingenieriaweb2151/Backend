@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Instituto Tecnológico de Culiacán - Residencias Profesionales</title>
+	<script src="js/jquery-2.1.1.js"></script>
+	<script src="css/bootstrap/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,800,400' rel='stylesheet' type='text/css'>
+	
+	<script src="js/eventos.js"></script>
+</head>
+<body>
+	<header>
+	<div class="pageheader">
+
+		<span class="usu"><h id="tusuario" class="usuarios"></h> <h id="usuario" class="usuarios"></h></span>
+		<img id="logoitc" src="img/logoitc.png">
+		<h1> SISTEMA DE RESIDENCIAS </h1>
+	</div>
+		<nav id="nav1">
+			<ul>
+				<li>
+					<button  id="btnInicio">
+					  INICIO
+					</button>
+				</li>
+					|		
+				<li>
+					<button id="btnDivDocumentacion">
+					 		DOCUMENTOS	
+					</button>
+				</li>
+						|
+				<li>
+					<button id="btnDivBanco" >
+					BANCO 
+					</button>
+				</li>
+						|
+				<li>
+					<button id="btnEntregas">
+					ENTREGAS 						
+					</button>
+				</li>
+						
+				<li>
+					<button id="btnIngresar">
+					INGRESAR
+					</button>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+	<div id="informacion">
+	<img id="equipo" src="img/equipo.jpg"> <br><br>
+	
+	<section id="seccionInfo">
+		<article id="art1">	  				
+  					<div class="caption">
+  						<h3>Residencias Profesionales</h3><br><br>
+  							<div class="textoPro"> 
+  								Se concibe la residencia profesional como una estrategia educativa, con carácter curricular, que permite al estudiante, aun estando en proceso de formación,
+  							</div>
+  							<div id="acordeon1" class="collapse textoPro justificar">
+  								incorporarse profesionalmente a los sectores productivos de bienes y servicios, a través del desarrollo de un proyecto, asesorado por instancias académicas e instancias externas.
+  								El desarrollo de la residencia profesional puede representar una forma de transitar entre la teoría y la práctica.
+  							</div>
+							<button id="lm1" type="button" class="btn btn-default" data-toggle="collapse" data-target="#acordeon1">Ver más</button>
+  					</div>	 													 
+  		</article>
+  	<article id="art2">
+  				
+  					<div class="caption ">
+  						<h3 style="height:78px;">Requisitos</h3> <br>
+						<div class="textoPro justificar"> 
+							El alumno que ha cubierto el 75% del total de sus créditos puede solicitar la realización de sus Residencias Profesionales mediante los siguientes mecanismos: <br/><br/>
+						</div>
+						<div id="acordeon2" class="collapse textoPro justificar">
+							A través de su selección en el banco de proyectos de la coordinación respectiva.
+							Proponiendo su propio tema directamente a la División de
+							Estudios Profesionales, la que turnara al Departamento Académico para su análisis,
+							Presentando a la División de Estudios Profesionales su situación como trabajador de alguna empresa, para que se dictamine la correspondencia entre las actividades que realiza y las de un proyecto de Residencias Profesionales.<br/>
+							En los casos en que el alumno propone su propio proyecto o somete a consideración su situación como trabajador es conveniente que su propuesta de proyecto de Residencias Profesionales con tenga la siguiente información:
+							<br/>
+						<ul class="lista">
+							<li>Nombre y objetivo del proyecto. </li>
+							<li>Cronograma preliminar de actividades. </li>
+							<li>Descripción detallada de las actividades. </li>
+							<li>Lugar donde se realizará el proyecto. </li>
+							<li>Información de la empresa o institución donde se desarrollara el trabajo.</li>
+						</ul>
+						</div>
+						<button id="lm2" type="button" class="btn btn-default" data-toggle="collapse" data-target="#acordeon2">Ver más</button>
+  					</div>			
+  							
+  	</article>	
+  	<article id="art3">
+  		
+  					<div class ="caption">
+  						<h3>Asignación y Acreditación de las residencias profesionales</h3>
+  						<div class="textoPro justificar">
+							La oportunidad de asignación de proyecto de residencia será única para cada estudiante y la participación en un mismo proyecto podrá ser individual, grupal o multidisciplinaria, dependiendo de las características del propio proyecto.
+						</div>
+  						<div id="acordeon3" class="collapse textoPro justificar">
+  							La participación simultanea de varios residentes en un mismo proyecto se justificara únicamente cuando se asegure que las actividades de cada residente se desarrollen entre los limites de 4 a 6 meses de duración y 640 horas acumuladas.  <br>
+							A solicitud del candidato a residente, el departamento de servicios escolares, a través de la oficina de control escolar, le extenderá una constancia de su situación académica, en la que se defina si ha aprobado al menos el 75% de los créditos de su plan de estudios y si es alumno regular.
+							Una vez aprobado el proyecto de residencia profesional el alumno deberá sustentar entrevistas con asesores internos y externos para determinar los horarios definitivos de actividades.
+							El jefe de la división de estudios profesionales, previo aval de la academia autorizará una segunda asignación de proyecto para el mismo estudiante únicamente cuando por circunstancias especiales tales como: huelgas, quiebras, cierre de empresas, enfermedades, cambios de políticas empresariales, etc., haya tenido como consecuencias el truncamiento del proyecto.
+  						</div>
+  						<button id="lm3" type="button" class="btn btn-default" data-toggle="collapse" data-target="#acordeon3">Ver más</button>
+  					</div>			
+  							
+  	</article>	
+</section>	
+</div>
+
+
+	<div id="banco">
+		<!-- <div class="container"> -->
+			<h3>Banco de Proyectos</h3>
+			<table id="tablaproy" class="table table-striped table-hover warning">
+			</table>
+			<button class="btn btn-success" id="btnRegistrar">
+			<span class="glyphicon glyphicon-home"></span>
+					Registrar Proyecto				</button>
+			<button class="btn btn-info" id="btnSolicita">
+				<span class="glyphicon glyphicon-edit"></span>
+					Solicita tu proyecto externo
+			</button>
+			<button class="btn btn-success" id="btnCargarProy">
+				<span class="glyphicon glyphicon-check"></span>
+					Cargar Proyecto
+			</button>
+
+	</div>
+
+	<div id="solicitaProyecto">
+		<article>
+			<h2>Datos de la Empresa</h2>
+			<input type="text" id="txtNombreEmpresa" class="form-control" placeholder="Nombre de la Empresa">
+			<input type="text" id="txtDireccion" class="form-control" placeholder="Direccion">
+			<input type="text" id="txtColonia" class="form-control" placeholder="Colonia">
+			<input type="text" id="txtCiudad" class="form-control" placeholder="Ciudad">
+			<input type="text" id="txtCp" class="form-control" placeholder="Codigo Postal">
+			<input type="text" id="txtTelefono" class="form-control" placeholder="Telefono">
+			<input type="text" id="txtEncargado" class="form-control" placeholder="Encargado">
+			<input type="text" id="txtPuesto" class="form-control" placeholder="Puesto">
+			<!--<input type="text" id="txtCarrrera" class="form-control" placeholder="Carrera">
+			<input type="text" id="txtCupos" class="form-control" placeholder="Cupos Disponibles">-->
+		</article>
+		<article>
+			<h2>Datos del Proyecto</h2>
+			<input type="text" id="txtNombreProyecto" class="form-control" placeholder="Nombre del Proyecto">
+			<input type="text" id="txtCupos" class="form-control" placeholder="Cupos Disponibles">
+			<input type="text" id="txtObjetivo" class="form-control" placeholder="Objetivos del Proyecto">
+			<input type="text" id="txtJustificacion" class="form-control" placeholder="Justificación del Proyecto">
+			<select id="ddlCarrera" class="ddl ddl-default dropdown-toggle">
+		  		<option value="CAR" selected="selected">SELECCIONAR CARRERA</option>
+		  		<option value="SISEMAS">SISTEMAS COMPUTACIONALES</option>
+		  		<option value="MECATRONICA">MECATRONICA</option>
+		  		<option value="TICS">TICS</option>
+		  		<option value="AMBIENTAL">AMBIENTAL</option>
+			</select>
+			<input type="text" id="txtNomResp" class="form-control" placeholder="Nombre del Responsable">
+			<input type="text" id="txtPuestoResp" class="form-control" placeholder="Puesto del Responsable">
+		</article>
+		<br><br>
+			<button id="btnSolicitaProy" class="btn btn-success">
+				Solicitar 
+				<span class="glyphicon glyphicon-send" aria-hidden="true">	
+				</span>
+			</button>
+			<button id="btnGuardaProyecto" class="btn btn-success btn-lg btn-block">
+				Guardar 
+			<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">	
+			</span>
+		</button>
+		</div>
+
+	<div class="panel panel-primary" id="panelEntrada">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Proporcione sus datos</h3>
+	  </div>
+	  <div class="panel-body" >
+	  	<select id="ddlTipoUsuario" class="ddl ddl-default dropdown-toggle">
+		  <option value="alumno" selected="selected">Alumno</option>
+		  <option value="asesor">Maestro</option>
+		  <option value="divestpro">División de estudios profesionales</option>
+		  <option value="vinculacion">Vinculación</option>
+		</select>
+		<input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" autofocus>
+	  	<input type="password" id="txtClave" class="form-control" placeholder="Contraseña">
+	  	<button id="btnEntrar" class="btn btn-success btn-lg btn-block">
+	  		Entrar
+	  		<span class="glyphicon glyphicon-log-out"></span>
+	  	</button>	  	
+	  </div>
+	</div>
+	<!-- <div class="panel panel-primary" id="panelEntrada">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Proporcione sus datos</h3>
+	  </div>
+	  <div class="panel-body" >
+	  	<input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" autofocus>
+	  	<input type="password" id="txtClave" class="form-control" placeholder="Contraseña">
+	  	<button id="btnEntrar" class="btn btn-success btn-lg btn-block">
+	  		Entrar
+	  		<span class="glyphicon glyphicon-credit-card"></span>
+	  	</button>
+	  </div>
+	</div> -->
+	<div id="datosUsuarios">
+		<img src="" alt="">
+		<h1></h1>
+		<h2></h2>
+	</div>
+
+	<div id="documentacion" >
+
+	<section id="seccionlinks">
+		<article id="AmbosPlanes"> 
+			<h2 id="docsAmbos">AMBOS PLANES</h2>
+			<h2 id="docsGenerales">Documentos Generales</h2>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/06/ITC-AC-PO-007-01-Formato-para-Solicitud-de-Residencias-Profesionales.doc">1. Solicitud de Residencias Profesionales.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/10/ITC-AC-PO-007-02-Formato-para-Asignaci%C3%B3n-de-Asesor-Interno-de-Residencias-Profesionales..doc">2. Asignación de Asesor Interno de Residencias Profesionales.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-04-Formato-para-Dictamen-de-Anteproyectos-de-Residencias-Profesionales2.doc">3. Dictamen de Anteproyectos de Residencias Profesionales.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/06/ITC-AC-PO-007-05-Formato-para-Seguimiento-de-Proyecto-de-Residencias-Profesionales-rev-2.doc">4. NUEVA REV 2 Seguimiento de Proyecto de Residencias Profesionales.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/08/ITC-AC-FE-001-Formato-de-anteproyecto-de-residencias-profesionales.docx">5. Anteproyecto de Residencias Profesionales.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-FE-002-Formato-Electr%C3%B3nico-de-Resumen-Ejecutivo-de-Residencias-Profesionales2.docx">6. Resumen Ejecutivo Electrónico de Residencias Profesionales.</a><br>
+		</article>
+		
+		<article id="PlanViejo"> 
+			<h2>Plan 2004 - 2005</h2>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/06/ITC-AC-PO-007-03-Formato-de-la-Carta-de-Presentaci%C3%B3n-rev-2.docx">1. NUEVO REV 2 Carta de Presentación.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/09/ITC-AC-PO-007-06-Formato-para-Asignaci%C3%B3n-de-Revisor-de-Residencias-Profesionales.doc">2. Asignación de Revisor de Residencias Profesionales (Plan 2004-2005).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-07-Evaluaci%C3%B3n-del-proyecto-de-residencias-profesionales2.doc">3. Evaluación del Proyecto de Residencias Profesionales(Plan 2004-2005).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/10/ITC-AC-PO-007-09-Formato-para-constancia-de-liberaci%C3%B3n-y-evaluaci%C3%B3n-de-las-residencias-pr.doc">4. Constancia de Liberación y Evaluación de las Residencias Profesionales (Plan 2004-2005).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-ANEXO-1-Estructura-del-informe-t%C3%A9cnico-Plan-2004-20052.docx">5. Estructura de Informe Técnico (Plan 2004-2005).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-ANEXO-3-Actividades-del-asesor-interno-para-el-proyecto-de-residencia-profesional-Plan-2004-20052.docx">6. Actividades del Asesor interno para el proyecto de Residencias Profesionales (Plan 2004-2005).</a><br>
+
+		</article>
+
+		<article id="PlanNuevo">
+			<h2>Plan 2009 - 2010 COMPETENCIAS</h2>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/06/ITC-AC-PO-007-11-Formato-de-la-Carta-de-Presentaci%C3%B3n-rev-1.docx">1. NUEVO REV 1 Carta de Presentación.</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/09/ITC-AC-PO-007-08-Formato-de-Registro-para-Asesorias..docx">2. Registro para Asesorías (Plan 2009-2010).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2014/09/ITC-AC-PO-007-10-Formato-para-Evaluaci%C3%B3n-del-proyecto-de-residencias-profesionales.docx">3. Evaluación del Proyecto de Residencias Profesionales (Plan de Estudios 2009-2010).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-ANEXO-2-Estructura-del-informe-t%C3%A9cnico-Plan-2009-200102.docx">4. Estructura de Informe Técnico (Plan 2009-2010).</a><br>
+			<a href="http://itculiacan.edu.mx/wp-content/uploads/2013/07/ITC-AC-PO-007-ANEXO-4-Actividades-del-asesor-interno-para-el-proyecto-de-residencia-profesional-Plan-2009-20102.docx">5. Actividades del asesor interno para el proyecto de Residencias Profesional (Plan 2009-2010).</a><br>
+		</article>
+	</section>
+	
+	</div>
+
+	<div id="entregas">
+		<div id="proyectosbox">
+			<p> Seleccionar proyecto a revisión: </p>
+			<select>
+			 <!-- <option value="1">Alumno</option>
+			  <option value="2">Maestro</option>
+			  <option value="3">Administrativo</option>
+			  <option value="4">Asesor Externo</option> -->
+			</select>
+		</div>
+		<div id="tablaEntregables">
+			<table class="table table-striped table-hover">
+				<tr class="warning">
+					<th>Nombre Formato</th>
+					<th>Fecha Entrega</th>
+					<th>Nombre Asesor</th>
+					<th>Archivo Alumno</th>
+					<th>Revisión</th>
+					<th>Comentarios</th>
+				</tr>                    
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+                        <input type="file" name="archivo" id="archivo" />
+					</td>
+					<td>
+						<select>
+			  				<option value="1">Pendiente</option>
+			  				<option value="2">Rechazado</option>
+			  				<option value="3">Aceptado</option>
+						</select>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<footer>
+		<span class="fecha">	<h4> Fecha de inicio para solicitar residencias profesionales:<small id="fecha"> XX/XX/XXXX </small></h4></span>
+		<!--<small>
+			DR &copy; Ingeniería Web 2015.
+		</small>-->
+	</footer>
+</body>
+</html>
+
+
+
+
+
+
