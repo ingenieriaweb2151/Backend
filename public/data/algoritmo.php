@@ -137,6 +137,25 @@ function subirArchivo()
     }
     else{echo $msg;}
 }
-
+//Funcion para quitar los espacios en blanco
+function quitaespacios($cadena)
+  {
+    $longitud = strlen($cadena);
+    $arraycadena = str_split($cadena);
+    $nuevacadena="";;
+    for($i=0;$i<=$longitud;$i++)
+    { 
+      //echo $cadena{$i}."<br>";
+      if(isset($arraycadena[$i]))
+      {
+        if($arraycadena[$i] != ' ')
+        {
+          $nuevacadena.=$arraycadena[$i];
+        } 
+      }
+      
+    }
+    return $nuevacadena;
+  }
 
 ?>

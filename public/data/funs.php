@@ -6,7 +6,7 @@ require('conexionpersonal.php');
 function ValidaEntrada()
 {	
 	$tipousuario = $_POST["tu"];
-	$u = GetSQLValueString($_POST["usuario"],"text");
+	global $u = GetSQLValueString($_POST["usuario"],"text");
 	$c = GetSQLValueString($_POST["clave"],"text");
 	//print ($tipousuario);
 	if($tipousuario == "alumno")
@@ -138,6 +138,36 @@ function LlenarTablaProy(){
 	print json_encode($salidaJSON);
 }
 
+function enviarSolicitud()
+{	
+	$res = false;
+	$conexion = conectaBD();
+	$seleccion = GetSQLValueString($_POST["cargarproy"],"text");
+	$consultlaProy = sprintf("SELECT nombreproy, cveproy, numresi FROM proyectos");
+	$resultado = mysql_query($consultlaProy);
+	if ($columna = mysql_fetch_array($resultado))
+	{
+		$nombreproy = quitaespacios($columna["nombre"]);
+		if($nombreproy = $seleccion)
+		{
+			//$idProy = $columna["cveproy"]; 
+			$pdocve = obtenPdo();
+			$numr = $columna["numresi"] - 1;
+			$inserSol = "INSERT INTO solicitudes(cvesol, pdocve, aluctr) VALUES('$pdocve','$u')";
+			if(mysql_affected_rows()>0)
+			{
+				$res = true;
+				$updateProy = "UPDATE proyectos SET numresi='$numr' WHERE cveproy ='$idProy'";
+				mysql_query($updateProy);
+			}
+		}
+	}
+	
+	$salidaJSON = array('respuesta'	=> $res);
+	print json_encode($salidaJSON);
+
+}
+
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
 switch ($opcion) 
@@ -151,6 +181,9 @@ switch ($opcion)
 		break;
 	case 'GuardaEmp':
 		GuardaEmp();
+		break;
+	case 'enviarSolicitud':
+		enviarSolicitud();
 		break;
 	default:
 		# code...
