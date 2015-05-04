@@ -138,26 +138,32 @@ function LlenarTablaProy(){
 	print json_encode($salidaJSON);
 }
 
+
 function enviarSolicitud()
 {	
 	$res = false;
 	$conexion = conectaBD();
 	$seleccion = GetSQLValueString($_POST["cargarproy"],"text");
-	$consultlaProy = sprintf("SELECT nombreproy, cveproy, numresi FROM proyectos");
+	$ncontrol = GetSQLValueString($_POST["ncontrol"],"text");
+	$consultlaProy = sprintf("SELECT cveproy,nombre, cveproy, numresi FROM proyectos");
+
 	$resultado = mysql_query($consultlaProy);
 	if ($columna = mysql_fetch_array($resultado))
 	{
 		$nombreproy = quitaespacios($columna["nombre"]);
+
 		if($nombreproy = $seleccion)
 		{
-			//$idProy = $columna["cveproy"]; 
+			$idProy = $columna["cveproy"]; 
 			$pdocve = obtenPdo();
 			$numr = $columna["numresi"] - 1;
-			$inserSol = "INSERT INTO solicitudes(cvesol, pdocve, aluctr) VALUES('$pdocve','$u')";
+			$insertSol =sprintf("INSERT INTO solicitudes (pdocve,aluctr) VALUES(%s,%s)",$pdocve,$ncontrol);
+			$otroresultado = mysql_query($insertSol);
+			
 			if(mysql_affected_rows()>0)
 			{
 				$res = true;
-				$updateProy = "UPDATE proyectos SET numresi='$numr' WHERE cveproy ='$idProy'";
+				$updateProy = sprintf("UPDATE proyectos SET numresi=%d WHERE cveproy =%s",$numr,$idProy);
 				mysql_query($updateProy);
 			}
 		}
@@ -167,7 +173,6 @@ function enviarSolicitud()
 	print json_encode($salidaJSON);
 
 }
-
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
 switch ($opcion) 
