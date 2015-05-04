@@ -36,7 +36,7 @@ function ValidaEntrada()
 
 }
 
-function GuardaEmp()
+function RegistraProyecto()
 {
 		$conexion = conectaBDpersonal('divestpro');
 		$res = false; 
@@ -54,12 +54,37 @@ function GuardaEmp()
                   			   VALUES ('$id','$ne','$di','$co','$ci','$cp','$te','$en','$pu')";
    		 $resultadoInsert = mysql_query($consultaInsert);
 		if(mysql_affected_rows()>0){
-			$res = true;
-
+			$NvoProy = guardaProy();
+			if($NvoProy)
+				$res=true;
 		}
 		
 		$salidaJSON = array('respuesta' => $respuesta);
 		print json_encode($salidaJSON);			
+}
+
+function guardaProy($idEmp)
+{
+  //DATOS DEL PROYECTO
+	$conexion = conectaBDpersonal();
+    $idp 	= rand();
+    $pdocve = obtenPdo();
+    $np 	= GetSQLValueString ($_POST["nomproy"],"text");
+    $numr 	= GetSQLValueString ($_POST["numresi"],"text" );
+    $obj 	= GetSQLValueString ($_POST["objetivo"],"text");
+    $just 	= GetSQLValueString ($_POST["justif"],"text");
+    $carre 	= GetSQLValueString ($_POST["carrera"],"text");
+    $nr 	= GetSQLValueString ($_POST["nomresp"],"text" );
+    $pr 	= GetSQLValueString ($_POST["puestresp"],"text");
+    
+    $consultlaProy = " INSERT INTO proyectos(cveproy, cveempr, pdocve, nombre, numresi, objetiv, justifi, carre, nomresp, pueresp)
+    VALUES ('$idp','$idEmp','$pdocve','$np','$numr','$obj','$just','$carre','$nr','$pr')";
+    $resultadoProy = mysql_query($consultlaProy);
+    if(mysql_affected_rows()>0)
+      return true;
+  	else
+  	  return false;
+      
 }
 
 $opcion =  $_POST ["opc"];
@@ -69,8 +94,8 @@ switch ($opcion)
 		 ValidaEntrada();
 	
 		break;
-	case 'GuardaEmp':
-		GuardaEmp();
+	case 'RegistraProyecto':
+		RegistraProyecto();
 	default:
 		# code...
 		break;

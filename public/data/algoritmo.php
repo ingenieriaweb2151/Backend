@@ -84,6 +84,22 @@ $conexion = conectaBD();
     }
     $contador++;
   }*/
-
+function obtenPdo()
+{
+  //Tomamos la fecha actual y la convertimos a la clave del periodo correspondiente
+  $fecha =  date("y-m-d");
+  $year = substr($fecha, 0,2);
+  $mes = substr($fecha,3,2);
+  $month = (int)$mes;
+  if($month >= 1 && $month <=6)
+    $periodo = "2".$year."1";
+  elseif ($month = 7) 
+    $periodo = "2".$year."2";
+  
+  elseif ($month>=8 && $month<=12) 
+    $periodo = "2".$year."3";
+  
+  return $periodo;  
+}
 
 ?>
