@@ -31,8 +31,8 @@ function ValidaEntrada()
 	}
 
 	elseif ($tipousuario == 'vinculacion') {
-		#$respuesta =  EntraVinculacion($u,$c);
-		#prin json_encode($respuesta);
+		$respuesta =  EntraVinculacion($u,$c);
+		print json_encode($respuesta);
 	}
 
 }
@@ -71,7 +71,7 @@ function GuardaEmp()
 				$res=true;
 		}
 		
-		$salidaJSON = array('respuesta' => $respuesta);
+		$salidaJSON = array('respuesta' => $res);
 		print json_encode($salidaJSON);			
 }
 
@@ -122,7 +122,7 @@ function LlenarTablaProy(){
 		$renglones.="</tr>";
 		while($registro = mysql_fetch_array($resultado)){
 			$res = true;
-			//$valor = quitaespacios($registro["nombreproy"]);
+
 			$renglones.="<tr>";
 			$renglones.="<td>".$registro["nombreproy"]."</td>";
 			$renglones.="<td>".$registro["objetiv"]."</td>";
@@ -132,7 +132,7 @@ function LlenarTablaProy(){
 			$renglones.="<td>".$registro["telef"]."</td>";
 			$renglones.="<td>".$registro["numresi"]."</td>";
 			$renglones.="<td>";
-			$renglones.="<input type='radio' id = 'radProy' name='seleccionar' value=".quitaespacios($registro["nombreproy"]).">";
+			$renglones.="<input type='radio' class='radProy' name='seleccionar' value=".$registro["clave"].">";
 			$renglones.="</td>";
 			$renglones.="</tr>";
 		}
@@ -146,28 +146,39 @@ function enviarSolicitud()
 	$res = false;
 	$conexion = conectaBD();
 	$seleccion = GetSQLValueString($_POST["cargarproy"],"text");
-	$ncontrol = GetSQLValueString($_POST["ncontrol"],"text");
-	$consultlaProy = sprintf("SELECT cveproy,nombre, cveproy, numresi FROM proyectos");
 
-	$resultado = mysql_query($consultlaProy);
-	if ($columna = mysql_fetch_array($resultado))
+	$ncontrol = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$consultlaProy = sprintf("SELECT cveproy,nombre, numresi FROM proyectos WHERE cveproy=%s",$seleccion);
+	$resultadoProy = mysql_query($consultlaProy);
+	//consultar para verificar si el alumno ya realizo la solicitud
+	$consultaSolicitudes = sprintf("SELECT * FROM solicitudes WHERE aluctr=%s",$ncontrol);
+	$resultadoSolicitudes = mysql_query($consultaSolicitudes);
+	$renglones = mysql_fetch_array($resultadoSolicitudes);
+	$aluctr = $renglones["aluctr"];
+	
+	if ($columna = mysql_fetch_array($resultadoProy))
 	{
-		$nombreproy = quitaespacios($columna["nombre"]);
-
-		if($nombreproy = $seleccion)
+		$cveproy = $columna["cveproy"];
+		
+		if($cveproy = $seleccion)
 		{
-			$idProy = $columna["cveproy"]; 
-			$pdocve = obtenPdo();
-			$numr = $columna["numresi"] - 1;
-			$insertSol =sprintf("INSERT INTO solicitudes (pdocve,aluctr) VALUES(%s,%s)",$pdocve,$ncontrol);
-			$otroresultado = mysql_query($insertSol);
-			
-			if(mysql_affected_rows()>0)
+			if($aluctr != $ncontrol)
 			{
-				$res = true;
-				$updateProy = sprintf("UPDATE proyectos SET numresi=%d WHERE cveproy =%s",$numr,$idProy);
-				mysql_query($updateProy);
-			}
+				$idProy = $columna["cveproy"]; 
+				$pdocve = obtenPdo();
+				$numr = $columna["numresi"] - 1;
+				$insertSol =sprintf("INSERT INTO solicitudes (pdocve,aluctr) VALUES(%s,%s)",$pdocve,$ncontrol);
+				$otroresultado = mysql_query($insertSol);
+			
+				if(mysql_affected_rows()>0)
+				{
+					$res = true;
+					$updateProy = sprintf("UPDATE proyectos SET numresi=%d WHERE cveproy =%s",$numr,$idProy);
+					mysql_query($updateProy);
+				}
+			}else
+				$res = false;
+			
 		}
 	}
 	

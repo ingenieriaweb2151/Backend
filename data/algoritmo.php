@@ -28,6 +28,9 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     case "defined":
       $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
       break;
+    case "sincomillas":
+      $theValue = ($theValue != "") ? "" . $theValue . "" : "NULL";
+      break; 
   }
   return $theValue;
 }
@@ -123,5 +126,25 @@ function quitaespacios($cadena)
     }
     return $nuevacadena;
   }
+
+function quitacomillas($cadena)
+{
+  $longitud = strlen($cadena);
+    $arraycadena = str_split($cadena);
+    $nuevacadena="";;
+    for($i=0;$i<=$longitud;$i++)
+    { 
+      //echo $cadena{$i}."<br>";
+      if(isset($arraycadena[$i]))
+      {
+        if($arraycadena[$i] != ' ' && $arraycadena[$i] !="'")
+        {
+          $nuevacadena.=$arraycadena[$i];
+        } 
+      }
+      
+    }
+    return $nuevacadena;
+}
 
 ?>

@@ -317,10 +317,10 @@ var inicio = function()
 	}
 
 	//FUNCIONES, PAHO
-	var Solicita = function()
+	/*var Solicita = function()
 	{
 		$("#solicitaProyecto").show();
-	}
+	}*/
 	var GuardaProyecto = function()
 	{
 		
@@ -374,8 +374,9 @@ var inicio = function()
 		var seleccion = $("input[name='seleccionar']:checked").val();
 		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&ncontrol="+datos["ncontrol"]+"&id="+Math.random();
 		alert("Elegiste: "+ seleccion);
-	
-		$.ajax({
+		if($('.radProy').is(':checked'))
+		{
+			$.ajax({
 				cache: false,
 				url: 'data/funs.php',
 				type: 'POST',
@@ -390,7 +391,11 @@ var inicio = function()
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
 				}
-		});
+			});
+		}
+		else
+			alert("Selecciona un proyecto");
+		
 	}
 	//Configuramos los eventos.
 	$("#btnEntrar").on("click",validaUsuario);
@@ -414,7 +419,7 @@ var inicio = function()
 	$("#lm3").on("click",cambiaTexto);
 
 	//MODIFICACIONES, PAHO
-	$("#btnSolicita").on("click",Solicita);
+	//$("#btnSolicita").on("click",Solicita);
 
 
 

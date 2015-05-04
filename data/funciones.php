@@ -162,7 +162,10 @@ function ValidaAluProy(){
 	$conexion = conectaBD();
 	//Preparar la consulta SQL
 
-	$consulta  = sprintf("select P.nombre as nombreproy,P.numresi,P.objetiv,P.justifi,P.nomresp,E.nombre as nombreemp,E.telef,DA.alunom,DA.aluapp from dalumn DA left join asignproyectos AP ON AP.aluctr=DA.aluctr left join proyectos P ON AP.cveproy=P.cveproy left join empresas E ON AP.cveempr=E.cveempr where DA.aluctr=%s and DA.alupas=%s",$u,$c);
+	$consulta  = sprintf("select P.nombre as nombreproy,P.numresi,P.objetiv,P.justifi,P.nomresp,E.nombre as nombreemp,
+		E.telef,DA.alunom,DA.aluapp from dalumn DA left join asignproyectos AP ON AP.aluctr=DA.aluctr 
+		left join proyectos P ON AP.cveproy=P.cveproy left join empresas E ON AP.cveempr=E.cveempr where 
+		DA.aluctr=%s and DA.alupas=%s",$u,$c);
 	//Ejecutamos la consulta.
 	$resultado = mysql_query($consulta);
 	//Validamos los datos.
