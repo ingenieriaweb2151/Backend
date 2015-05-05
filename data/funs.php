@@ -247,6 +247,8 @@ function GuardaProyecto()
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 }*/
+
+//FUNCION PARA PASAR LAS SOLICITUDES DE PROYECTO A ASIGNAR PROYECTO :D
 function AsignaProy()
 {
 	$conexion = conectaBD();
@@ -272,7 +274,30 @@ function AsignaProy()
 			
 	}
 	$salidaJSON = array('respuesta'	=> $res);
-		print json_encode($salidaJSON);
+	print json_encode($salidaJSON);
+}
+
+function CancelarProy()
+{
+	$conexion = conectaBD();
+	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$consulta = sprintf("SELECT * FROM solicitudes WHERE aluctr=%s",$aluctr);
+	$resultado = mysql_query($consulta);
+	if($renglones = mysql_fetch_array($resultado))
+		$idProy = $renglones["cveproy"];
+	$res = false;
+	$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
+	$resultadoDelete = mysql_query($consultaDelete);
+	
+	if(mysql_affected_rows()>0)
+	{
+		$res = true;
+		$updateProy = sprintf("UPDATE proyectos SET numresi=numresi+1 WHERE cveproy =%s",$idProy);
+		mysql_query($updateProy);
+
+	}
+	$salidaJSON = array('respuesta'	=> $res);
+	print json_encode($salidaJSON);
 }
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
@@ -296,6 +321,9 @@ switch ($opcion)
 		break;
 	case 'AsignaProy':
 		AsignaProy();
+		break;
+	case 'CancelarProy':
+		CancelarProy();
 		break;
 	default:
 		# code...
