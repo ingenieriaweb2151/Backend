@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2015 a las 03:05:19
+-- Tiempo de generación: 05-05-2015 a las 21:20:11
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -79,6 +79,13 @@ CREATE TABLE IF NOT EXISTS `asignproyectos` (
   `cveproy` char(9) NOT NULL,
   `cveempr` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `asignproyectos`
+--
+
+INSERT INTO `asignproyectos` (`pdocve`, `aluctr`, `cveproy`, `cveempr`) VALUES
+('2151', '10170903', '28896', '20195');
 
 -- --------------------------------------------------------
 
@@ -1584,8 +1591,8 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
 --
 
 INSERT INTO `proyectos` (`cveproy`, `cveempr`, `pdocve`, `nombre`, `numresi`, `objetiv`, `justifi`, `carre`, `nomresp`, `pueresp`) VALUES
-('28896', '20195', '2151', 'otro proyecto', 5, 'djfsdljol', 'clsdfjiu', 'sistemas', 'justino', 'enjefec'),
-('7073', '22536', '2151', 'nombre proyecto', 8, 'djfsdljol', 'clsdfjiu', 'sistemas', 'justino', 'enjefec');
+('28896', '20195', '2151', 'proyecto 1', 8, 'Objetivo 1', 'Justificacion 1', 'sistemas', 'encargado 1', 'Puesto 1'),
+('7073', '22536', '2151', 'proyecto 2', 8, 'objetivo 2', 'Justificacion 2', 'sistemas', 'responsable 2', 'puesto 2');
 
 -- --------------------------------------------------------
 
@@ -1619,10 +1626,26 @@ CREATE TABLE IF NOT EXISTS `solicitudes` (
   `pdocve` varchar(4) NOT NULL,
   `aluctr` varchar(9) NOT NULL,
   `cveproy` varchar(9) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
+--
+-- Estructura Stand-in para la vista `solpendientes`
+--
+CREATE TABLE IF NOT EXISTS `solpendientes` (
+`aluctr` varchar(9)
+,`alunom` varchar(30)
+,`apealumn` varchar(30)
+,`aluapm` varchar(30)
+,`nombreproy` char(150)
+,`cveproy` char(9)
+,`nombreempr` char(85)
+,`cveempr` char(9)
+,`pdocve` varchar(4)
+);
+-- --------------------------------------------------------
+-- VISTAS
 --
 -- Estructura para la vista `bancoproy`
 --
@@ -1638,6 +1661,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `buscarmat`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `buscarmat` AS (select `dl`.`aluctr` AS `aluctr` from ((`dlista` `dl` join `dalumn` `da`) join `dmater` `dm`) where ((`dl`.`aluctr` = `da`.`aluctr`) and (`dl`.`matcve` = `dm`.`matcve`) and (`dm`.`matnom` like '%RESIDEN%')));
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `solpendientes`
+--
+DROP TABLE IF EXISTS `solpendientes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `solpendientes` AS (select `a`.`aluctr` AS `aluctr`,`a`.`alunom` AS `alunom`,`a`.`aluapp` AS `apealumn`,`a`.`aluapm` AS `aluapm`,`p`.`nombre` AS `nombreproy`,`p`.`cveproy` AS `cveproy`,`e`.`nombre` AS `nombreempr`,`e`.`cveempr` AS `cveempr`,`s`.`pdocve` AS `pdocve` from (((`dalumn` `a` join `proyectos` `p`) join `solicitudes` `s`) join `empresas` `e`) where ((`a`.`aluctr` = `s`.`aluctr`) and (`p`.`cveproy` = `s`.`cveproy`) and (`e`.`cveempr` = `p`.`cveempr`)));
 
 --
 -- Índices para tablas volcadas
@@ -1771,7 +1803,7 @@ ALTER TABLE `solicitudes`
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-MODIFY `cvesol` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+MODIFY `cvesol` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
