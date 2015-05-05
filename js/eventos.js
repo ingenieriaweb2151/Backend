@@ -443,6 +443,34 @@ var CargarProy = function()
 		
 	}
 
+	//PAHO
+	var AsignaProy = function()
+	{	
+		var valorBoton = $(".btnAsignar").attr("value");
+		alert("funciono "+valorBoton);
+		var parametros = "opc=AsignaProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
+		$.ajax({
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Tu solicitud ha sido enviada.");
+					else
+						alert("No se a podido realizar la solicitud.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
+	}
+	var CancelarProy = function()
+	{
+		alert("funciono");
+	}
+
 	//Configuramos los eventos.
 	$("#btnEntrar").on("click",validaUsuario);
 	$("#btnInicio").on("click",traeInicio);
@@ -469,7 +497,8 @@ var CargarProy = function()
 	//$("#btnSolicita").on("click",Solicita);
 	$("#btnSolicitaProy").on("click",GuardaProyecto);
 	$("#btnCargarProy").on("click",CargarProy);
-
+	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
+	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);
 
 
 }
