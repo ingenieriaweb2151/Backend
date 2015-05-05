@@ -1,0 +1,224 @@
+body
+{
+  /*border: 1px solid #000088;*/
+  border-radius: 5px;
+  margin: 0 auto;
+  max-width: 1349px;
+  min-width: 1349px;
+}
+
+#logoitc
+{
+  margin-top:15px;
+  position: absolute;
+  margin-top: -120px;
+  left: 160px;
+  width: 120px;
+  height: 120px;
+}
+#equipo
+{
+  margin-top: 50px;
+  position: relative;
+  left: 200px;  
+}
+.caption
+{
+  color: black;
+  margin-top: -18px;
+}
+#seccionInfo{
+    font-family: 'Open Sans', sans-serif;
+  margin-top: -10px;
+  position: relative;
+  left: 200px;
+}
+
+#lm1
+{
+  margin-top: 65px;
+}
+#lm2
+{
+  margin-top: 40px;
+}
+#lm3
+{
+  margin-top: 15px;
+}
+#seccionInfo article
+{
+  color: black;
+  border-top-color: black;
+  border-top-style: inset;
+  margin: 20px 20px 20px 20px;
+  display: inline-block;
+  vertical-align: top;
+  width: 20%; 
+  position: relative;
+
+}
+header nav ul button
+{
+  width: 144px;
+height: 18px;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  background-color:transparent;
+  border: 0px;
+}
+header nav ul 
+{
+  left:350px;
+  position: absolute;
+  /*margin-top:20px;*/
+}
+
+header nav ul li
+{
+  display: inline-block;
+}
+
+footer
+{
+  font-weight: bold;
+  text-align: center;
+}
+.fecha{
+
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  position: absolute;
+  left: 400px;
+  margin-top: 50px;
+}
+
+header .pageheader
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  position: relative;
+  margin-top: 150px;
+  left: 480px; 
+}
+
+
+#altaProyectos
+{
+  display: none; /*Ocultamos el DIV*/
+  margin: 0 auto;
+  width: 350px;
+}
+
+#banco{
+  display: none;
+  margin-top: 80px;
+  position: relative;
+   
+}
+.usu
+{
+  color: orange;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  position: relative;
+  left: 500px;
+}
+#btnEntregas
+{
+  display: none;
+} 
+#btnRegistrar
+{
+  display: none;
+}
+#entregas{
+   display: none;
+   position: relative;
+   margin-top: 100px;
+}
+#seccionlinks
+{
+  position: relative;
+  margin-top: 100px;
+  left: 200px;
+}
+
+#proyectosbox{
+  display: none;
+}
+#documentacion{
+  display: none;
+  position: relative;
+
+  
+}
+
+#docsGenerales{
+  display: none;
+}
+
+#panelEntrada
+{
+  display:none;
+  margin: 0 auto;
+  width: 300px;
+  margin-top: 100px;
+}
+
+#AmbosPlanes{
+  text-align: left;
+}
+
+#PlanNuevo{
+  text-align: left;
+}
+
+#PlanViejo{
+  text-align: left;
+}
+#btnRegistrar{
+  /*display: none;*/
+  text-align: right;
+}
+.usuarios{
+  text-align: right;
+}
+
+.justificar{
+  text-align:justify; 
+  margin-bottom:0px;
+}
+
+.textoPro{
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.lista{
+  text-align:left;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+
+
+#solicitaProyecto{
+  display: none;
+/*  margin: 0 auto;*/
+}
+#solicitaProyecto article{
+  display: none;
+  display: inline-block;
+  margin-left: 100px;
+  width: 350px;
+}
+
+#solicitaProyecto button{
+  width: 350px;
+  margin-left: 300px;
+}
+
+
+
+
