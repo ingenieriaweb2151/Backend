@@ -28,7 +28,7 @@ function EntraAsesor($u,$c)
 
 function EntraVinculacion($u,$c)
 {
-	$conexion = $conectaBDpersonal('vinculacion');
+	$conexion = conectaBDpersonal('vinculacion');
 	$res = false;
 	$nombre = "";
 	$consulta = sprintf("select * from dperso where not (perdep ='0') and not (pernom = '.') and percve=%s and perpas=%s",$u,$c);

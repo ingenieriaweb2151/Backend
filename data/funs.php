@@ -276,7 +276,7 @@ function AsignaProy()
 	$salidaJSON = array('respuesta'	=> $res);
 	print json_encode($salidaJSON);
 }
-
+//Funcion para cancelar las solicitudes
 function CancelarProy()
 {
 	$conexion = conectaBD();
@@ -288,9 +288,10 @@ function CancelarProy()
 	$res = false;
 	$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
 	$resultadoDelete = mysql_query($consultaDelete);
-	
+	//Si la solicitud fue cancelada, el numero residentes incrementa en uno.
 	if(mysql_affected_rows()>0)
 	{
+
 		$res = true;
 		$updateProy = sprintf("UPDATE proyectos SET numresi=numresi+1 WHERE cveproy =%s",$idProy);
 		mysql_query($updateProy);
