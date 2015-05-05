@@ -207,10 +207,10 @@ function LlenarTablaSolicitud()
 			$renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
 			$renglones.="<td>".$registro["nombreproy"]."</td>";
 			$renglones.="<td>".$registro["nombreempr"]."</td>";
-			$renglones.="<td><button class=' btnAsignar btn btn-success'>
-						<span class='glyphicon glyphicon-ok'></span>
+			$renglones.="<td><button class=' btnAsignar btn btn-success' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-ok' value=></span>
 						Asignar 
-						<button class='btnBorrar btn btn-danger'>
+						<button class='btnCancelar btn btn-danger' value=".$registro["aluctr"].">
 						<span class='glyphicon glyphicon-remove'></span>
 						Cancelar</td>";
 			$renglones.="</tr>";
@@ -247,7 +247,28 @@ function GuardaProyecto()
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 }*/
-
+function AsignaProy()
+{
+	$conexion = conectaBD();
+	$res = false;
+	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$consulta = sprintf("SELECT * FROM solPendientes  WHERE aluctr=%s",$aluctr);
+	$resultado = mysql_query($consulta);
+	if($renglones = mysql_fetch_array($resultado))
+	{
+		$pdocve = $renglones["pdocve"];
+		$cveproy = $renglones["cveproy"];
+		$cveempr = $renglones["cveempr"];
+		
+		$consultaInsert = sprintf("INSERT INTO asignproyectos(pdocve, aluctr, cveproy, cveempr) 
+									VALUES (%s,%s,%s,%s)",$pdocve,$aluctr,$cveproy,$cveempr);
+		$resultadoInsert = mysql_query($consultaInsert);
+		if(mysql_affected_rows()>0)
+			$res = true;
+	}
+	$salidaJSON = array('respuesta'	=> $res);
+		print json_encode($salidaJSON);
+}
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
 switch ($opcion) 
@@ -267,6 +288,9 @@ switch ($opcion)
 		break;
 	case 'LlenarTablaSolicitud':
 		LlenarTablaSolicitud();
+		break;
+	case 'AsignaProy':
+		AsignaProy();
 		break;
 	default:
 		# code...
