@@ -1,6 +1,7 @@
 var inicio = function()
 {
 	var datos = [];
+	var usuarioGlobal = [];
 	//Declaramos las funciones.
 	var validaUsuario = function()
 	{
@@ -32,6 +33,7 @@ var inicio = function()
 							$("#btnIngresar").hide("slow");
 							$("#altaProyectos").hide("slow");
 							datos["ncontrol"] = u;
+							usuarioGlobal["tUsuario"];
 
 							alert("Bienvenido: "+response.nombre);
 							if(response.pnom != null){
@@ -82,20 +84,7 @@ var inicio = function()
 			});
 	}
 
-	var validaAluProy = function(response){
-			
-		// if (nomproy != null){
-		// 	document.getElementById("tusuario").innerHTML = "Maestro: "
-		// 	$("#btnRegistrar").show("slow");s
-		// 	$("#proyectosbox").show("slow");
-
-		// 	//Cambio de nombre de botones
-		// 	document.getElementById("btnEntregas").innerHTML = "Revisiones"
-		// }
-		// else{
-		// 	document.getElementById("tusuario").innerHTML = "Alumno: "
-		// }
-	}
+	
 
 	var anoalumno = function (){
 		var u = $("#txtUsuario").val();
@@ -111,17 +100,6 @@ var inicio = function()
 
 	var traeInicio = function()
 	{
-		// $.ajax({
-		//   url: 'http://api.randomuser.me/',
-		//   dataType: 'json',
-		//   success: function(data){
-		//   	$("img").attr("src",data.results[0].user.picture.medium);
-		//   	$("h1").html(data.results[0].user.name.first+' '+
-		//   		         data.results[0].user.name.last);
-		//   	$("h2").html(data.results[0].user.email);
-		//   }
-		// });
-
 		$("#informacion").show();
 		$("#documentacion").hide();
 		$("#banco").hide();
@@ -280,29 +258,7 @@ var inicio = function()
 	}
 
 
-	var EliminaUsuario = function()
-	{
-		var u = $("#txtNombreUsuario").val();
-		var parametros = "opc=EliminaUsuario"+"&usuario="+u+"&id="+Math.random();
-		$.ajax({
-			cache: false,
-			url: "data/funciones.php",
-			type: "POST",
-			dataType: "json",
-			data:parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					alert("El usuario ha sido dado de baja");
-					$("#altaUsuarios > input").val("");
-				}
-			},
-			error: function(xhr,ajaxOption,x){
-
-			}
-		});
-	}
-
+	
 	/*var calisBtn = function()
 	{
 		$("#art1").hide("slow");
@@ -315,40 +271,71 @@ var inicio = function()
 		else
 			this.innerHTML = "Ver más";
 	}
-
+	//ramaLavanda
+	var traeSolicitud = function ()
+	 {
+		var parametros = "opc=LlenarTablaSolicitud"+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				url: "data/funciones.php",
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true){
+						$("#tablaSolicitud").html(response.renglones);
+						$("#tablaSolicitud").show();
+					}
+				}
+			});
+	}
+	var Solicitudes = function()
+	{
+		$("#divSolicitudes").show();
+		$("#informacion").hide();
+		$("#documentacion").hide();
+		$("#entregas").hide();
+		$("#banco").hide();
+		$("#panelEntrada").hide("slow");
+		$("#altaProyectos").hide("slow");
+		$("#entregas").hide("slow");
+		traeSolicitud();
+	}
 	//FUNCIONES, PAHO
-	/*var Solicita = function()
+	var Solicita = function()
 	{
 		$("#solicitaProyecto").show();
-	}*/
+		$("#btnGuardaProyecto").hide();
+	}
+	/*
 	var GuardaProyecto = function()
 	{
 		
 		//DADOS DE LA EMPRESA
-		var nomEm = $("#txtNombreEmpresa").val();
-		var dir = $("#txtDireccion").val();
-		var col = $("#txtColonia").val();
-		var ciudad = $("#txtCiudad").val();
-		var cp = $("#txtCp").val();
-		var tel =$("#txtTelefono").val();
-		var enc = $("#txtEncargado").val();
+		var nomEm 	= $("#txtNombreEmpresa").val();
+		var dir 	= $("#txtDireccion").val();
+		var col 	= $("#txtColonia").val();
+		var ciudad 	= $("#txtCiudad").val();
+		var cp 		= $("#txtCp").val();
+		var tel 	= $("#txtTelefono").val();
+		var enc 	= $("#txtEncargado").val();
 		var puesEnc = $("#txtPuesto").val();
 
 		//DATOS DEL PROYECTO
 
-		var nomPro = $("#txtNombreProyecto").val();
-		var cupos = $("#txtCupos").val();
-		var obj = $("#txtObjetivo").val();
-		var just = $("#txtJustificacion").val();
-		var car = $("#ddlCarrera").val();
-		var nomResp =$("#txtNomResp").val();
-		var puesResp = $("#txtPuestoResp").val();
+		var nomPro 	= $("#txtNombreProyecto").val();
+		var cupos 	= $("#txtCupos").val();
+		var obj 	= $("#txtObjetivo").val();
+		var just 	= $("#txtJustificacion").val();
+		var car 	= $("#ddlCarrera").val();
+		var nomResp = $("#txtNomResp").val();
+		var puesRes = $("#txtPuestoResp").val();
 
 
 		var parametros = "opc=registraNvoProy"+"&nomEm="+nomEm+"&di="+dir+"&col="+col+
-						"&ciudad="+ciudad+"&cp="+cp+"&tel="+tel+"$encargado="+enc+"&puestoenc="+puesEnc;
-						//"&nomPro"+nomPro+"&cupos"+cupos+"&obj"+obj+"&just"+just+"&car"+car"&nomResp"+nomResp+
-						//"&puesResp"+puesResp;
+						"&ciudad="+ciudad+"&cp="+cp+"&tel="+tel+"$encargado="+enc+"&puestoenc="+puesEnc+
+						"&nomPro"+nomPro+"&cupos"+cupos+"&obj"+obj+"&just"+just+"&car"+car"&nomResp"+nomResp+
+						"&puesResp"+puesResp+"&id="+Math.random();
 		$.ajax({
 				cache:false,
 				type: "POST",
@@ -367,13 +354,13 @@ var inicio = function()
 					alert("Sin conexión");
 				}
 			});
-	}
+	}*/
 	//Paho
 	var CargarProy = function()
 	{
 		var seleccion = $("input[name='seleccionar']:checked").val();
 		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&ncontrol="+datos["ncontrol"]+"&id="+Math.random();
-		alert("Elegiste: "+ seleccion);
+		
 		if($('.radProy').is(':checked'))
 		{
 			$.ajax({
@@ -405,10 +392,9 @@ var inicio = function()
 	$("#txtClave").on("keypress",teclaClave);
 	$("#btnDivUsuarios").on("click",DivUsuarios);
 	$("#btnDivBanco").on("click",traeBanco);
-	$("#btnGuardaProyecto").on("click",GuardaProyecto);
+	//$("#btnGuardaProyecto").on("click",GuardaProyecto);
 	$("#txtNombreUsuario").on("keypress",teclaNombreUsuario);
 	$("#btnDivDocumentacion").on("click",traeDocumentacion);
-	$("#btnEliminaUsuario").on("click",EliminaUsuario);
 	$("#btnCargarProy").on("click",CargarProy);
 	// Nuevas Acciones
 
@@ -419,9 +405,10 @@ var inicio = function()
 	$("#lm3").on("click",cambiaTexto);
 
 	//MODIFICACIONES, PAHO
-	//$("#btnSolicita").on("click",Solicita);
-
-
+	$("#btnSolicita").on("click",Solicita);
+	$("#btnSolicitaProy").on("click",GuardaProyecto);
+	$("#btnEliminaUsuario").on("click",EliminaUsuario);
+	
 
 }
 $(document).on("ready",inicio);
