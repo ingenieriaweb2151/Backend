@@ -1,3 +1,31 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 05-05-2015 a las 21:20:11
+-- Versión del servidor: 5.6.20
+-- Versión de PHP: 5.5.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `residenciasitc`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `alureg`
+--
+
 CREATE TABLE IF NOT EXISTS `alureg` (
   `aluctr` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -52,19 +80,27 @@ CREATE TABLE IF NOT EXISTS `asignproyectos` (
   `cveempr` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `asignproyectos`
+--
+
+INSERT INTO `asignproyectos` (`pdocve`, `aluctr`, `cveproy`, `cveempr`) VALUES
+('2151', '10170903', '28896', '20195');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura Stand-in para la vista `bancoproy`
 --
 CREATE TABLE IF NOT EXISTS `bancoproy` (
-`Nombre de la empresa` char(85)
-,`Domicilio` char(30)
-,`Telefono` char(13)
-,`Nombre del responsable` char(85)
-,`Nombre del proyecto` char(150)
-,`Carrera` varchar(80)
-,`cupos` int(2)
+`clave` char(9)
+,`nombreproy` char(150)
+,`numresi` int(2)
+,`objetiv` text
+,`justifi` text
+,`nomresp` char(85)
+,`nombreemp` char(85)
+,`telef` char(13)
 );
 -- --------------------------------------------------------
 
@@ -1189,6 +1225,39 @@ CREATE TABLE IF NOT EXISTS `ddepto` (
   `qucho` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `ddepto`
+--
+
+INSERT INTO `ddepto` (`depcve`, `depnom`, `depnco`, `depdep`, `percve`, `cve`, `qucho`) VALUES
+('', '', '', '', '0', 0, 0),
+('101', 'DIRECCION', 'DIRECCION', '', '0', 0, 0),
+('111', 'DEPARTAMENTO DE PLANEACION Y VINCULACION', 'PLANEACION', '302', '0', 0, 0),
+('301', 'SUBDIRECCION ACADEMICA', 'SUB. ACADEMICA', '101', '0', 0, 0),
+('302', 'SUBDIRECCION DE PLANEACION Y VINCULACION', 'SUBD.PLANEACION', '101', '0', 0, 0),
+('303', 'SUBDIRECCION DE SERVICIOS ADMINISTRATIVOS', 'SUBD.ADMINIST.', '101', '0', 0, 0),
+('401', 'DEPARTAMENTO DE DIVISION DE ESTUDIOS PROFESIONALES', 'DIV.EST.PROF.', '301', '0', 8, 0),
+('402', 'DIVISION DE ESTUDIOS DE POSGRADO', 'DIV.EST.POSTG.', '301', '0', 0, 0),
+('403', 'DEPARTAMENTO DE CIENCIAS BASICAS', 'C.BASICAS', '301', '0', 4, 0),
+('404', 'DEPARTAMENTO DE ECONOMICO ADMINISTRATIVAS', 'ECON.ADMTVAS', '301', '5564', 2, 0),
+('405', 'DEPARTAMENTO DE SISTEMAS  Y COMPUTACION', 'SIST. Y COMP.', '301', '0', 1, 0),
+('406', 'DEPARTAMENTO DE INGENIERIA INDUSTRIAL', 'ING.INDUSTRIAL', '301', '3520', 7, 0),
+('407', 'DEPARTAMENTO DE INGENIERIA BIOQUIMICA', 'QUIMICA BIOQUIM', '301', '0', 5, 0),
+('408', 'DEPARTAMENTO DE ELECTRICA-ELECTRONICA', 'ELECTRICA-ELECTRONIC', '301', '0', 6, 0),
+('409', 'DEPARTAMENTO DE DESARROLLO ACADEMICO', 'DESARROLLO ACA.', '301', '0', 0, 0),
+('410', 'DEPARTAMENTO DE METAL-MECANICA', 'METAL-MECANICA', '301', '0', 3, 0),
+('411', 'DEPARTAMENTO DE PLANEACION, PROGRAMACION Y PRESUPUESTACION', 'PLANEACION', '302', '0', 0, 0),
+('412', 'DEPARTAMENTO DE GESTION TECNOL.OGICA', 'GESTION TECNOL.', '302', '0', 0, 0),
+('413', 'DEPARTAMENTO DE COMUNICACION Y DIFUSION', 'COMUNICACION', '302', '0', 0, 0),
+('414', 'DEPARTAMENTO DE ACTIVIDADES EXTRAESCOLARES', 'EXTRAESCOLARES', '302', '0', 0, 0),
+('415', 'DEPARTAMENTO DE SERVICIOS ESCOLARES', 'SERVS.ESCS.', '302', '0', 200, 0),
+('416', 'DEPARTAMENTO DE CENTRO DE INFORMACION', 'CTR.INFORMACION', '302', '0', 0, 0),
+('417', 'DEPARTAMENTO DE RECURSOS HUMANOS', 'REC.HUMANOS', '303', '0', 0, 0),
+('418', 'DEPARTAMENTO DE RECURSOS FINANCIEROS', 'REC.FINANCIEROS', '303', '0', 0, 0),
+('419', 'DEPARTAMENTO DE RECURSOS MATERIALES Y SERVICIOS', 'REC.MAT.SERVC.', '303', '0', 0, 0),
+('420', 'DEPARTAMENTO DE CENTRO DE COMPUTO', 'CTR.COMPUTO', '303', '0', 0, 0),
+('421', 'DEPARTAMENTO DE MANTENIMIENTO Y EQUIPO', 'DPTO.MATTO.EQU.', '303', '0', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1294,7 +1363,8 @@ CREATE TABLE IF NOT EXISTS `dperio` (
 --
 
 INSERT INTO `dperio` (`pdocve`, `pdoini`, `pdoter`, `pdodes`, `pdonum`, `pdoiniv`, `pdoterv`, `pdored`, `pdormato`, `pdorof`, `pdoroe`, `pdornpt`, `pdormm`, `pdoend`, `pdoentp`, `pdoept`, `pdoemm`, `pdosiscobd`, `pdocta1`, `pdocta2`, `pdocta`, `pdoimp1`, `pdoimp2`, `pdofeclim`, `pdodod`, `pdofic`, `pdopcpro`, `pdopcpa1`, `pdopcpa2`, `pdopcpa3`, `pdopcfin`, `pdopa1`, `pdopa2`, `pdopa3`, `pdopa4`, `pdopa5`, `pdopa6`, `pdopa7`, `pdopa8`, `pdopa9`, `pdopcspa1`, `pdopcspa2`, `pdopcspa3`, `pdopcsfin`, `pdodatp`, `pdosdatp`) VALUES
-('10', '6', '6', '6', 6, '6', '6', '6', '6', '6', '6', 6, 6, '6', 6, '6', 6, '6', '6', '6', '6', 6, 6, '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', 6, 6, 6, 6, '6', '6');
+('10', '6', '6', '6', 6, '6', '6', '6', '6', '6', '6', 6, 6, '6', 6, '6', 6, '6', '6', '6', '6', 6, 6, '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', 6, 6, 6, 6, '6', '6'),
+('2151', 'y', 'y', 'y', 1, '1', '35', '1', '666', '6', '6', 6, 6, '6', 6, '6', 6, '6', '6', '6', '6', 6, 6, '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', 6, 6, 6, 6, '6', '6');
 
 -- --------------------------------------------------------
 
@@ -1356,6 +1426,51 @@ CREATE TABLE IF NOT EXISTS `dperso` (
   `perpasc` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `dperso`
+--
+
+INSERT INTO `dperso` (`percve`, `perape`, `pernom`, `persig`, `pertar`, `perrfc`, `percur`, `pernac`, `perdep`, `perdepa`, `perlna`, `persex`, `pereci`, `perdec`, `percmi`, `perdcl`, `perdnu`, `perdcp`, `perdco`, `perdmu`, `perdlo`, `perdte1`, `perdte2`, `pernot`, `pernte1`, `perdvi`, `perdce`, `peragf`, `perase`, `perara`, `peroct1`, `peroct1h`, `peroct2`, `peroct2h`, `perinv`, `perinvo`, `perinvd`, `perinva`, `percom`, `percomo`, `percomd`, `percoma`, `persit`, `perins`, `perinsp`, `perfun`, `perpro`, `perpme`, `peridi`, `perpas`, `perpasc`) VALUES
+('10', 'APODACA LUGO', 'GUSTAVO', 'ING.', 785, 'AOLG440930SN9', 'AOLG440930HSLPGS06', '  -   -', 0, 0, 25006, '1', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, 'LOS MOCHIS', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', ''),
+('100', 'GRUPO CERRAD0', '.', '', 0, '', '', '  -   -', 405, 405, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('108', 'CERVANTES RANGEL', 'PATRICIA GUADALUPE', 'LIC.', 108, 'CERP531201II4', 'CERP531201MJCRNT11', '01/12/2053', 0, 0, 1002, '2', 4, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/10/1981', '01/10/1981', '01/10/1981', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO31658'),
+('11', 'CANCELA GARCIA', 'NORA ESMERALDA', 'ING.', 785, 'CAGN721107', 'CAGN721107MVZNRR06', '  -   -', 405, 405, 30193, '2', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN, SINALOA', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '16/02/2005', '16/02/2005', '16/02/2005', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', 'IT CULIACAN', 0, 1, 0, 0, 'contra', 'RECO181729'),
+('110', 'BELTRAN MEDINA', 'OSCAR', 'LIC.', 439, 'BEMO460101NSA', 'BEMO460101HSLLDS04', '  -   -', 404, 404, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1978', '01/09/1978', '01/09/1978', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', 'INST. TEC. DE CULIAC', 0, 1, 0, 0, 'contra', ''),
+('112', 'MOZQUEDA ALARCON', 'FRANCISCO JAVIER', 'ING.', 112, 'MOAF500714KS6', 'MOAF500714HCLZLR15', '14/07/2050', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN, SINALOA', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1968', '01/09/1968', '01/09/1968', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO16607'),
+('118', 'VILLARREAL MADRID', 'JESUS RAMON', 'ING.', 118, 'VIMJ531014HN7', 'VIMJ531014HSLLDS05', '14/10/2053', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN, SINALOA', '755-55-56', '755-55-56', '', '755-55-56', '2', 'correo_del_personal@itculiacan.edu.mx', '01/09/1981', '01/09/1981', '01/09/1981', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO550389'),
+('119', 'ORTIZ BRACAMONTES', 'JOSE CARLOS', 'LIC.', 119, 'OIBC501028QN9', 'OIBC501028HSLRRR03', '28/10/2050', 404, 404, 1002, '1', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, '', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', 'IT CULIACAN', 0, 2, 0, 0, 'contra', ''),
+('120', 'OSUNA VEGA', 'MARIA LUISA', 'LIC.', 120, 'OUVL480917FN3', '', '17/09/2048', 0, 0, 1002, '2', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, '', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO112309'),
+('121', 'MOZQUEDA LAFARGA', 'JAVIER', 'ING.', 784, 'MOLJ780207Q17', 'MOLJ780207HLZFVOO', '  -   -', 403, 403, 25006, '1', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, 'CULIACAN, SIN.', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '16/08/2004', '16/08/2004', '16/08/2004', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', 'INST. TEC. DE CULIAC', 0, 1, 0, 0, 'contra', ''),
+('123', 'PALAZUELOS TRUCIOS', 'MARIA LUISA', 'QFB.', 123, 'PATL450304IM0', 'PATL450304MSLLRS08', '04/03/2045', 0, 0, 25006, '2', 2, 4, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '2', 'correo_del_personal@itculiacan.edu.mx', '01/09/1971', '01/09/1971', '01/09/1971', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', ''),
+('127', 'PIMENTEL TORRES', 'REYNALDO FLORENCIO', 'ING.', 127, 'PITR441101AE2', 'PITR441101HCLMRY03', '01/11/2044', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN, SINALOA', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/01/1972', '01/01/1972', '01/01/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 3, '2-165/2006', '28/08/2006', '27/08/2007', 2, '', '', 0, 1, 0, 0, 'contra', '         0'),
+('13', 'POR ASIGNAR', 'EXTRAESCOLARES', '', 0, '', '', '  -   -', 0, 414, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('142', 'ROJAS VILLEGAS', 'HECTOR FERNANDO', 'ING.', 142, 'ROVH480704P67', 'ROVH480704HVZJLP67', '04/07/2048', 0, 0, 30141, '1', 2, 4, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, '             CULIACN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', '', 2, 1, 0, 0, 'contra', '         0'),
+('18', 'ROJAS VILLEGAS', 'RODRIGO DE JESUS', 'M.C.', 18, 'ROVR570210RN7', 'ROVR570210HVZJLD02', '10/02/1957', 407, 407, 25006, '1', 2, 3, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/02/1979', '01/02/1979', '01/02/1979', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', ''),
+('2', 'GRUPO', 'CERRADO', '', 0, '', '', '  -   -', 0, 0, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('22', 'BERRELLEZA ITURRIOS', 'BENJAMIN', 'ING.', 22, 'BEIB500426LA9', 'BEIB500426HSLRTN09', '26/04/2050', 0, 0, 25006, '1', 2, 2, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '2', 'correo_del_personal@itculiacan.edu.mx', '01/09/1971', '01/09/1971', '01/09/1971', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', 'I.T. DE CULIACAN', 0, 1, 0, 0, 'contra', 'RECO70105'),
+('28', 'CAMPOS ORTIZ', 'JOSE MANUEL', 'ING.', 28, 'CAOM4901187J9', 'CAOM490118HVZMRN01', '18/01/2048', 0, 0, 1002, '1', 0, 3, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO70130'),
+('3', 'GAXIOLA  SANCHEZ', 'OMAR IVAN', 'MC.', 816, 'GASO8107272N2', 'GASO810727HSLXNM05', '  -   -', 408, 408, 25015, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/10/2005', '01/10/2005', '01/10/2005', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', 'INS. TEC. DE CULIACA', 7, 5, 0, 0, 'contra', 'RECO434387'),
+('4', 'IND', 'CERRADO', '', 0, '', '', '  -   -', 0, 0, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', 'RECO178298'),
+('41', 'MEDINA MELENDREZ', 'MODESTO GUADALUPE', 'DR.', 745, 'MEMM760711AV5', 'MEMM760711HSLDLD09', '  -   -', 408, 408, 25006, '1', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, '', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/2001', '01/09/2001', '01/09/2001', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', 'IT CULIACAN', 0, 1, 0, 0, 'contra', 'RECO170921'),
+('42', 'RUBIO ASTORGA', 'GUILLERMO JAVIER', 'M.C.', 746, 'RUAG760714GR3', 'RUAG760714HSLBSL01', '  -   -', 408, 408, 25006, '1', 2, 2, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/2001', '01/09/2001', '01/09/2001', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 2, 2, 0, 0, 'contra', 'RECO66566'),
+('44', 'CUEN SANCHEZ', 'ANTEMIO', 'ING.', 44, 'CUSA4412243FI', 'CUSA441224HSLNNN04', '24/12/2044', 0, 0, 25006, '1', 2, 4, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 3, '', '  -   -', '  -   -', 2, '', '', 2, 1, 0, 0, 'contra', 'RECO29622'),
+('5', 'IND', 'CERRADO', '', 0, '', '', '  -   -', 0, 0, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('51', 'ESCOBAR MACHADO', 'MAXIMILIANO', 'LIC.', 51, 'EOMM411019SP2', 'EOMM411019HSLSCX09', '19/10/2041', 0, 0, 25005, '1', 2, 4, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/1972', '01/09/1972', '01/09/1972', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO160028'),
+('6', 'IND', 'CERRADO', '', 0, '', '', '  -   -', 406, 406, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', 'RECO308013'),
+('60', 'MAESTRO', 'AUXILIAR', '', 0, '', '', '  -   -', 0, 0, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', 'RECO70320'),
+('61', 'IBARRA ALMEIDA', 'MIGUEL FABRICIO', 'LIC.', 61, 'IAAM6410101L9', 'IAAM641010HSLBLG06', '10/10/1964', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN, SINALOA', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1987', '01/09/1987', '01/09/1987', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO207325'),
+('7', 'IND', 'GRUPO CERRADO', '', 0, '', '', '  -   -', 0, 0, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', 'RECO245512'),
+('72', 'ARAGON HERNANDEZ', 'JOSE CARLOS', 'ING.', 72, 'AAHC540909JY7', 'AAHC540909HSLRRR05', '09/09/2054', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN,SINALOA', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/09/1979', '01/09/1979', '01/09/1979', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '1', 'IT CULIACAN', 2, 2, 0, 0, 'contra', 'RECO934491'),
+('78', 'LAFARGA RODRIGUEZ', 'MARIA TRINIDAD', 'LIC.', 78, 'LART570617L5A', 'LART570617MSLFDR08', '27/06/1957', 0, 0, 25017, '2', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25017, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '2', 'correo_del_personal@itculiacan.edu.mx', '01/10/1981', '01/10/1981', '01/10/1981', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', '         0'),
+('80', 'VALDEZ RUBIO', 'BENJAMIN', 'LIC.', 80, 'VARB431129ER6', 'VARB431129HSLLBN09', '29/11/2043', 0, 0, 25006, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/01/1969', '01/01/1969', '01/01/1969', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 2, 2, 0, 0, 'contra', 'RECO211098'),
+('81', 'GONZALEZ TAPIA', 'JESUS', 'LIC.', 81, 'GOTJ490321DM3', 'GOTJ490321HCHNPS09', '21/03/2049', 0, 0, 1002, '1', 2, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '01/01/1970', '01/01/1970', '01/01/1970', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', '         0'),
+('83', 'GASTELUM SERRANO', 'MARIA REFUGIO', 'ING.', 83, 'GASR541101428', 'GASR541101MSLSRF07', '01/11/2054', 0, 0, 25006, '2', 2, 3, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 25006, 'CULIACAN', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '01/09/1979', '01/09/1979', '01/09/1979', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', '         0'),
+('90', 'MAESTRO PENDIENTE', '.', '', 90, '', '', '  -   -', 405, 405, 1002, '2', 0, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 99999, '', '755-55-56', '755-55-56', '', '755-55-56', 'S', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 2, '', '', 0, 1, 0, 0, 'contra', 'RECO163079'),
+('91', 'MAESTRO PENDIENTE', '.', '', 0, '', '', '  -   -', 405, 405, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('92', 'MAESTRO PENDIENTE', '.', '', 0, '', '', '  -   -', 405, 405, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('93', 'MAESTRO PENDIENTE', '.', '', 0, '', '', '  -   -', 404, 404, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', ''),
+('94', 'MAESTRO PENDIENTE', '.', '', 0, '', '', '  -   -', 405, 405, 0, '1', 1, 0, '', 'CONOCIDA', 140, 80000, 'DEL CENTRO DE CULIACAN', 0, '', '755-55-56', '755-55-56', '', '755-55-56', '1', 'correo_del_personal@itculiacan.edu.mx', '  -   -', '  -   -', '  -   -', '', 0, '', 0, '', '', '  -   -', '  -   -', 0, '', '  -   -', '  -   -', 0, '', '', 0, 0, 0, 0, 'contra', '');
+
 -- --------------------------------------------------------
 
 --
@@ -1395,35 +1510,25 @@ CREATE TABLE IF NOT EXISTS `dplane` (
 CREATE TABLE IF NOT EXISTS `empresas` (
   `cveempr` char(9) NOT NULL,
   `nombre` char(85) NOT NULL,
-  `giro` int(1) NOT NULL,
-  `rfc` char(13) NOT NULL,
   `domicil` char(30) NOT NULL,
-  `domnum` char(10) NOT NULL,
   `colonia` char(20) NOT NULL,
   `ciudad` char(20) NOT NULL,
   `cp` int(5) NOT NULL,
   `telef` char(13) NOT NULL,
-  `ext` char(13) NOT NULL,
-  `fax` char(13) NOT NULL,
-  `mision` text NOT NULL,
-  `vision` text NOT NULL,
-  `valores` text NOT NULL,
-  `organig` text NOT NULL,
   `nomtitu` char(85) NOT NULL,
-  `puetitu` char(85) NOT NULL,
-  `nompmj` char(85) NOT NULL,
-  `puepmj` char(85) NOT NULL,
-  `nompdcp` char(85) NOT NULL,
-  `puepdcp` char(85) NOT NULL,
-  `logo` text NOT NULL
+  `puetitu` char(85) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `empresas`
 --
 
-INSERT INTO `empresas` (`cveempr`, `nombre`, `giro`, `rfc`, `domicil`, `domnum`, `colonia`, `ciudad`, `cp`, `telef`, `ext`, `fax`, `mision`, `vision`, `valores`, `organig`, `nomtitu`, `puetitu`, `nompmj`, `puepmj`, `nompdcp`, `puepdcp`, `logo`) VALUES
-('1', 'ejemplo S.A. de C.V.', 1, 'wqe', 'sdfsa', 'dsfsd', 'dsf', 'dsfsd', 80349, '123', '123wda', 'asd', 'aqui va la mision', 'aqui va la vision', 'aqui van los valores', 'aqui va el organigrama', 'jose jose', 'sd', 'safd', 'dsf', 'dsf', 'sdf', 'sdfdf');
+INSERT INTO `empresas` (`cveempr`, `nombre`, `domicil`, `colonia`, `ciudad`, `cp`, `telef`, `nomtitu`, `puetitu`) VALUES
+('16584', 'nomemp', 'dir', 'col', 'ciu', 0, 'tel', 'enc', 'pues'),
+('20195', 'nomemp', 'dir', 'col', 'ciu', 0, 'tel', 'enc', 'pues'),
+('21212', 'nomemp', 'dir', 'col', 'ciu', 0, 'tel', 'enc', 'pues'),
+('22536', 'nomemp', 'dir', 'col', 'ciu', 0, 'tel', 'enc', 'pues'),
+('27322', 'nomemp', 'dir', 'col', 'ciu', 0, 'tel', 'enc', 'pues');
 
 -- --------------------------------------------------------
 
@@ -1472,27 +1577,43 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   `cveproy` char(9) NOT NULL,
   `cveempr` char(9) NOT NULL,
   `pdocve` varchar(4) NOT NULL,
-  `carcve` int(2) NOT NULL,
   `nombre` char(150) NOT NULL,
   `numresi` int(2) NOT NULL,
-  `opcion` int(1) NOT NULL,
   `objetiv` text NOT NULL,
   `justifi` text NOT NULL,
+  `carre` varchar(40) NOT NULL,
   `nomresp` char(85) NOT NULL,
-  `pueresp` char(85) NOT NULL,
-  `nomaext` char(85) NOT NULL,
-  `pueaext` char(85) NOT NULL,
-  `nomaeee` char(85) NOT NULL,
-  `pueaeee` char(85) NOT NULL,
-  `fecrevi` date DEFAULT NULL
+  `pueresp` char(85) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proyectos`
 --
 
-INSERT INTO `proyectos` (`cveproy`, `cveempr`, `pdocve`, `carcve`, `nombre`, `numresi`, `opcion`, `objetiv`, `justifi`, `nomresp`, `pueresp`, `nomaext`, `pueaext`, `nomaeee`, `pueaeee`, `fecrevi`) VALUES
-('1', '1', '10', 1, 'prueba 1', 2, 2, 'aqui va el objetivo', 'aqui va la justificacion', 'ejemplo S.A. de C.V.', 'esd', 'sad', 'ASD', 'SAD', 'ASDS', '2015-04-28');
+INSERT INTO `proyectos` (`cveproy`, `cveempr`, `pdocve`, `nombre`, `numresi`, `objetiv`, `justifi`, `carre`, `nomresp`, `pueresp`) VALUES
+('28896', '20195', '2151', 'proyecto 1', 8, 'Objetivo 1', 'Justificacion 1', 'sistemas', 'encargado 1', 'Puesto 1'),
+('7073', '22536', '2151', 'proyecto 2', 8, 'objetivo 2', 'Justificacion 2', 'sistemas', 'responsable 2', 'puesto 2');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sesiones`
+--
+
+CREATE TABLE IF NOT EXISTS `sesiones` (
+  `clave` int(11) NOT NULL COMMENT 'id del token',
+  `nomusuario` varchar(30) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `token` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sesiones`
+--
+
+INSERT INTO `sesiones` (`clave`, `nomusuario`, `fecha`, `hora`, `token`) VALUES
+(0, 'paho', '2015-05-03', '00:00:00', '6A7B347E3');
 
 -- --------------------------------------------------------
 
@@ -1501,19 +1622,36 @@ INSERT INTO `proyectos` (`cveproy`, `cveempr`, `pdocve`, `carcve`, `nombre`, `nu
 --
 
 CREATE TABLE IF NOT EXISTS `solicitudes` (
-  `cvesol` int(11) NOT NULL,
+`cvesol` int(11) NOT NULL,
   `pdocve` varchar(4) NOT NULL,
-  `aluctr` varchar(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `aluctr` varchar(9) NOT NULL,
+  `cveproy` varchar(9) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
+--
+-- Estructura Stand-in para la vista `solpendientes`
+--
+CREATE TABLE IF NOT EXISTS `solpendientes` (
+`aluctr` varchar(9)
+,`alunom` varchar(30)
+,`apealumn` varchar(30)
+,`aluapm` varchar(30)
+,`nombreproy` char(150)
+,`cveproy` char(9)
+,`nombreempr` char(85)
+,`cveempr` char(9)
+,`pdocve` varchar(4)
+);
+-- --------------------------------------------------------
+-- VISTAS
 --
 -- Estructura para la vista `bancoproy`
 --
 DROP TABLE IF EXISTS `bancoproy`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bancoproy` AS (select `e`.`nombre` AS `Nombre de la empresa`,`e`.`domicil` AS `Domicilio`,`e`.`telef` AS `Telefono`,`p`.`nomresp` AS `Nombre del responsable`,`p`.`nombre` AS `Nombre del proyecto`,`c`.`carnom` AS `Carrera`,`p`.`numresi` AS `cupos` from ((`empresas` `e` join `proyectos` `p`) join `dcarre` `c`) where ((`e`.`cveempr` = `p`.`cveempr`) and (`p`.`carcve` = `c`.`carcve`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bancoproy` AS (select `p`.`cveproy` AS `clave`,`p`.`nombre` AS `nombreproy`,`p`.`numresi` AS `numresi`,`p`.`objetiv` AS `objetiv`,`p`.`justifi` AS `justifi`,`p`.`nomresp` AS `nomresp`,`e`.`nombre` AS `nombreemp`,`e`.`telef` AS `telef` from (`proyectos` `p` join `empresas` `e` on((`p`.`cveempr` = `e`.`cveempr`))));
 
 -- --------------------------------------------------------
 
@@ -1524,8 +1662,17 @@ DROP TABLE IF EXISTS `buscarmat`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `buscarmat` AS (select `dl`.`aluctr` AS `aluctr` from ((`dlista` `dl` join `dalumn` `da`) join `dmater` `dm`) where ((`dl`.`aluctr` = `da`.`aluctr`) and (`dl`.`matcve` = `dm`.`matcve`) and (`dm`.`matnom` like '%RESIDEN%')));
 
+-- --------------------------------------------------------
+
 --
--- �ndices para tablas volcadas
+-- Estructura para la vista `solpendientes`
+--
+DROP TABLE IF EXISTS `solpendientes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `solpendientes` AS (select `a`.`aluctr` AS `aluctr`,`a`.`alunom` AS `alunom`,`a`.`aluapp` AS `apealumn`,`a`.`aluapm` AS `aluapm`,`p`.`nombre` AS `nombreproy`,`p`.`cveproy` AS `cveproy`,`e`.`nombre` AS `nombreempr`,`e`.`cveempr` AS `cveempr`,`s`.`pdocve` AS `pdocve` from (((`dalumn` `a` join `proyectos` `p`) join `solicitudes` `s`) join `empresas` `e`) where ((`a`.`aluctr` = `s`.`aluctr`) and (`p`.`cveproy` = `s`.`cveproy`) and (`e`.`cveempr` = `p`.`cveempr`)));
+
+--
+-- Índices para tablas volcadas
 --
 
 --
@@ -1562,7 +1709,7 @@ ALTER TABLE `dalumn`
 -- Indices de la tabla `dcalum`
 --
 ALTER TABLE `dcalum`
- ADD PRIMARY KEY (`aluctr`,`carcve`), ADD KEY `carcve` (`carcve`);
+ ADD PRIMARY KEY (`aluctr`), ADD KEY `dcalum_ibfk_2` (`carcve`);
 
 --
 -- Indices de la tabla `dcarre`
@@ -1574,7 +1721,7 @@ ALTER TABLE `dcarre`
 -- Indices de la tabla `ddepto`
 --
 ALTER TABLE `ddepto`
- ADD PRIMARY KEY (`depnom`);
+ ADD PRIMARY KEY (`depcve`);
 
 --
 -- Indices de la tabla `dlista`
@@ -1604,7 +1751,7 @@ ALTER TABLE `dperso`
 -- Indices de la tabla `dplane`
 --
 ALTER TABLE `dplane`
- ADD PRIMARY KEY (`placve`), ADD KEY `carcve` (`carcve`);
+ ADD PRIMARY KEY (`placve`), ADD KEY `dplane_ibfk_1` (`carcve`);
 
 --
 -- Indices de la tabla `empresas`
@@ -1634,14 +1781,29 @@ ALTER TABLE `proyalumfor`
 -- Indices de la tabla `proyectos`
 --
 ALTER TABLE `proyectos`
- ADD PRIMARY KEY (`cveproy`), ADD KEY `cveempr` (`cveempr`), ADD KEY `pdocve` (`pdocve`), ADD KEY `carcve` (`carcve`);
+ ADD PRIMARY KEY (`cveproy`), ADD KEY `cveempr` (`cveempr`), ADD KEY `pdocve` (`pdocve`);
+
+--
+-- Indices de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+ ADD PRIMARY KEY (`clave`);
 
 --
 -- Indices de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
- ADD PRIMARY KEY (`cvesol`), ADD KEY `pdocve` (`pdocve`), ADD KEY `aluctr` (`aluctr`);
+ ADD PRIMARY KEY (`cvesol`), ADD KEY `pdocve` (`pdocve`), ADD KEY `aluctr` (`aluctr`), ADD KEY `cveproy` (`cveproy`);
 
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudes`
+--
+ALTER TABLE `solicitudes`
+MODIFY `cvesol` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
@@ -1716,29 +1878,16 @@ ADD CONSTRAINT `proyalumfor_ibfk_2` FOREIGN KEY (`aluctr`) REFERENCES `asignproy
 --
 ALTER TABLE `proyectos`
 ADD CONSTRAINT `proyectos_ibfk_1` FOREIGN KEY (`cveempr`) REFERENCES `empresas` (`cveempr`),
-ADD CONSTRAINT `proyectos_ibfk_2` FOREIGN KEY (`pdocve`) REFERENCES `dperio` (`pdocve`),
-ADD CONSTRAINT `proyectos_ibfk_3` FOREIGN KEY (`carcve`) REFERENCES `dcarre` (`carcve`);
+ADD CONSTRAINT `proyectos_ibfk_2` FOREIGN KEY (`pdocve`) REFERENCES `dperio` (`pdocve`);
 
 --
 -- Filtros para la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
 ADD CONSTRAINT `solicitudes_ibfk_1` FOREIGN KEY (`pdocve`) REFERENCES `dperio` (`pdocve`),
-ADD CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`aluctr`) REFERENCES `dalumn` (`aluctr`);
+ADD CONSTRAINT `solicitudes_ibfk_2` FOREIGN KEY (`aluctr`) REFERENCES `dalumn` (`aluctr`),
+ADD CONSTRAINT `solicitudes_ibfk_3` FOREIGN KEY (`cveproy`) REFERENCES `proyectos` (`cveproy`);
 
-
-
-CREATE TABLE IF NOT EXISTS `sesiones` (
-`clave` int(11) NOT NULL COMMENT 'id del token',
-  `nomusuario` varchar(30) NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
-  `token` varchar(12) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
-
-ALTER TABLE `sesiones`
- ADD PRIMARY KEY (`clave`);
-
-ALTER TABLE `sesiones`
-MODIFY `clave` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id del token',AUTO_INCREMENT=1;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

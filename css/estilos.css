@@ -3,10 +3,23 @@ body
   /*border: 1px solid #000088;*/
   border-radius: 5px;
   margin: 0 auto;
-  max-width: 1349px;
+ /* max-width: 1024px;
+  min-width: 1024px;
+*/
+ max-width: 1349px;
   min-width: 1349px;
 }
 
+/*
+#logotec{
+  margin-top:15px;
+  position: absolute;
+  top: -10px;
+  left: 1000px;
+  width: 120px;
+  height: 120px;
+}
+*/
 #logoitc
 {
   margin-top:15px;
@@ -20,7 +33,9 @@ body
 {
   margin-top: 50px;
   position: relative;
-  left: 200px;  
+  left: 25%;  
+    width: 50%;
+  height: 50%;
 }
 .caption
 {
@@ -33,18 +48,21 @@ body
   position: relative;
   left: 200px;
 }
-
+#divSolicitudes
+{
+  display: none;
+}
 #lm1
 {
   margin-top: 65px;
 }
 #lm2
 {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 #lm3
 {
-  margin-top: 15px;
+  margin-top: 40px;
 }
 #seccionInfo article
 {
@@ -58,10 +76,17 @@ body
   position: relative;
 
 }
+footer
+{
+  font-weight: bold;
+  text-align: center;
+}
+
 header nav ul button
 {
   width: 144px;
-height: 18px;
+  height: 18px;
+  height: 20%;
   font-weight: 600;
   font-family: 'Open Sans', sans-serif;
   background-color:transparent;
@@ -69,7 +94,8 @@ height: 18px;
 }
 header nav ul 
 {
-  left:350px;
+
+  left:25%;
   position: absolute;
   /*margin-top:20px;*/
 }
@@ -79,11 +105,7 @@ header nav ul li
   display: inline-block;
 }
 
-footer
-{
-  font-weight: bold;
-  text-align: center;
-}
+
 .fecha{
 
   font-weight: 600;
@@ -103,6 +125,40 @@ header .pageheader
 }
 
 
+/*
+header nav ul
+{
+  text-align: center;
+}
+
+header nav ul li
+{
+  display: inline-block;
+}
+
+header .page-header
+{
+  margin-left: 15px;
+}
+*/
+
+
+#solicitaProyecto{
+  display: none;
+/*  margin: 0 auto;*/
+}
+#solicitaProyecto article{
+  display: none;
+  display: inline-block;
+  margin-left: 15%;
+  width: 350px;
+}
+
+#solicitaProyecto button{
+  width: 750px;
+  margin-left: 20%;
+}
+
 #altaProyectos
 {
   display: none; /*Ocultamos el DIV*/
@@ -111,11 +167,13 @@ header .pageheader
 }
 
 #banco{
+  margin-top: 50px;
   display: none;
-  margin-top: 80px;
-  position: relative;
-   
+  margin-left: auto;
+  margin-right: auto; 
 }
+
+
 .usu
 {
   color: orange;
@@ -124,35 +182,53 @@ header .pageheader
   position: relative;
   left: 500px;
 }
+
 #btnEntregas
 {
   display: none;
 } 
-#btnRegistrar
+
+#btnSolicitud
+{
+  display: none;
+} 
+#l
 {
   display: none;
 }
+#btnSalir
+{
+  display: none;
+} 
+
 #entregas{
    display: none;
-   position: relative;
-   margin-top: 100px;
 }
 #seccionlinks
 {
   position: relative;
-  margin-top: 100px;
+  margin-top: 50px;
   left: 200px;
 }
 
 #proyectosbox{
   display: none;
 }
+
+#nav2
+{
+  display: none;
+}
+
 #documentacion{
   display: none;
-  position: relative;
-
-  
+  text-align: center;
 }
+
+/*#seccionlinks article{
+  display: inline-block;
+  text-align: top;
+}*/
 
 #docsGenerales{
   display: none;
@@ -163,12 +239,13 @@ header .pageheader
   display:none;
   margin: 0 auto;
   width: 300px;
-  margin-top: 100px;
+margin-top: 100px;
 }
 
 #AmbosPlanes{
   text-align: left;
 }
+
 
 #PlanNuevo{
   text-align: left;
@@ -178,11 +255,78 @@ header .pageheader
   text-align: left;
 }
 #btnRegistrar{
-  /*display: none;*/
-  text-align: right;
+  display: none;
 }
-.usuarios{
-  text-align: right;
+
+#btnCargarProy{
+  display: none;
+  width: 600px;
+  margin-left: 25%;
+}
+
+#btnSolicita{
+  margin-left: 80%;
+  margin-top: -60px;
+  display: none;
+}
+
+/*
+#informacion{
+  text-align: center;
+}
+*/
+#infoarticle{
+  text-align: left;
+}
+
+#fecha{
+  color: gray;
+}
+
+#imgInicio
+{
+  position: relative;
+  margin-left: 20px;
+  width: 642px;
+  height: 429px;
+}
+
+#rp
+{
+  margin-top: -10px;
+	font-weight: bold;
+}
+
+#imgMini
+{
+  width: 250px;
+  height: 200px;
+}
+
+
+#ttipo{
+  display: none;
+}
+
+#usuario{
+  display: none;
+}
+
+#proyectoasign{
+  display: none;
+}
+
+#pa{
+  display: none;
+}
+
+.page-header{
+  height: 130;
+}
+
+.Titulos{
+  text-align: left;
+  font-size: bold;
 }
 
 .justificar{
@@ -201,23 +345,12 @@ header .pageheader
   font-weight: 200;
 }
 
-
-
-#solicitaProyecto{
-  display: none;
-/*  margin: 0 auto;*/
-}
-#solicitaProyecto article{
-  display: none;
-  display: inline-block;
-  margin-left: 100px;
-  width: 350px;
+.usuarios{
+  text-align: right;
 }
 
-#solicitaProyecto button{
-  width: 350px;
-  margin-left: 300px;
-}
+
+
 
 
 
