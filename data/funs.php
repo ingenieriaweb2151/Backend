@@ -146,6 +146,7 @@ function enviarSolicitud()
 {	
 	$res = false;
 	$conexion = conectaBD();
+	
 	$seleccion = GetSQLValueString($_POST["cargarproy"],"text");
 	$ncontrol = GetSQLValueString($_POST["ncontrol"],"sincomillas");
 	$consultlaProy = sprintf("SELECT cveproy,nombre, numresi FROM proyectos WHERE cveproy=%s",$seleccion);
@@ -159,7 +160,6 @@ function enviarSolicitud()
 	if ($columna = mysql_fetch_array($resultadoProy))
 	{
 		$cveproy = $columna["cveproy"];
-		
 		if($cveproy = $seleccion)
 		{
 			if($aluctr != $ncontrol)
@@ -264,7 +264,12 @@ function AsignaProy()
 									VALUES (%s,%s,%s,%s)",$pdocve,$aluctr,$cveproy,$cveempr);
 		$resultadoInsert = mysql_query($consultaInsert);
 		if(mysql_affected_rows()>0)
+		{
 			$res = true;
+			$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
+			$resultadoDelete = mysql_query($consultaDelete);
+		}
+			
 	}
 	$salidaJSON = array('respuesta'	=> $res);
 		print json_encode($salidaJSON);
