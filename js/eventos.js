@@ -457,18 +457,37 @@ var CargarProy = function()
 				data: parametros,
 				success:function(response){
 					if(response.respuesta)
-						alert("Tu solicitud ha sido enviada.");
+						alert("Proyecto asignado correctamente.");
 					else
-						alert("No se a podido realizar la solicitud.");
+						alert("No se pudo asignar el proyecto.");
 				},
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
 				}
 			});
 	}
+//AUN NO FUNCIONA :c
 	var CancelarProy = function()
 	{
-		alert("funciono");
+		var valorBoton = $(".btnCancelar").attr("value");
+		alert("funciono "+valorBoton);
+		var parametros = "opc=CancelarProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
+		$.ajax({
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Solicitud cancelada.");
+					else
+						alert("No se pudo dar de baja la solicitud.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
 	}
 
 	//Configuramos los eventos.
