@@ -1,4 +1,4 @@
-<?php
+ <?php
 require('conexionalumno.php');
 require('algoritmo.php');
 require('conexionpersonal.php');
@@ -199,6 +199,7 @@ function LlenarTablaSolicitud()
 		$renglones.="<th>Alumno </th>";
 		$renglones.="<th>Proyecto</th>";
 		$renglones.="<th>Empresa</th>";
+		$renglones.="<th>Seleccionar</th>";
 		$renglones.="</tr>";
 		while ($registro = mysql_fetch_array($resultado)) {
 			$renglones.="<tr>";
@@ -206,6 +207,12 @@ function LlenarTablaSolicitud()
 			$renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
 			$renglones.="<td>".$registro["nombreproy"]."</td>";
 			$renglones.="<td>".$registro["nombreempr"]."</td>";
+			$renglones.="<td><button class=' btnAsignar btn btn-success'>
+						<span class='glyphicon glyphicon-ok'></span>
+						Asignar 
+						<button class='btnBorrar btn btn-danger'>
+						<span class='glyphicon glyphicon-remove'></span>
+						Cancelar</td>";
 			$renglones.="</tr>";
 			$res = true;
 		}
