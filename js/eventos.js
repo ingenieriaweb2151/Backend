@@ -515,8 +515,6 @@ var inicio = function(){
 	$("#btnCargarProy").on("click",CargarProy);
 	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
 	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);
-
-
 }
 
 $(document).on("ready",inicio);
