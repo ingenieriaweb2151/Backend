@@ -278,27 +278,11 @@ function AsignaProy()
 }
 //Funcion para cancelar las solicitudes
 function CancelarProy()
-{
-	$conexion = conectaBD();
+{	
 	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
-	$consulta = sprintf("SELECT * FROM solicitudes WHERE aluctr=%s",$aluctr);
-	$resultado = mysql_query($consulta);
-	if($renglones = mysql_fetch_array($resultado))
-		$idProy = $renglones["cveproy"];
-	$res = false;
-	$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
-	$resultadoDelete = mysql_query($consultaDelete);
-	//Si la solicitud fue cancelada, el numero residentes incrementa en uno.
-	if(mysql_affected_rows()>0)
-	{
-
-		$res = true;
-		$updateProy = sprintf("UPDATE proyectos SET numresi=numresi+1 WHERE cveproy =%s",$idProy);
-		mysql_query($updateProy);
-
-	}
-	$salidaJSON = array('respuesta'	=> $res);
-	print json_encode($salidaJSON);
+	$BajaSol = BajaSolicitud($aluctr);
+	print json_encode($BajaSol);
+	
 }
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
