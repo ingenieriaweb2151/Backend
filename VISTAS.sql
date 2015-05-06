@@ -31,8 +31,14 @@ use residencias;
  from dalumn a, proyectos p,asignproyectos ap, empresas e, dperso dp, asignaseinternos ai 
  WHERE a.aluctr = ap.aluctr and p.cveproy = ap.cveproy and ai.cveproy = p.cveproy and e.cveempr = ap.cveempr and ai.percve = dp.percve);
  
+ -- VISTA PARA BUSCAR A LOS POSIBLES ASESORES PARA ASIGNAR A LOS ALUMNOS DEPENDIENDO LA CARRERA
 create view buscarAsesores as(
 SELECT s.aluctr, dc.carcve, dp.percve, dcar.depcve, dcar.carnom, dp.pernom, dp.perape 
 FROM solicitudes s, dcarre dcar, dperso dp, dcalum dc 
 WHERE s.aluctr = dc.aluctr and dc.carcve = dcar.carcve and dcar.depcve = dp.perdepa
     and not (dp.pernom = '.'));
+    
+-- VISTA PARA BUSCAR A AL PERSONAL DE VINCULACION
+create view buscaVinculacion as (select dp.percve, dp.pernom, dp.perape, dp.perdep, dp.perpas, dd.depcve
+from dperso dp, ddepto dd 
+where dp.perdep = dd.depcve and dp.perdep = 111);
