@@ -12,10 +12,10 @@ function EntraAsesor($u,$c)
 	$conexion = conectaBDpersonal('asesor');
 	$res = false;
 	$nombre = "";
-	$consulta = sprintf("select * from dperso where not (perdepa ='0') and not (pernom = '.') and percve=%s and perpas=%s",$u,$c);
+	$consulta = sprintf("SELECT * FROM maestroAsesor WHERE percve=%s AND perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
-	 
-    if($registro = mysql_fetch_array($resultado))
+
+	if($registro = mysql_fetch_array($resultado))
     {
     	$res = true;
     	$nombre = $registro["pernom"]." ".$registro["perape"];
