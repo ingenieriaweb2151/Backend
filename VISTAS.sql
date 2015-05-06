@@ -48,3 +48,9 @@ where dp.perdep = dd.depcve and dp.perdep = 111);
 create view buscaDivestPro as (select dp.percve, dp.pernom, dp.perape, dp.perdep, dp.perpas, dd.depcve
 from dperso dp, ddepto dd 
 where dp.perdep = dd.depcve and dp.perdep = 401);
+
+-- VISTA PARA BUSCAR SOLO A LOS MAESTROS QUE ESTAN ASIGNADOS A UNO O MAS PROYECTOS
+create view maestroAsesor as (
+select dp.pernom, dp.perape, dp.perdepa, dp.percve, dp.perpas 
+from dperso dp, asignaseinternos ai
+ where dp.percve = ai.percve);
