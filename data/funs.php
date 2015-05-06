@@ -220,61 +220,13 @@ function LlenarTablaSolicitud()
 						'renglones'	=> $renglones);
 		print json_encode($salidaJSON);
 }
-//GUARDA PROYECTO LEON
-/*
-function GuardaProyecto()
-{
-	$nombre_empresa     = GetSQLValueString($_POST["usuario"],"text");
-	$direccion      = GetSQLValueString($_POST["direccion"],"text");
-	$telefono    = GetSQLValueString($_POST["telefono"],"text");
-	$encargado = GetSQLValueString($_POST["encargado"],"long");
-	$nombre_proyecto     = GetSQLValueString($_POST["nombre_proyecto"],"text");
-	$carrera       = GetSQLValueString($_POST["carrera"],"text");
-	$cupos = GetSQLValueString($_POST["cupos"],"text");
-	$respuesta   = false; 
-	if($clave == $repiteclave)
-	{
-		$conexion    = conectaBD();
-		if(consultaUsuario($usuario) == false)
-		{
-			$consulta = sprintf("insert into proyectos values(%s,%s,%s,%s,%d,%s)",$nombre_empresa,$direccion,$telefono,$encargado,$nombre_proyecto,$carrera,$cupos);
-			$resconsulta = mysql_query($consulta);
-			if(mysql_affected_rows() > 0)
-				$respuesta = true;
-		}
-	
-	}
-	$salidaJSON = array('respuesta' => $respuesta);
-	print json_encode($salidaJSON);
-}*/
 
 //FUNCION PARA PASAR LAS SOLICITUDES DE PROYECTO A ASIGNAR PROYECTO :D
 function AsignaProy()
 {
-	$conexion = conectaBD();
-	$res = false;
 	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
-	$consulta = sprintf("SELECT * FROM solPendientes  WHERE aluctr=%s",$aluctr);
-	$resultado = mysql_query($consulta);
-	if($renglones = mysql_fetch_array($resultado))
-	{
-		$pdocve = $renglones["pdocve"];
-		$cveproy = $renglones["cveproy"];
-		$cveempr = $renglones["cveempr"];
-		
-		$consultaInsert = sprintf("INSERT INTO asignproyectos(pdocve, aluctr, cveproy, cveempr) 
-									VALUES (%s,%s,%s,%s)",$pdocve,$aluctr,$cveproy,$cveempr);
-		$resultadoInsert = mysql_query($consultaInsert);
-		if(mysql_affected_rows()>0)
-		{
-			$res = true;
-			$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
-			$resultadoDelete = mysql_query($consultaDelete);
-		}
-			
-	}
-	$salidaJSON = array('respuesta'	=> $res);
-	print json_encode($salidaJSON);
+	$asignaproy = AsignarProyecto($aluctr);
+	print json_encode($asignaproy);
 }
 //Funcion para cancelar las solicitudes
 function CancelarProy()

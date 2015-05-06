@@ -62,10 +62,10 @@ function EntraDivespro($u,$c)
     return $salidaJSON;
 }
 
+//FUNCIONES QUE RESALIZAN LOS USUARIOS QUE NO SON ALUMNOS.
 function BajaSolicitud($aluctr)
 {
 	$conexion = conectaBDpersonal('divestpro');
-	//$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
 	$consulta = sprintf("SELECT * FROM solicitudes WHERE aluctr=%s",$aluctr);
 	$resultado = mysql_query($consulta);
 	if($renglones = mysql_fetch_array($resultado))
@@ -84,6 +84,35 @@ function BajaSolicitud($aluctr)
 	}
 	$salidaJSON = array('respuesta'	=> $res);
 	return $salidaJSON;
+}
+
+function AsignarProyecto($aluctr)
+{
+	
+	$conexion = conectaBDpersonal('divestpro');
+	$res = false;
+	$consulta = sprintf("SELECT * FROM solPendientes  WHERE aluctr=%s",$aluctr);
+	$resultado = mysql_query($consulta);
+	if($renglones = mysql_fetch_array($resultado))
+	{
+		$pdocve = $renglones["pdocve"];
+		$cveproy = $renglones["cveproy"];
+		$cveempr = $renglones["cveempr"];
+		
+		$consultaInsert = sprintf("INSERT INTO asignproyectos(pdocve, aluctr, cveproy, cveempr) 
+									VALUES (%s,%s,%s,%s)",$pdocve,$aluctr,$cveproy,$cveempr);
+		$resultadoInsert = mysql_query($consultaInsert);
+		if(mysql_affected_rows()>0)
+		{
+			$res = true;
+			$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
+			$resultadoDelete = mysql_query($consultaDelete);
+		}
+			
+	}
+	$salidaJSON = array('respuesta'	=> $res);
+	return $salidaJSON;
+	
 }
 
 ?>
