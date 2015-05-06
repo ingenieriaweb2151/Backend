@@ -178,4 +178,33 @@ function AsignarProyecto($aluctr,$asesor)
 	return $salidaJSON;
 	
 }
+
+function ProyectosAsesor($usuario)
+{
+	$conexion = conectaBDpersonal('asesor');
+  	$res = false;
+  	$consultlaProy = sprintf("SELECT * FROM proyAsignado WHERE percve=%s",$usuario);
+    
+    $resultadoProy = mysql_query($consultlaProy);
+    $renglones = "";
+    $renglones.="<tr>";
+    $renglones.="<th>Alumno</th>";
+    $renglones.="<th>Proyecto</th>";
+    $renglones.="<th>Empresa</th>";
+    $renglones.="<th>Asesor</th>";
+    $renglones.="</tr>";
+    while($registro = mysql_fetch_array($resultadoProy))
+    {
+      $res=true;
+      $renglones.="<tr>";
+      $renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
+      $renglones.="<td>".$registro["nombreproy"]."</td>";
+      $renglones.="<td>".$registro["nombreempr"]."</td>";
+      $renglones.="<td>".$registro["pernom"].$registro["perape"]."</td>";
+      $renglones.="</tr>";
+    }
+    $salidaJSON = array('respuesta' => $res,
+            'renglones' => $renglones);
+  	return $salidaJSON;
+}
 ?>

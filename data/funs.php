@@ -37,9 +37,20 @@ function ValidaEntrada()
 }
 
 function LlenarTablaProy()
-{
-	$ncontrol = GetSQLValueString($_POST["ncontrol"],"sincomillas");
-	$llenarProyectos = MostrarBanco($ncontrol);
+{	
+	$tipousuario = $_POST["tUsuario"];
+	if($tipousuario == 'asesor')
+	{
+		$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
+		$llenarProyectos = ProyectosAsesor($usuario);
+	}
+		
+	else
+	{
+		$ncontrol = GetSQLValueString($_POST["usuario"],"sincomillas");
+		$llenarProyectos = MostrarBanco($ncontrol);
+	}
+		
 	print json_encode($llenarProyectos);
 }
 
@@ -48,7 +59,7 @@ function enviarSolicitud()
 	//Sleccion es el value del radio boton que fue seleccionado, el value contiene la clave del proyecto
 	$seleccion = GetSQLValueString($_POST["cargarproy"],"text"); 
 	//ncontrol = aluctr
-	$ncontrol = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$ncontrol = GetSQLValueString($_POST["usuario"],"sincomillas");
 
 	$enviarSol = EnviarSol($seleccion,$ncontrol);
 	print json_encode($enviarSol);
@@ -63,7 +74,7 @@ function LlenarTablaSolicitud()
 //FUNCION PARA PASAR LAS SOLICITUDES DE PROYECTO A ASIGNAR PROYECTO :D
 function AsignaProy()
 {
-	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$aluctr = GetSQLValueString($_POST["usuario"],"sincomillas");
 	$asesor = $_POST["asesor"];
 	$asignaproy = AsignarProyecto($aluctr,$asesor);
 	print json_encode($asignaproy);
@@ -71,7 +82,7 @@ function AsignaProy()
 //Funcion para cancelar las solicitudes
 function CancelarProy()
 {	
-	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$aluctr = GetSQLValueString($_POST["usuario"],"sincomillas");
 	$BajaSol = BajaSolicitud($aluctr);
 	print json_encode($BajaSol);
 	

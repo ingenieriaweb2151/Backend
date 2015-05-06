@@ -111,7 +111,7 @@ function EnviarSol($seleccion,$ncontrol)
   if ($columna = mysql_fetch_array($resultadoProy))
   {
     $cveproy = $columna["cveproy"];
-    if($cveproy = $seleccion)
+    if($cveproy == $seleccion)
     {
       if($aluctr != $ncontrol) //if = sin son iguales significa que ya tiene una solicitud enviada
       {
