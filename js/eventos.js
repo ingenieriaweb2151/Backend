@@ -9,6 +9,7 @@ var inicio = function(){
 		var u = $("#txtUsuario").val();
 		var c = $("#txtClave").val();
 		var t = $("#ddlTipoUsuario").val();
+		
 		var parametros = "opc=validaentrada"+"&tu="+t+"&usuario="+u+"&clave="+c+"&id="+Math.random();
 		//CAMBIE PARAMETROS, PARA HACERLOS GENERICOS Y NO SOLO DE ALUMNOS
 		//CAMBIE LA VARIABLE opc, PARA VALIDAR LA ENTRADA DE CADA UNO DE LOS USUARIOS
@@ -44,8 +45,8 @@ var inicio = function(){
 						$("#usuario").show();
 						//PAHO
 						//ES INDISPENSABLE PASAR EL VALOR DEL USUARIO AL ARRAY DE datos[];
-						datos["ncontrol"] = u;
-						usuarioGlobal["tUsuario"];	
+						datos["usuario"] = u;
+						usuarioGlobal["tUsuario"] = t;	
 
 						var options = document.getElementById("ddlTipoUsuario").getElementsByTagName("option");
     					var optionHTML = options[document.getElementById("ddlTipoUsuario").selectedIndex].innerHTML;
@@ -98,7 +99,8 @@ var inicio = function(){
 	}
 	var llenarTablaProy = function(cargado){
 		var c = cargado;
-		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&id="+Math.random();
+		//Agrege el numero de control del alumno a los parametros, para verificar tiene proyecto asignado
+		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&usuario="+datos["usuario"]+"&id="+Math.random()+"&tUsuario="+usuarioGlobal["tUsuario"];
 		$.ajax({
 			cache:false,
 			url: "data/funs.php",
@@ -411,7 +413,7 @@ var inicio = function(){
 	var CargarProy = function()
 	{
 		var seleccion = $("input[name='seleccionar']:checked").val();
-		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&ncontrol="+datos["ncontrol"]+"&id="+Math.random();
+		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&usuario="+datos["usuario"]+"&id="+Math.random();
 		
 		if($('.radProy').is(':checked'))
 		{
@@ -440,8 +442,9 @@ var inicio = function(){
 	var AsignaProy = function()
 	{	
 		var valorBoton = $(".btnAsignar").attr("value");
-		alert("funciono "+valorBoton);
-		var parametros = "opc=AsignaProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
+		var asesor = $(".ddlAsesores").val(); //obtenemos el id del asesor y lo mandamos en los parametros
+		//alert("ID del asesor: "+asesor);
+		var parametros = "opc=AsignaProy"+"&usuario="+valorBoton+"&asesor="+asesor+"&id="+Math.random();
 		$.ajax({
 			cache: false,
 			url: 'data/funs.php',
@@ -465,7 +468,7 @@ var inicio = function(){
 	{
 		var valorBoton = $(".btnCancelar").attr("value");
 		alert("funciono "+valorBoton);
-		var parametros = "opc=CancelarProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
+		var parametros = "opc=CancelarProy"+"&usuario="+valorBoton+"&id="+Math.random();
 		$.ajax({
 			cache: false,
 			url: 'data/funs.php',

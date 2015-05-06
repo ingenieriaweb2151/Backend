@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2015 a las 21:20:11
+-- Tiempo de generación: 06-05-2015 a las 09:05:06
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS `alureg` (
 INSERT INTO `alureg` (`aluctr`) VALUES
 ('10170903'),
 ('1151006'),
-('1170002');
+('1170002'),
+('1170005'),
+('1170006');
 
 -- --------------------------------------------------------
 
@@ -64,8 +66,15 @@ CREATE TABLE IF NOT EXISTS `asignaseinternos` (
   `pdocve` varchar(4) NOT NULL,
   `percve` varchar(10) NOT NULL,
   `cveproy` char(9) NOT NULL,
-  `tipo` int(1) NOT NULL
+  `aluctr` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `asignaseinternos`
+--
+
+INSERT INTO `asignaseinternos` (`pdocve`, `percve`, `cveproy`, `aluctr`) VALUES
+('2151', '11', '28896', '10170903');
 
 -- --------------------------------------------------------
 
@@ -101,6 +110,20 @@ CREATE TABLE IF NOT EXISTS `bancoproy` (
 ,`nomresp` char(85)
 ,`nombreemp` char(85)
 ,`telef` char(13)
+);
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `buscarasesores`
+--
+CREATE TABLE IF NOT EXISTS `buscarasesores` (
+`aluctr` varchar(9)
+,`carcve` int(2)
+,`percve` varchar(10)
+,`depcve` varchar(6)
+,`carnom` varchar(80)
+,`pernom` varchar(30)
+,`perape` varchar(30)
 );
 -- --------------------------------------------------------
 
@@ -1146,7 +1169,9 @@ CREATE TABLE IF NOT EXISTS `dcalum` (
 --
 
 INSERT INTO `dcalum` (`aluctr`, `carcve`, `placve`, `espcve`, `caling`, `calter`, `calsit`, `calnpe`, `calgpo`, `calcac`, `calnpec`, `calobs`, `caltcala`, `caltcalr`, `calmata`, `calmat`, `calmatac`, `calpri`, `calnpep`, `peerson`) VALUES
-('1151006', 1, 's', 'f', 'd', 'd', 'd', 2, 'w', 2, 2, 'sd', 230, 3, 3, 3, 3, 'e', 3, 'eqwe');
+('1151006', 1, 's', 'f', 'd', 'd', 'd', 2, 'w', 2, 2, 'sd', 230, 3, 3, 3, 3, 'e', 3, 'eqwe'),
+('1170005', 18, '0', '0', '0', '0', '0', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0, '0', 0, '0'),
+('1170006', 8, '0', '0', '0', '0', '0', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0, '0', 0, '0');
 
 -- --------------------------------------------------------
 
@@ -1276,7 +1301,9 @@ CREATE TABLE IF NOT EXISTS `dlista` (
 --
 
 INSERT INTO `dlista` (`pdocve`, `aluctr`, `matcve`, `gpocve`) VALUES
-('10', '1151006', '04T0001', 'av');
+('10', '1151006', '04T0001', 'av'),
+('2151', '1170005', '04T0001', '0'),
+('2151', '1170006', '04T0001', '0');
 
 -- --------------------------------------------------------
 
@@ -1570,6 +1597,24 @@ CREATE TABLE IF NOT EXISTS `proyalumfor` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `proyasignado`
+--
+CREATE TABLE IF NOT EXISTS `proyasignado` (
+`aluctr` varchar(9)
+,`alunom` varchar(30)
+,`apealumn` varchar(30)
+,`aluapm` varchar(30)
+,`nombreproy` char(150)
+,`cveproy` char(9)
+,`nombreempr` char(85)
+,`cveempr` char(9)
+,`pernom` varchar(30)
+,`perape` varchar(30)
+,`percve` varchar(10)
+);
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `proyectos`
 --
 
@@ -1591,8 +1636,8 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
 --
 
 INSERT INTO `proyectos` (`cveproy`, `cveempr`, `pdocve`, `nombre`, `numresi`, `objetiv`, `justifi`, `carre`, `nomresp`, `pueresp`) VALUES
-('28896', '20195', '2151', 'proyecto 1', 8, 'Objetivo 1', 'Justificacion 1', 'sistemas', 'encargado 1', 'Puesto 1'),
-('7073', '22536', '2151', 'proyecto 2', 8, 'objetivo 2', 'Justificacion 2', 'sistemas', 'responsable 2', 'puesto 2');
+('28896', '20195', '2151', 'proyecto 1', 6, 'Objetivo 1', 'Justificacion 1', 'sistemas', 'encargado 1', 'Puesto 1'),
+('7073', '22536', '2151', 'proyecto 2', 7, 'objetivo 2', 'Justificacion 2', 'sistemas', 'responsable 2', 'puesto 2');
 
 -- --------------------------------------------------------
 
@@ -1626,7 +1671,15 @@ CREATE TABLE IF NOT EXISTS `solicitudes` (
   `pdocve` varchar(4) NOT NULL,
   `aluctr` varchar(9) NOT NULL,
   `cveproy` varchar(9) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`cvesol`, `pdocve`, `aluctr`, `cveproy`) VALUES
+(8, '2151', '1170006', '7073'),
+(9, '2151', '1170005', '28896');
 
 -- --------------------------------------------------------
 
@@ -1645,7 +1698,7 @@ CREATE TABLE IF NOT EXISTS `solpendientes` (
 ,`pdocve` varchar(4)
 );
 -- --------------------------------------------------------
--- VISTAS
+
 --
 -- Estructura para la vista `bancoproy`
 --
@@ -1656,11 +1709,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `buscarasesores`
+--
+DROP TABLE IF EXISTS `buscarasesores`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `buscarasesores` AS (select `s`.`aluctr` AS `aluctr`,`dc`.`carcve` AS `carcve`,`dp`.`percve` AS `percve`,`dcar`.`depcve` AS `depcve`,`dcar`.`carnom` AS `carnom`,`dp`.`pernom` AS `pernom`,`dp`.`perape` AS `perape` from (((`solicitudes` `s` join `dcarre` `dcar`) join `dperso` `dp`) join `dcalum` `dc`) where ((`s`.`aluctr` = `dc`.`aluctr`) and (`dc`.`carcve` = `dcar`.`carcve`) and (`dcar`.`depcve` = `dp`.`perdepa`)));
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `buscarmat`
 --
 DROP TABLE IF EXISTS `buscarmat`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `buscarmat` AS (select `dl`.`aluctr` AS `aluctr` from ((`dlista` `dl` join `dalumn` `da`) join `dmater` `dm`) where ((`dl`.`aluctr` = `da`.`aluctr`) and (`dl`.`matcve` = `dm`.`matcve`) and (`dm`.`matnom` like '%RESIDEN%')));
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `proyasignado`
+--
+DROP TABLE IF EXISTS `proyasignado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `proyasignado` AS (select `a`.`aluctr` AS `aluctr`,`a`.`alunom` AS `alunom`,`a`.`aluapp` AS `apealumn`,`a`.`aluapm` AS `aluapm`,`p`.`nombre` AS `nombreproy`,`p`.`cveproy` AS `cveproy`,`e`.`nombre` AS `nombreempr`,`e`.`cveempr` AS `cveempr`,`dp`.`pernom` AS `pernom`,`dp`.`perape` AS `perape`,`dp`.`percve` AS `percve` from (((((`dalumn` `a` join `proyectos` `p`) join `asignproyectos` `ap`) join `empresas` `e`) join `dperso` `dp`) join `asignaseinternos` `ai`) where ((`a`.`aluctr` = `ap`.`aluctr`) and (`p`.`cveproy` = `ap`.`cveproy`) and (`e`.`cveempr` = `ap`.`cveempr`) and (`ai`.`percve` = `dp`.`percve`)));
 
 -- --------------------------------------------------------
 
@@ -1691,7 +1762,7 @@ ALTER TABLE `anteproyectos`
 -- Indices de la tabla `asignaseinternos`
 --
 ALTER TABLE `asignaseinternos`
- ADD PRIMARY KEY (`pdocve`,`percve`,`cveproy`), ADD KEY `percve` (`percve`), ADD KEY `cveproy` (`cveproy`);
+ ADD PRIMARY KEY (`pdocve`,`percve`,`cveproy`), ADD KEY `percve` (`percve`), ADD KEY `cveproy` (`cveproy`), ADD KEY `aluctr` (`aluctr`);
 
 --
 -- Indices de la tabla `asignproyectos`
@@ -1803,7 +1874,7 @@ ALTER TABLE `solicitudes`
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-MODIFY `cvesol` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `cvesol` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- Restricciones para tablas volcadas
 --
@@ -1828,7 +1899,8 @@ ADD CONSTRAINT `anteproyectos_ibfk_3` FOREIGN KEY (`cveproy`) REFERENCES `proyec
 ALTER TABLE `asignaseinternos`
 ADD CONSTRAINT `asignaseinternos_ibfk_1` FOREIGN KEY (`pdocve`) REFERENCES `dperio` (`pdocve`),
 ADD CONSTRAINT `asignaseinternos_ibfk_2` FOREIGN KEY (`percve`) REFERENCES `dperso` (`percve`),
-ADD CONSTRAINT `asignaseinternos_ibfk_3` FOREIGN KEY (`cveproy`) REFERENCES `proyectos` (`cveproy`);
+ADD CONSTRAINT `asignaseinternos_ibfk_3` FOREIGN KEY (`cveproy`) REFERENCES `proyectos` (`cveproy`),
+ADD CONSTRAINT `asignaseinternos_ibfk_4` FOREIGN KEY (`aluctr`) REFERENCES `dalumn` (`aluctr`);
 
 --
 -- Filtros para la tabla `asignproyectos`
