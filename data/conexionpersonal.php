@@ -157,15 +157,19 @@ function AsignarProyecto($aluctr)
 		$cveproy = $renglones["cveproy"];
 		$cveempr = $renglones["cveempr"];
 		
-		$consultaInsert = sprintf("INSERT INTO asignproyectos(pdocve, aluctr, cveproy, cveempr) 
+		$consultaInsertAP = sprintf("INSERT INTO asignproyectos(pdocve, aluctr, cveproy, cveempr) 
 									VALUES (%s,%s,%s,%s)",$pdocve,$aluctr,$cveproy,$cveempr);
-		$resultadoInsert = mysql_query($consultaInsert);
+		$resultadoInsertAP = mysql_query($consultaInsertAP);
+		//ASIGNAMOS AL ASESOR
+		$consultaInsertAsesor = sprintf("INSERT INTO asignaseinternos(pdocve, percve, cveproy, aluctr)
+		 								VALUES (%s,%s,%s,%s)",$pdocve,$asesor,$cveproy,$aluctr);	
 		if(mysql_affected_rows()>0)
 		{
 			//Al pasar a la tabla asignaproyecto se elimina al alumno de la tabla solicitudes.
 			$res = true;
 			$consultaDelete =sprintf("DELETE FROM solicitudes WHERE aluctr=%s",$aluctr);
 			$resultadoDelete = mysql_query($consultaDelete);
+			$resultadoAsesor = mysql_query($consultaInsertAsesor);
 		}
 			
 	}

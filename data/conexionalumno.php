@@ -182,7 +182,8 @@ function MostrarBanco($ncontrol)
   }
   else
   { 
-    $consultlaProy = sprintf("SELECT * FROM proyAsignado");
+    $consultlaProy = sprintf("SELECT * FROM proyAsignado WHERE aluctr=%s",$ncontrol);
+    
     $resultadoProy = mysql_query($consultlaProy);
     $renglones = "";
     $renglones.="<tr>";

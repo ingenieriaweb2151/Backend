@@ -64,7 +64,8 @@ function LlenarTablaSolicitud()
 function AsignaProy()
 {
 	$aluctr = GetSQLValueString($_POST["ncontrol"],"sincomillas");
-	$asignaproy = AsignarProyecto($aluctr);
+	$asesor = $_POST["asesor"];
+	$asignaproy = AsignarProyecto($aluctr,$asesor);
 	print json_encode($asignaproy);
 }
 //Funcion para cancelar las solicitudes
