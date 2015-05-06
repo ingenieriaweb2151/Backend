@@ -4,7 +4,7 @@ var inicio = function(){
 	//VARIABLES GLOBALES QUE GUARDAN EL NUMERO DE CONTROL DEL ALUMNO Y TIPO DE USUARIO
 	var datos = [];
 	var usuarioGlobal = [];
-
+	var token = [];
 	var validaUsuario = function(){
 		var u = $("#txtUsuario").val();
 		var c = $("#txtClave").val();
@@ -47,6 +47,7 @@ var inicio = function(){
 						//ES INDISPENSABLE PASAR EL VALOR DEL USUARIO AL ARRAY DE datos[];
 						datos["usuario"] = u;
 						usuarioGlobal["tUsuario"] = t;	
+						token ["token"] = response.token;
 
 						var options = document.getElementById("ddlTipoUsuario").getElementsByTagName("option");
     					var optionHTML = options[document.getElementById("ddlTipoUsuario").selectedIndex].innerHTML;
