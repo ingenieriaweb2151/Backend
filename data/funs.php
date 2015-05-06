@@ -8,9 +8,8 @@ function ValidaEntrada()
 	$tipousuario = $_POST["tu"];
 	$u = GetSQLValueString($_POST["usuario"],"text");
 	$c = GetSQLValueString($_POST["clave"],"text");
-	//global $u;
-	//print ($tipousuario);
-	if($tipousuario == "alumno")
+	
+	if($tipousuario == 'alumno')
 	{
 		$respuesta = EntraAlumn($u,$c);
 		print json_encode($respuesta); 
@@ -35,16 +34,6 @@ function ValidaEntrada()
 		print json_encode($respuesta);
 	}
 
-}
-
-//ESTA FUNCION LA DEBE REALIZAR DIVICION DE ESTUDIOS PROFECIONALES, POR LO TANTO
-//DEBE ESTAR EN EL  ARCHIVO conexionpersonal.php -> AQUI ESTAN ALMACENADAS LAS FUNCIONES
-//QUE REALIZA EL PERSONAL. 
-function conectaBD()
-{
-  $conexion = mysql_connect('localhost','root','');
-  mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
-  return $conexion;
 }
 
 function LlenarTablaProy()
