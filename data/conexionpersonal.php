@@ -115,4 +115,39 @@ function AsignarProyecto($aluctr)
 	
 }
 
+function SolicitudesPendientes()
+{
+	$conexion = conectaBDpersonal('divestpro');
+	$res = false;
+	$consulta = sprintf("SELECT * FROM solPendientes");
+	$resultado = mysql_query($consulta);
+	$renglones = "";
+		$renglones.="<tr class='warning'>";
+		$renglones.="<th>No. Control</th>";
+		$renglones.="<th>Alumno </th>";
+		$renglones.="<th>Proyecto</th>";
+		$renglones.="<th>Empresa</th>";
+		$renglones.="<th>Seleccionar</th>";
+		$renglones.="</tr>";
+		while ($registro = mysql_fetch_array($resultado)) {
+			$renglones.="<tr>";
+			$renglones.="<td>".$registro["aluctr"]."</td>";
+			$renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
+			$renglones.="<td>".$registro["nombreproy"]."</td>";
+			$renglones.="<td>".$registro["nombreempr"]."</td>";
+			$renglones.="<td><button class=' btnAsignar btn btn-success' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-ok' value=></span>
+						Asignar 
+						<button class='btnCancelar btn btn-danger' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-remove'></span>
+						Cancelar</td>";
+			$renglones.="</tr>";
+			$res = true;
+		}
+		$salidaJSON = array('respuesta'	=> $res,
+						'renglones'	=> $renglones);
+		return $salidaJSON;
+}
+
+
 ?>
