@@ -39,16 +39,21 @@ function ValidaEntrada()
 function LlenarTablaProy()
 {	
 	$tipousuario = $_POST["tUsuario"];
-	if($tipousuario == 'asesor')
-	{
+	if($tipousuario == 'asesor') //Si el usuario es asesor validamos que solo pueda ver los 
+	{							 //proyectos y alumnos a los que asesora.	
 		$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
-		$llenarProyectos = ProyectosAsesor($usuario);
+		$llenarProyectos = ProyectosAsignados($usuario,$tipousuario);
 	}
 		
-	else
+	elseif ($tipousuario == 'alumno')
 	{
 		$ncontrol = GetSQLValueString($_POST["usuario"],"sincomillas");
 		$llenarProyectos = MostrarBanco($ncontrol);
+	}
+	else
+	{
+		$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
+		$llenarProyectos = ProyectosAsignados($usuario,$tipousuario);
 	}
 		
 	print json_encode($llenarProyectos);
