@@ -38,7 +38,13 @@ FROM solicitudes s, dcarre dcar, dperso dp, dcalum dc
 WHERE s.aluctr = dc.aluctr and dc.carcve = dcar.carcve and dcar.depcve = dp.perdepa
     and not (dp.pernom = '.'));
     
--- VISTA PARA BUSCAR A AL PERSONAL DE VINCULACION
+-- VISTA PARA BUSCAR SOLO AL PERSONAL QUE PERTENECE AL DEPARTAMENTO DE VINCULACION
 create view buscaVinculacion as (select dp.percve, dp.pernom, dp.perape, dp.perdep, dp.perpas, dd.depcve
 from dperso dp, ddepto dd 
 where dp.perdep = dd.depcve and dp.perdep = 111);
+
+-- VISTA PARA BUSCAR SOLO AL PERSONAL QUE PERTENECE AL DEPARTAMENTO DE DIVICION DE ESTUDIOS PROFECIONALES
+
+create view buscaDivestPro as (select dp.percve, dp.pernom, dp.perape, dp.perdep, dp.perpas, dd.depcve
+from dperso dp, ddepto dd 
+where dp.perdep = dd.depcve and dp.perdep = 401);
