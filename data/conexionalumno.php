@@ -92,4 +92,45 @@ function cargoresidencias($aluctr)
   else
     return false;
 }
+
+function EnviarSol($seleccion,$ncontrol)
+{ 
+  $res = false;
+  $conexion = conectaBDalumno('alumno');
+  $consultlaProy = sprintf("SELECT cveproy,nombre, numresi FROM proyectos WHERE cveproy=%s",$seleccion);
+  $resultadoProy = mysql_query($consultlaProy);
+  //consultar para verificar si el alumno ya realizo la solicitud
+  $consultaSolicitudes = sprintf("SELECT * FROM solicitudes WHERE aluctr=%s",$ncontrol);
+  $resultadoSolicitudes = mysql_query($consultaSolicitudes);
+  $renglones = mysql_fetch_array($resultadoSolicitudes);
+  $aluctr = $renglones["aluctr"];
+  
+  if ($columna = mysql_fetch_array($resultadoProy))
+  {
+    $cveproy = $columna["cveproy"];
+    if($cveproy = $seleccion)
+    {
+      if($aluctr != $ncontrol)
+      {
+        $idProy = $columna["cveproy"]; 
+        $pdocve = obtenPdo();
+        $numr = $columna["numresi"] - 1;
+        $insertSol =sprintf("INSERT INTO solicitudes (pdocve,aluctr,cveproy) VALUES(%s,%s,%s)",$pdocve,$ncontrol,$seleccion);
+        $otroresultado = mysql_query($insertSol);
+      
+        if(mysql_affected_rows()>0)
+        {
+          $res = true;
+          $updateProy = sprintf("UPDATE proyectos SET numresi=%d WHERE cveproy =%s",$numr,$idProy);
+          mysql_query($updateProy);
+        }
+      }else
+        $res = false;
+      
+    }
+  }
+  
+  $salidaJSON = array('respuesta' => $res);
+  return $salidaJSON;
+}
 ?>
