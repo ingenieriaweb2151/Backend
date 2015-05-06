@@ -26,11 +26,12 @@ use residencias;
  
  -- VISTA DE LOS PROYECTOS ASIGNADOS AL ALUMNO Y ASESOR
  
- create view proyAsignado as(
- Select ap.aluctr, a.alunom, a.aluapp as apealumn, a.aluapm, p.nombre as nombreproy, p.cveproy, e.nombre as nombreempr, e.cveempr, dp.pernom, dp.perape, dp.percve 
- from dalumn a, proyectos p,asignproyectos ap, empresas e, dperso dp, asignaseinternos ai 
- WHERE a.aluctr = ap.aluctr and p.cveproy = ap.cveproy and ai.cveproy = p.cveproy and e.cveempr = ap.cveempr and ai.percve = dp.percve);
- 
+create view proyAsignado as(
+Select ap.aluctr, a.alunom, a.aluapp as apealumn, a.aluapm, p.nombre as nombreproy, p.cveproy,
+ e.nombre as nombreempr, e.cveempr, dp.pernom, dp.perape, dp.percve 
+ from dalumn a, proyectos p,
+ asignproyectos ap, empresas e, dperso dp, asignaseinternos ai 
+ WHERE a.aluctr = ap.aluctr and p.cveproy = ap.cveproy and ai.cveproy = p.cveproy and e.cveempr = ap.cveempr and ai.percve = dp.percve and ai.aluctr = ap.aluctr);
  -- VISTA PARA BUSCAR A LOS POSIBLES ASESORES PARA ASIGNAR A LOS ALUMNOS DEPENDIENDO LA CARRERA
 create view buscarAsesores as(
 SELECT s.aluctr, dc.carcve, dp.percve, dcar.depcve, dcar.carnom, dp.pernom, dp.perape 

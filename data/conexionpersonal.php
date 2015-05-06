@@ -1,5 +1,5 @@
 <?php
-
+//require ('algoritmo.php');
 function conectaBDpersonal($tipousuario)
 {
   $conexion = mysql_connect('localhost',$tipousuario,'');
@@ -20,16 +20,16 @@ function EntraAsesor($u,$c)
     {
     	$res = true;
     	$nombre = $registro["pernom"]." ".$registro["perape"];
-
+/*
         $fecha = date("y-m-d");
         $hora = time("H:i:s");
 		$newToken = obtenToken(8);
         $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
                   VALUES('$nombre','$fecha','$hora','$newToken');";
-        mysql_query($sql);
+        mysql_query($sql);*/
     }
 	$salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre, 'token' => $newToken);
+                  'nombre'    => $nombre);
     return $salidaJSON;
    
 }
@@ -46,15 +46,15 @@ function EntraVinculacion($u,$c)
 	{
 		$res = true;
     	$nombre = $registro["pernom"]." ".$registro["perape"];
-    	$fecha = date("y-m-d");
+    	/*$fecha = date("y-m-d");
         $hora = time("H:i:s");
 		$newToken = obtenToken(8);
         $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
                   VALUES('$nombre','$fecha','$hora','$newToken');";
-        mysql_query($sql);
+        mysql_query($sql);*/
 	}
 	$salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre, 'token' => $newToken);
+                  'nombre'    => $nombre);
         //print json_encode($salidaJSON);
     return $salidaJSON;
 }
@@ -71,15 +71,16 @@ function EntraDivespro($u,$c)
 	{
 		$res = true;
         $nombre = $registro["pernom"]." ".$registro["perape"];
-        $fecha = date("y-m-d");
+       /* $fecha = date("y-m-d");
         $hora = time("H:i:s");
 		$newToken = obtenToken(8);
+		var_dump($newToken);
         $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
                   VALUES('$nombre','$fecha','$hora','$newToken');";
-        mysql_query($sql);
+        mysql_query($sql);*/
 	}
 	$salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre, 'token' => $newToken);
+                  'nombre'    => $nombre);
         //print json_encode($salidaJSON);
     return $salidaJSON;
 }

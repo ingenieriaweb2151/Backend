@@ -164,5 +164,9 @@ function subirArchivo()
     }
     else{echo $msg;}
 }
+function buscaToken()
+{
+  
+}
 
 ?>
