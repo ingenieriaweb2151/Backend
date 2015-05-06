@@ -133,4 +133,50 @@ function EnviarSol($seleccion,$ncontrol)
   $salidaJSON = array('respuesta' => $res);
   return $salidaJSON;
 }
+//FUNCION CREADA POR LEON AVILA
+function MostrarBanco()
+{
+  $conexion = conectaBDalumno('alumno');
+  //Preparar la consulta SQL
+  $consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
+    
+
+  //Ejecutamos la consulta.
+  $resultado = mysql_query($consulta);
+  //Validamos los datos.
+  $res = false; //Saber el correcto
+  $renglones = "";
+  
+    $renglones.="<tr>";
+    $renglones.="<th>Nombre Proyecto</th>";
+    $renglones.="<th>Objetivo</th>";
+    $renglones.="<th>Justificacion</th>";
+    $renglones.="<th>Empresa</th>";
+    $renglones.="<th>Encargado</th>";
+    $renglones.="<th>Telefono</th>";
+    $renglones.="<th>Cupos</th>";
+    $renglones.="<th>Cargar</th>";
+    $renglones.="</tr>";
+    while($registro = mysql_fetch_array($resultado)){
+      $res = true;
+
+      $renglones.="<tr>";
+      $renglones.="<td>".$registro["nombreproy"]."</td>";
+      $renglones.="<td>".$registro["objetiv"]."</td>";
+      $renglones.="<td>".$registro["justifi"]."</td>";
+      $renglones.="<td>".$registro["nombreemp"]."</td>";
+      $renglones.="<td>".$registro["nomresp"]."</td>";
+      $renglones.="<td>".$registro["telef"]."</td>";
+      $renglones.="<td>".$registro["numresi"]."</td>";
+      $renglones.="<td>";
+      $renglones.="<input type='radio' class='radProy' name='seleccionar' value=".$registro["clave"].">";
+      $renglones.="</td>";
+      $renglones.="</tr>";
+    }
+  //}
+  $salidaJSON = array('respuesta' => $res,
+            'renglones' => $renglones);
+  //print json_encode($salidaJSON);
+  return $salidaJSON;
+}
 ?>
