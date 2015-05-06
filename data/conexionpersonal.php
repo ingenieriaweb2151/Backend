@@ -74,20 +74,33 @@ function SolicitudesPendientes()
 	$consulta = sprintf("SELECT * FROM solPendientes");
 	$resultado = mysql_query($consulta);
 	$renglones = "";
+	$renAsesor="";
 		$renglones.="<tr class='warning'>";
 		$renglones.="<th>No. Control</th>";
 		$renglones.="<th>Alumno </th>";
 		$renglones.="<th>Proyecto</th>";
 		$renglones.="<th>Empresa</th>";
+		$renglones.="<th>Asesor</th>";
 		$renglones.="<th>Seleccionar</th>";
 		$renglones.="</tr>";
 		while ($registro = mysql_fetch_array($resultado)) {
+			$consultaAsesor = sprintf("SELECT * FROM buscarAsesores WHERE aluctr=%s",$registro["aluctr"]);
+			$resultadoAsesor = mysql_query($consultaAsesor);
+
 			$renglones.="<tr>";
 			$renglones.="<td>".$registro["aluctr"]."</td>";
 			$renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
 			$renglones.="<td>".$registro["nombreproy"]."</td>";
 			$renglones.="<td>".$registro["nombreempr"]."</td>"; 
-			$renglones.="<td><button class=' btnAsignar btn btn-success' value=".$registro["aluctr"].">
+			$renglones.="<td>
+			<select  class='ddlAsesores ddl dropdown-toggle' value=".$registro["aluctr"].">";
+			//Asignamos a cada option el asesor correspondiente a la carrera
+			 while ($renAsesor=mysql_fetch_array($resultadoAsesor))
+			 {
+			 	$renglones.="<option value=".$renAsesor["percve"].">".$renAsesor["pernom"]." ".$renAsesor["perape"]."</option>";
+			 }
+			 $renglones.="</select></td>"; 
+			 $renglones.="<td><button class=' btnAsignar btn btn-success' value=".$registro["aluctr"].">
 						<span class='glyphicon glyphicon-ok' value=></span>
 						Asignar 
 						<button class='btnCancelar btn btn-danger' value=".$registro["aluctr"].">
