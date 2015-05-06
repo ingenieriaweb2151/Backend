@@ -5,9 +5,9 @@
 //conectaBDalumno(): Permite conectarnos a la BD segun el tipo de usuario, en este caso 'alumno'
 function conectaBDalumno($tipousuario)
 {
-  $conexion = mysql_connect('localhost',$tipousuario,'');
-  mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
-  return $conexion;
+    $conexion = mysql_connect('localhost',$tipousuario,'');
+    mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
+    return $conexion;
 }
 
 //EntraAlumn(): Valida si el alumno esta en proceso de residencias, verifica
