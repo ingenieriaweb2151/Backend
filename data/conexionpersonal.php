@@ -32,7 +32,7 @@ function EntraVinculacion($u,$c)
 	$conexion = conectaBDpersonal('vinculacion');
 	$res = false;
 	$nombre = "";
-	$consulta = sprintf("select * from dperso where not (perdep ='0') and not (pernom = '.') and percve=%s and perpas=%s",$u,$c);
+	$consulta = sprintf("SELECT * FROM buscavinculacion WHERE percve=%s AND perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
 	if($registro = mysql_fetch_array($resultado))
 	{
