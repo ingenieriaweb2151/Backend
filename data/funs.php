@@ -62,7 +62,7 @@ function LlenarTablaProy()
 function enviarSolicitud()
 {	
 	//Sleccion es el value del radio boton que fue seleccionado, el value contiene la clave del proyecto
-	$seleccion = GetSQLValueString($_POST["cargarproy"],"text"); 
+	$seleccion = GetSQLValueString($_POST["cargarproy"],"sincomillas"); 
 	//ncontrol = aluctr
 	$ncontrol = GetSQLValueString($_POST["usuario"],"sincomillas");
 
