@@ -1,5 +1,8 @@
 <?php 
+//En este archivo se encuentran todas las funciones de las operaciones que puede realizar 
+//un usuario de tipo alumno
 
+//conectaBDalumno(): Permite conectarnos a la BD segun el tipo de usuario, en este caso 'alumno'
 function conectaBDalumno($tipousuario)
 {
   $conexion = mysql_connect('localhost',$tipousuario,'');
@@ -7,17 +10,18 @@ function conectaBDalumno($tipousuario)
   return $conexion;
 }
 
+//EntraAlumn(): Valida si el alumno esta en proceso de residencias, verifica
 function EntraAlumn($u,$c)
 {
-  $conexion = conectaBDalumno('root');
+  $conexion = conectaBDalumno('alumno');
       if(buscaralumno($u))
       {
         $consulta  = sprintf("select * from dalumn where aluctr=%s and alupas=%s",$u,$c);
         //Ejecutamos la consulta.
         $resultado = mysql_query($consulta);
         //Validamos los datos.
-        $res = false; //Saber el correcto
-        $nombre = ""; //Nombre completo
+        $res = false; 
+        $nombre = ""; 
         $registro = mysql_fetch_array($resultado);
         if($registro>0)
         {
@@ -34,7 +38,7 @@ function EntraAlumn($u,$c)
         
       }
       else
-      {//configurar eventos.js para que aparesca el mensaje en un alert();
+      {
         $msj = "Lo sentimos el alumno no esta en proceso de recidencias";
         $res = false;
         $salidaJSON = array('respuesta' => $res,
@@ -43,16 +47,16 @@ function EntraAlumn($u,$c)
         return $salidaJSON;
       } 
 }
- //Busca al alumno en la tabla alureg: esta tabla almacena a todos los alumnos que estan en proceso de residencias
+ //Busca al alumno en la tabla alureg: esta tabla almacena a todos los alumnos que estan 
+//en proceso de residencias
 function buscaralumno($aluctr)
 {
-  $conexion = conectaBDalumno('root');
+  $conexion = conectaBDalumno('alumno');
   $consulta = sprintf("Select * from alureg where aluctr=%s",$aluctr); //Verificamos si ya esta registrado
   $resultado = mysql_query($consulta);
   if($registro = mysql_fetch_array($resultado))
   {
     return true;
-    print("El alumno esta en proceso de recidencias");
   }//sino esta registrado verificamos si cargo la mat. residencias y así darlo de alta
   elseif(cargoresidencias($aluctr)){
     $registrar = registraalumno($aluctr);
@@ -70,11 +74,9 @@ function registraalumno($aluctr)
     $resultado = mysql_query($consulta,$conexion);
     if (mysql_affected_rows() > 0) {
       return true;
-      //print("Registrado con exito");
     }
     else{
       return false;
-      //print("No se pudo registrar");
     }
       
 }
@@ -92,7 +94,8 @@ function cargoresidencias($aluctr)
   else
     return false;
 }
-
+//EnviarSol(): Permite que el alumno seleccione un proyecto y envie una solicitud a
+//division de estudios profecionales
 function EnviarSol($seleccion,$ncontrol)
 { 
   $res = false;
@@ -110,7 +113,7 @@ function EnviarSol($seleccion,$ncontrol)
     $cveproy = $columna["cveproy"];
     if($cveproy = $seleccion)
     {
-      if($aluctr != $ncontrol)
+      if($aluctr != $ncontrol) //if = sin son iguales significa que ya tiene una solicitud enviada
       {
         $idProy = $columna["cveproy"]; 
         $pdocve = obtenPdo();
@@ -121,6 +124,7 @@ function EnviarSol($seleccion,$ncontrol)
         if(mysql_affected_rows()>0)
         {
           $res = true;
+          //Al enviar la solicitud de proyecto, actualiza el numero de residentes -1
           $updateProy = sprintf("UPDATE proyectos SET numresi=%d WHERE cveproy =%s",$numr,$idProy);
           mysql_query($updateProy);
         }
@@ -137,7 +141,8 @@ function EnviarSol($seleccion,$ncontrol)
 function MostrarBanco()
 {
   $conexion = conectaBDalumno('alumno');
-  //Preparar la consulta SQL
+  //Trae de la BD todos los proyectos siempre y cuando el numero de residentes sea mayor a 0
+  //BancoProy es una vista**
   $consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
     
 
@@ -168,7 +173,7 @@ function MostrarBanco()
       $renglones.="<td>".$registro["nomresp"]."</td>";
       $renglones.="<td>".$registro["telef"]."</td>";
       $renglones.="<td>".$registro["numresi"]."</td>";
-      $renglones.="<td>";
+      $renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
       $renglones.="<input type='radio' class='radProy' name='seleccionar' value=".$registro["clave"].">";
       $renglones.="</td>";
       $renglones.="</tr>";
