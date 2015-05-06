@@ -22,17 +22,24 @@ function EntraAlumn($u,$c)
         //Validamos los datos.
         $res = false; 
         $nombre = ""; 
+        $fecha = date("y-m-d");
+        $hora = time("H:i:s");
         $registro = mysql_fetch_array($resultado);
         if($registro>0)
         {
           $res = true;
           $nombre = $registro["alunom"]." ".$registro["aluapp"];
+          $newToken = obtenToken(8);
+          $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
+                  VALUES('$nombre','$fecha','$hora','$newToken');";
+          mysql_query($sql);
+          
         }
         else{
          $res = false;     
         }
         $salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre);
+                  'nombre'    => $nombre, 'token' => $newToken); //
         //print json_encode($salidaJSON);
         return $salidaJSON;
         
