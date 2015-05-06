@@ -448,8 +448,9 @@ var CargarProy = function()
 	var AsignaProy = function()
 	{	
 		var valorBoton = $(".btnAsignar").attr("value");
-		alert("funciono "+valorBoton);
-		var parametros = "opc=AsignaProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
+		var asesor = $(".ddlAsesores").val(); //obtenemos el id del asesor y lo mandamos en los parametros
+		//alert("ID del asesor: "+asesor);
+		var parametros = "opc=AsignaProy"+"&ncontrol="+valorBoton+"&asesor="+asesor+"&id="+Math.random();
 		$.ajax({
 				cache: false,
 				url: 'data/funs.php',
