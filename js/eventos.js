@@ -75,8 +75,6 @@ var inicio = function(){
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
-
-							
 						}
 
 						if(optionHTML != "Alumno"){
@@ -91,7 +89,7 @@ var inicio = function(){
 			});
 		}
 		else
-			alert("Llene todos campos");
+			alert("Favor de llenar todos los campos");
 		// if(u=="pw" && c=="clave")
 		// {
 		// 	$("#panelEntrada").hide("slow");
@@ -102,23 +100,23 @@ var inicio = function(){
 		var c = cargado;
 		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&id="+Math.random();
 		$.ajax({
-				cache:false,
-				url: "data/funs.php",
-				type: "POST",
-				dataType: "json",
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true) 
-					{
-						//alert("Tabla proyecto");
-						$("#tablaproy").html(response.renglones);
-						$("#tablaproy").show();
-					}
-					else
-						alert("No hay proyectos");
-						$("#tablaproy").html(response.renglones);
+			cache:false,
+			url: "data/funs.php",
+			type: "POST",
+			dataType: "json",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true) 
+				{
+					//alert("Tabla proyecto");
+					$("#tablaproy").html(response.renglones);
+					$("#tablaproy").show();
 				}
-			});
+				else
+					alert("No hay proyectos");
+					$("#tablaproy").html(response.renglones);
+			}
+		});
 	}
 
 	var validaAluProy = function(response){
@@ -183,7 +181,6 @@ var inicio = function(){
 			});
 		}*/
 
-		
 		$("#informacion").hide();
 		$("#documentacion").hide();
 		$("#entregas").hide();
@@ -193,12 +190,10 @@ var inicio = function(){
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
 
-		
 		//PAHO
 		llenarTablaProy(true);
 		$("#btnSolicita").show();
 		$("#btnCargarProy").show();
-
 	}
 
 	var traeDocumentacion = function(){
@@ -210,7 +205,6 @@ var inicio = function(){
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
-
 	}
 
 	var traeEntregas = function(){
@@ -221,7 +215,6 @@ var inicio = function(){
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
 		$("#divSolicitudes").hide();
-
 	 }
 
 
@@ -269,7 +262,7 @@ var inicio = function(){
 		var c = $("#txtCarrrera").val();
 		var r = $("#txtCupos").val();
 		
-			var parametros = "opc=guardaproyecto"+"&nombre_empresa="+u+"&direccion="+n+"&telefono="+a+"&encargado="+t+"&nombre_proyecto="+e+"&carrera="+c+"&cupos="+r+"&id="+Math.random();
+		var parametros = "opc=guardaproyecto"+"&nombre_empresa="+u+"&direccion="+n+"&telefono="+a+"&encargado="+t+"&nombre_proyecto="+e+"&carrera="+c+"&cupos="+r+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -332,7 +325,7 @@ var inicio = function(){
 	}
 
 	var Solicitaste = function(){
-		alert("Tu proyecto esta en proceso de aceptacion, podras cargarlo una vez lo validemos");
+		alert("Tu proyecto está en proceso de aceptación, podrás cargarlo una vez que éste sea validado");
 		$("#solicitaProyecto").hide();
 		$("#banco").hide();
 		$("#informacion").show();
@@ -358,6 +351,7 @@ var inicio = function(){
 			}
 		});
 	}
+
 	var Solicitudes = function()
 	{
 		$("#divSolicitudes").show();
@@ -412,9 +406,9 @@ var inicio = function(){
 			this.innerHTML = "Ver más";
 	}
 
-//PAHO
-//FUNCION PARA CARGAR PROYECTO 
-var CargarProy = function()
+	//PAHO
+	//FUNCION PARA CARGAR PROYECTO 
+	var CargarProy = function()
 	{
 		var seleccion = $("input[name='seleccionar']:checked").val();
 		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&ncontrol="+datos["ncontrol"]+"&id="+Math.random();
@@ -431,7 +425,7 @@ var CargarProy = function()
 					if(response.respuesta)
 						alert("Tu solicitud ha sido enviada.");
 					else
-						alert("No se a podido realizar la solicitud.");
+						alert("No se ha podido realizar la solicitud.");
 				},
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
@@ -440,7 +434,6 @@ var CargarProy = function()
 		}
 		else
 			alert("Selecciona un proyecto");
-		
 	}
 
 	//PAHO
@@ -450,22 +443,23 @@ var CargarProy = function()
 		alert("funciono "+valorBoton);
 		var parametros = "opc=AsignaProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
 		$.ajax({
-				cache: false,
-				url: 'data/funs.php',
-				type: 'POST',
-				dataType: 'json',
-				data: parametros,
-				success:function(response){
-					if(response.respuesta)
-						alert("Proyecto asignado correctamente.");
-					else
-						alert("No se pudo asignar el proyecto.");
-				},
-				error:function(xhr,ajaxOptions,x){
-					alert("Error de conexión.");
-				}
-			});
+			cache: false,
+			url: 'data/funs.php',
+			type: 'POST',
+			dataType: 'json',
+			data: parametros,
+			success:function(response){
+				if(response.respuesta)
+					alert("Proyecto asignado correctamente.");
+				else
+					alert("No se pudo asignar el proyecto.");
+			},
+			error:function(xhr,ajaxOptions,x){
+				alert("Error de conexión.");
+			}
+		});
 	}
+
 //AUN NO FUNCIONA :c
 	var CancelarProy = function()
 	{
@@ -473,21 +467,21 @@ var CargarProy = function()
 		alert("funciono "+valorBoton);
 		var parametros = "opc=CancelarProy"+"&ncontrol="+valorBoton+"&id="+Math.random();
 		$.ajax({
-				cache: false,
-				url: 'data/funs.php',
-				type: 'POST',
-				dataType: 'json',
-				data: parametros,
-				success:function(response){
-					if(response.respuesta)
-						alert("Solicitud cancelada.");
-					else
-						alert("No se pudo dar de baja la solicitud.");
-				},
-				error:function(xhr,ajaxOptions,x){
-					alert("Error de conexión.");
-				}
-			});
+			cache: false,
+			url: 'data/funs.php',
+			type: 'POST',
+			dataType: 'json',
+			data: parametros,
+			success:function(response){
+				if(response.respuesta)
+					alert("Solicitud cancelada.");
+				else
+					alert("No se pudo dar de baja la solicitud.");
+			},
+			error:function(xhr,ajaxOptions,x){
+				alert("Error de conexión.");
+			}
+		});
 	}
 
 	//Configuramos los eventos.
