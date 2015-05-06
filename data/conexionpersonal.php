@@ -226,7 +226,7 @@ function ProyectosAsignados($usuario,$tipousuario)
    		  $renglones.="</tr>";
    		}
     }
-    else
+    elseif ($tipousuario == 'divestpro' or $tipousuario =='vinculacion')
     {
     	$consultlaProy = sprintf("SELECT * FROM proyAsignado");
     	$resultadoProy = mysql_query($consultlaProy);
@@ -248,6 +248,39 @@ function ProyectosAsignados($usuario,$tipousuario)
    		  $renglones.="</tr>";
    		}
     }
+    else
+    {
+    	$consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
+    //Ejecutamos la consulta.
+    	$resultado = mysql_query($consulta);
+    //Validamos los datos.
+    //Saber el correcto
+    	$renglones = "";
+    	$renglones.="<tr>";
+    	$renglones.="<th>Nombre Proyecto</th>";
+    	$renglones.="<th>Objetivo</th>";
+    	$renglones.="<th>Justificacion</th>";
+    	$renglones.="<th>Empresa</th>";
+    	$renglones.="<th>Encargado</th>";
+    	$renglones.="<th>Telefono</th>";
+    	$renglones.="<th>Cupos</th>";
+    	$renglones.="</tr>";
+   	 while($registro = mysql_fetch_array($resultado))
+   	  {
+      		$res = true;
+
+      	$renglones.="<tr>";
+      	$renglones.="<td>".$registro["nombreproy"]."</td>";
+      	$renglones.="<td>".$registro["objetiv"]."</td>";
+      	$renglones.="<td>".$registro["justifi"]."</td>";
+      	$renglones.="<td>".$registro["nombreemp"]."</td>";
+      	$renglones.="<td>".$registro["nomresp"]."</td>";
+      	$renglones.="<td>".$registro["telef"]."</td>";
+      	$renglones.="<td>".$registro["numresi"]."</td>";
+     	 $renglones.="</tr>";
+      }
+    }
+    
     
     $salidaJSON = array('respuesta' => $res,
             'renglones' => $renglones);
