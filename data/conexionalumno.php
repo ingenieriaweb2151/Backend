@@ -138,20 +138,21 @@ function EnviarSol($seleccion,$ncontrol)
   return $salidaJSON;
 }
 //FUNCION CREADA POR LEON AVILA
-function MostrarBanco()
+function MostrarBanco($ncontrol)
 {
   $conexion = conectaBDalumno('alumno');
-  //Trae de la BD todos los proyectos siempre y cuando el numero de residentes sea mayor a 0
-  //BancoProy es una vista**
-  $consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
-    
-
-  //Ejecutamos la consulta.
-  $resultado = mysql_query($consulta);
-  //Validamos los datos.
-  $res = false; //Saber el correcto
-  $renglones = "";
-  
+  $tieneProy = tieneProyecto($ncontrol);
+  $res = false;
+  if(!($tieneProy))
+  {
+    //Trae de la BD todos los proyectos siempre y cuando el numero de residentes sea mayor a 0
+    //BancoProy es una vista**
+    $consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
+    //Ejecutamos la consulta.
+    $resultado = mysql_query($consulta);
+    //Validamos los datos.
+    //Saber el correcto
+    $renglones = "";
     $renglones.="<tr>";
     $renglones.="<th>Nombre Proyecto</th>";
     $renglones.="<th>Objetivo</th>";
@@ -178,10 +179,44 @@ function MostrarBanco()
       $renglones.="</td>";
       $renglones.="</tr>";
     }
-  //}
+  }
+  else
+  { 
+    $consultlaProy = sprintf("SELECT * FROM proyAsignado");
+    $resultadoProy = mysql_query($consultlaProy);
+    $renglones = "";
+    $renglones.="<tr>";
+    $renglones.="<th>Alumno</th>";
+    $renglones.="<th>Proyecto</th>";
+    $renglones.="<th>Empresa</th>";
+    $renglones.="<th>Asesor</th>";
+    $renglones.="</tr>";
+    while($registro = mysql_fetch_array($resultadoProy))
+    {
+      $res=true;
+      $renglones.="<tr>";
+      $renglones.="<td>".$registro["alunom"]." ".$registro["apealumn"]." ".$registro["aluapm"]."</td>";
+      $renglones.="<td>".$registro["nombreproy"]."</td>";
+      $renglones.="<td>".$registro["nombreempr"]."</td>";
+      $renglones.="<td>".$registro["pernom"].$registro["perape"]."</td>";
+      $renglones.="</tr>";
+    }
+  }
+  
   $salidaJSON = array('respuesta' => $res,
             'renglones' => $renglones);
   //print json_encode($salidaJSON);
   return $salidaJSON;
+}
+
+function tieneProyecto($ncontrol)
+{
+  $conexion = conectaBDalumno('alumno');
+  $consulta = sprintf("SELECT * FROM asignproyectos WHERE aluctr=%s",$ncontrol);
+  $resultado = mysql_query($consulta);
+  if($renglones = mysql_fetch_array($resultado))
+    return true;
+  else
+    return false;
 }
 ?>

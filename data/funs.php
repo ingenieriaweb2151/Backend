@@ -38,7 +38,8 @@ function ValidaEntrada()
 
 function LlenarTablaProy()
 {
-	$llenarProyectos = MostrarBanco();
+	$ncontrol = GetSQLValueString($_POST["ncontrol"],"sincomillas");
+	$llenarProyectos = MostrarBanco($ncontrol);
 	print json_encode($llenarProyectos);
 }
 
