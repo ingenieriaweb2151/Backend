@@ -100,7 +100,8 @@ var inicio = function(){
 	}
 	var llenarTablaProy = function(cargado){
 		var c = cargado;
-		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&id="+Math.random();
+		//Agrege el numero de control del alumno a los parametros, para verificar tiene proyecto asignado
+		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&ncontrol="+datos["ncontrol"]+"&id="+Math.random();
 		$.ajax({
 				cache:false,
 				url: "data/funs.php",
