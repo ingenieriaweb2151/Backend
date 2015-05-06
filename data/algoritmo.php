@@ -67,26 +67,7 @@ function obtenCaracterAleatorio($arreglo) {
     return $newToken;
   }
 
-/*
-$nuevoToken = "";
-$conexion = conectaBD();
-  const INTENTOS = 5;
-  $contador = 1;
-  while( $contador<=INTENTOS ) {
-    
-    $tmpToken = obtenToken(8);
-    //Validar que no exista ya el token generado
-    $sql = "SELECT  count(clave) as total FROM sesiones
-            WHERE token = '$tmpToken';";
-    $result = mysql_query($sql);
-    $fila = mysql_fetch_array($result);
-    //Si no existe, entonces el token generado es valido
-    if( $fila['total']==0 ) {
-      $nuevoToken = $tmpToken;
-      break;  //Salir del bucle
-    }
-    $contador++;
-  }*/
+
 //Funcion para obtener el periodo actual
 function obtenPdo()
 {
@@ -182,6 +163,10 @@ function subirArchivo()
       echo "Error al subir el archivo";}
     }
     else{echo $msg;}
+}
+function buscaToken()
+{
+  
 }
 
 ?>
