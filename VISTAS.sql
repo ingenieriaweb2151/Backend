@@ -32,3 +32,9 @@ use residencias;
     dp.perape, dp.percve 
     from dalumn a, proyectos p,asignproyectos ap, empresas e, dperso dp, asignaseinternos ai
     WHERE a.aluctr = ap.aluctr and p.cveproy = ap.cveproy and e.cveempr = ap.cveempr and ai.percve = dp.percve);
+    
+create view buscarAsesores as(
+SELECT s.aluctr, dc.carcve, dp.percve, dcar.depcve, dcar.carnom, dp.pernom, dp.perape 
+FROM solicitudes s, dcarre dcar, dperso dp, dcalum dc 
+WHERE s.aluctr = dc.aluctr and dc.carcve = dcar.carcve and dcar.depcve = dp.perdepa
+    and not (dp.pernom = '.'));
