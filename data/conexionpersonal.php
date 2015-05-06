@@ -11,7 +11,8 @@ function EntraAsesor($u,$c)
 {	
 	$conexion = conectaBDpersonal('asesor');
 	$res = false;
-	$nombre = "";
+	$nombre = ""; 
+	//Vrifica si el maestro sea asesor de uno o mas proyectos, de lo contrario no se le permite el acceso al sistema
 	$consulta = sprintf("SELECT * FROM maestroAsesor WHERE percve=%s AND perpas=%s",$u,$c);
 	$resultado = mysql_query($consulta);
 
@@ -142,7 +143,7 @@ function BajaSolicitud($aluctr)
 	return $salidaJSON;
 }
 
-function AsignarProyecto($aluctr)
+function AsignarProyecto($aluctr,$asesor)
 {
 	
 	$conexion = conectaBDpersonal('divestpro');
