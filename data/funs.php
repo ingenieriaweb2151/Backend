@@ -2,7 +2,12 @@
 require('conexionalumno.php');
 require('algoritmo.php');
 require('conexionpersonal.php');
-
+function conectaBD()
+{
+  $conexion = mysql_connect('localhost',"root",'');
+  mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
+  return $conexion;
+}
 function ValidaEntrada()
 {	
 	$tipousuario = $_POST["tu"];
@@ -13,7 +18,6 @@ function ValidaEntrada()
 	{
 		$respuesta = EntraAlumn($u,$c);
 		print json_encode($respuesta); 
-		
 	}
 
 	elseif ($tipousuario == 'asesor')
@@ -50,10 +54,46 @@ function LlenarTablaProy()
 		$ncontrol = GetSQLValueString($_POST["usuario"],"sincomillas");
 		$llenarProyectos = MostrarBanco($ncontrol);
 	}
-	else
+	elseif($tipousuario == 'vinculacion' OR $tipousuario == 'divestpro')
 	{
 		$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
 		$llenarProyectos = ProyectosAsignados($usuario,$tipousuario);
+	}
+	else
+	{
+		    //Trae de la BD todos los proyectos siempre y cuando el numero de residentes sea mayor a 0
+    		//BancoProy es una vista**
+		$conexiion = conectaBD();
+    	$consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
+    	//Ejecutamos la consulta.
+    	$resultado = mysql_query($consulta);
+    	//Validamos los datos.
+    	//Saber el correcto
+    	$renglones = "";
+    	$renglones.="<tr>";
+    	$renglones.="<th>Nombre Proyecto</th>";
+    	$renglones.="<th>Objetivo</th>";
+    	$renglones.="<th>Justificacion</th>";
+    	$renglones.="<th>Empresa</th>";
+    	$renglones.="<th>Encargado</th>";
+    	$renglones.="<th>Telefono</th>";
+    	$renglones.="<th>Cupos</th>";
+    	$renglones.="</tr>";
+    	while($registro = mysql_fetch_array($resultado)){
+      		$res = true;
+
+      		$renglones.="<tr>";
+      		$renglones.="<td>".$registro["nombreproy"]."</td>";
+      		$renglones.="<td>".$registro["objetiv"]."</td>";
+      		$renglones.="<td>".$registro["justifi"]."</td>";
+      		$renglones.="<td>".$registro["nombreemp"]."</td>";
+      		$renglones.="<td>".$registro["nomresp"]."</td>";
+      		$renglones.="<td>".$registro["telef"]."</td>";
+      		$renglones.="<td>".$registro["numresi"]."</td>";
+      		$renglones.="</tr>";
+    	}
+    	$llenarProyectos = array('respuesta' => $res,
+            'renglones' => $renglones);
 	}
 		
 	print json_encode($llenarProyectos);
@@ -92,7 +132,23 @@ function CancelarProy()
 	print json_encode($BajaSol);
 	
 }
-//Sección de opciones para elegir la funcion correspondiente que pide el .js
+
+function LlenarTablaEntregas()
+{
+	$tipousuario = $_POST["tUsuario"];
+	$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
+	if($tipousuario !='alumno')
+	{
+		$entregas = traeEntregas($tipousuario,$usuario);
+	}
+	else
+	{
+		$entregas = traeEntregasAlumno($usuario);
+	}
+	print json_encode($entregas);
+}
+
+
 $opcion =  $_POST ["opc"];
 switch ($opcion) 
 {
@@ -118,9 +174,17 @@ switch ($opcion)
 	case 'CancelarProy':
 		CancelarProy();
 		break;
+	case 'LlenarTablaEntregas':
+		LlenarTablaEntregas();
+		break;
+	/*case 'RevisionFrom':
+		RevisionFrom();
+		break;*/
 	default:
 		# code...
 		break;
 	
 }
+
+
 ?>

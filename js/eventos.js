@@ -76,6 +76,7 @@ var inicio = function(){
 							$("#btnGuardaProyecto").hide();
 						}
 						if(optionHTML == "División de estudios profesionales"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
 							$("#btnSolicitud").show("slow");
 							$("#l").show();
 
@@ -85,8 +86,19 @@ var inicio = function(){
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
+						}
 
-							
+						if(optionHTML == "Vinculación"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
+							$("#btnSolicitud").show("slow");
+							$("#l").show();
+
+							$("#btnRegistrar").show();
+							$("#btnSolicitaProy").hide();
+							$("#btnGuardaProyecto").show();
+
+							$("#btnSolicita").hide();
+							$("#btnCargarProy").hide();
 						}
 
 						if(optionHTML != "Alumno"){
@@ -131,6 +143,44 @@ var inicio = function(){
 				}
 			});
 	}
+
+
+/***************************PAHO*******************/	 
+	var llenaEntregas = function()
+	 {
+	 	//alert(usuarioGlobal["tUsuario"]);
+	 	var parametros = "opc=LlenarTablaEntregas"+"&usuario="+datos["usuario"]+"&tUsuario="+usuarioGlobal["tUsuario"]+"&id="+Math.random();
+		$.ajax({
+				cache:false,
+				url: "data/funs.php",
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true) 
+					{
+						//alert("Tabla proyecto");
+						$("#tablaEntreg").html(response.renglones);
+						$("#tablaEntreg").show();
+					}
+					else
+						alert("No hay proyectos");
+						$("#tablaEntreg").html(response.renglones);
+				}
+			});
+	 }
+
+	 	var traeEntregas = function(){
+	 	$("#entregas").show();
+		$("#informacion").hide();
+		$("#documentacion").hide();
+		$("#banco").hide();
+		$("#panelEntrada").hide("slow");
+		$("#altaProyectos").hide("slow");
+		$("#divSolicitudes").hide();
+		llenaEntregas();
+	 }
+
 
 	var validaAluProy = function(response){
 			
@@ -202,16 +252,7 @@ var inicio = function(){
 
 	}
 
-	var traeEntregas = function(){
-	 	$("#entregas").show();
-		$("#informacion").hide();
-		$("#documentacion").hide();
-		$("#banco").hide();
-		$("#panelEntrada").hide("slow");
-		$("#altaProyectos").hide("slow");
-		$("#divSolicitudes").hide();
-
-	 }
+	
 
 
 	var teclaUsuario = function(tecla){
@@ -327,26 +368,6 @@ var inicio = function(){
 		$("#informacion").show();
 	}
 
-	var EliminaUsuario = function(){
-		var u = $("#txtNombreUsuario").val();
-		var parametros = "opc=EliminaUsuario"+"&usuario="+u+"&id="+Math.random();
-		$.ajax({
-			cache: false,
-			url: "data/funciones.php",
-			type: "POST",
-			dataType: "json",
-			data:parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					alert("El usuario ha sido dado de baja");
-					$("#altaUsuarios > input").val("");
-				}
-			},
-			error: function(xhr,ajaxOption,x){
-			}
-		});
-	}
 	var Solicitudes = function()
 	{
 		$("#divSolicitudes").show();
@@ -479,6 +500,35 @@ var CargarProy = function()
 				}
 			});
 	}
+/*********************************************/
+var RevisarFrom = function()
+{
+	/*var valorBoton = $(".btnRevisar").attr("value");
+	var seleccion = $("input[name='seleccionar']:checked").val();
+	var parametros = "opc=RevisionFrom"+"&rev="+seleccion+"&usuario="+datos["usuario"]+"&id="+Math.random()+"&alumno="+valorBoton;
+		
+		/*if($('.radRev').is(':checked'))
+		{
+			$.ajax({
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Revisión realizada.");
+					else
+						alert("No se pudo realizar la revisión.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
+		}
+		else
+			alert("Selecciona tu revisión");*/
+}
 
 	//Configuramos los eventos.
 	$("#btnEntrar").on("click",validaUsuario);
@@ -491,7 +541,7 @@ var CargarProy = function()
 	$("#btnGuardaProyecto").on("click",GuardaProyecto);
 	$("#txtNombreUsuario").on("keypress",teclaNombreUsuario);
 	$("#btnDivDocumentacion").on("click",traeDocumentacion);
-	$("#btnEliminaUsuario").on("click",EliminaUsuario);
+	//$("#btnEliminaUsuario").on("click",EliminaUsuario);
 	$("#btnSolicitud").on("click",Solicitudes);
 	
 	$("#btnIngresar").on("click",Ingresar);
@@ -508,7 +558,7 @@ var CargarProy = function()
 	$("#btnCargarProy").on("click",CargarProy);
 	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
 	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);
-
+	$("#tablaEntregables").on("click",".btnRevisar",RevisarFrom);
 
 }
 

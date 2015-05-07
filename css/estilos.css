@@ -202,6 +202,7 @@ header .page-header
 } 
 
 #entregas{
+  margin-top: 50px;
    display: none;
 }
 #seccionlinks
@@ -348,10 +349,5 @@ margin-top: 100px;
 .usuarios{
   text-align: right;
 }
-
-
-
-
-
 
 
