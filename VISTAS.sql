@@ -55,3 +55,12 @@ create view maestroAsesor as (
 select dp.pernom, dp.perape, dp.perdepa, dp.percve, dp.perpas 
 from dperso dp, asignaseinternos ai
  where dp.percve = ai.percve);
+ 
+ 
+ -- VISTA PARA BUSCAR ALUMNOS CON SUS RESPECTIVOS FORMATOS ENVIADOS
+ 
+ CREATE VIEW entregasAlumno AS(select f.fornom, dp.pernom, dp.perape, da.alunom, da.aluapp
+
+from formatos f, dperso dp, asignaseinternos ai, dalumn da, proyalumfor paf, asignproyectos ap
+
+where f.forcve = paf.forcve and da.aluctr = paf.aluctr and paf.aluctr = ap.aluctr and dp.percve = ai.percve and ap.aluctr = ai.aluctr);
