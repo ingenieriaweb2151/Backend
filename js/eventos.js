@@ -56,24 +56,46 @@ var inicio = function(){
 						document.getElementById("usuario").innerHTML = response.nombre;
 
 						document.getElementById("pa").innerHTML = response.pnom;
+						if (document.getElementById("pa").innerHTML != ""){
+							$("#btnCargarProy").hide();
+							$("#btnSolicita").hide();
+							document.getElementById("btnDivBanco").innerHTML = "TU PROYECTO"
+						}
+
+						document.getElementById("pa").innerHTML = response.nomproyecto;
 						if (document.getElementById("pa").innerHTML == ""){
 							document.getElementById("pa").innerHTML = "No asignado"
 							$("#btnCargarProy").show();
 							$("#btnSolicita").show();
+							document.getElementById("btnDivBanco").innerHTML = "BANCO"
 						}
 
 						if(optionHTML == "Alumno"){
 							$("#proyectoasign").show();
 							$("#pa").show();
-							$("#btnGuardaProyecto").hide();
+							$("#btnGuardaEmpresaProyecto").hide();
 						}
 						if(optionHTML == "División de estudios profesionales"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
 							$("#btnSolicitud").show("slow");
 							$("#l").show();
 
 							$("#btnRegistrar").show();
 							$("#btnSolicitaProy").hide();
-							$("#btnGuardaProyecto").show();
+							$("#btnGuardaEmpresaProyecto").show();
+
+							$("#btnSolicita").hide();
+							$("#btnCargarProy").hide();
+						}
+
+						if(optionHTML == "Vinculación"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
+							$("#btnSolicitud").show("slow");
+							$("#l").show();
+
+							$("#btnRegistrar").show();
+							$("#btnSolicitaProy").hide();
+							$("#btnGuardaEmpresaProyecto").show();
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
@@ -91,13 +113,9 @@ var inicio = function(){
 			});
 		}
 		else
-			alert("Favor de llenar todos los campos");
-		// if(u=="pw" && c=="clave")
-		// {
-		// 	$("#panelEntrada").hide("slow");
-		// 	$("nav").show("slow");
-		// }
+			alert("Llene todos campos");
 	}
+
 	var llenarTablaProy = function(cargado){
 		var c = cargado;
 		//Agrege el numero de control del alumno a los parametros, para verificar tiene proyecto asignado
@@ -140,18 +158,17 @@ var inicio = function(){
 	var anoalumno = function (){
 		var u = $("#txtUsuario").val();
 		var ano = parseInt(u.substring(0,2));
-			if(ano>=9){
-				$("#PlanViejo").hide();
-				$("#PlanNuevo").show();
-			}
-			else{
-				$("#PlanNuevo").hide();
-				$("#PlanViejo").show();
-			}
+		if(ano>=9){
+			$("#PlanViejo").hide();
+			$("#PlanNuevo").show();
+		}
+		else{
+			$("#PlanNuevo").hide();
+			$("#PlanViejo").show();
+		}
 	}
 
 	var traeInicio = function(){
-
 		$("#informacion").show();
 		$("#documentacion").hide();
 		$("#banco").hide();
@@ -161,30 +178,10 @@ var inicio = function(){
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
-
 	}
 
 	
 	var traeBanco = function (){
-
-		//estoy me causaba ruido para traer la tabla de banco de proyectos
-		/*if(document.getElementById("usuario").innerHTML == ""){
-			var parametros = "opc=llenarTablaProy"+"&id="+Math.random();
-			$.ajax({
-				cache:false,
-				url: "data/funs.php", //CAMBIE LA RUTA DEL ARCHIVO (paho)
-				type: "POST",
-				dataType: "json",
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true){
-						$("#tablaproy").html(response.renglones);
-						$("#tablaproy").show();
-					}
-				}
-			});
-		}*/
-
 		$("#informacion").hide();
 		$("#documentacion").hide();
 		$("#entregas").hide();
@@ -194,11 +191,9 @@ var inicio = function(){
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
-
+		
 		//PAHO
 		llenarTablaProy(true);
-		$("#btnSolicita").show();
-		$("#btnCargarProy").show();
 	}
 
 	var traeDocumentacion = function(){
@@ -224,7 +219,6 @@ var inicio = function(){
 		$("#divSolicitudes").hide();
 	 }
 
-
 	var teclaUsuario = function(tecla){
 		if(tecla.which == 13) //Enter
 		{
@@ -243,7 +237,7 @@ var inicio = function(){
 
 	var DivUsuarios = function(){
 		$("#altaProyectos").show("slow");
-		$("#btnGuardaProyecto").show();
+		$("#btnGuardaEmpresaProyecto").show();
 		$("#btnEliminaProyecto").hide();
 	}
 
@@ -261,34 +255,59 @@ var inicio = function(){
 		$("#docsGenerales").show("slow");
 	}
 
-	var GuardaProyecto = function(){
-		var u = $("#txtNombreEmpresa").val();
-		var n = $("#txtDireccion").val();
-		var a = $("#txtTelefono").val();
-		var t = $("#txtEncargado").val();
-		var e = $("#txtNombreProyecto").val();
-		var c = $("#txtCarrrera").val();
-		var r = $("#txtCupos").val();
-		
-		var parametros = "opc=guardaproyecto"+"&nombre_empresa="+u+"&direccion="+n+"&telefono="+a+"&encargado="+t+"&nombre_proyecto="+e+"&carrera="+c+"&cupos="+r+"&id="+Math.random();
-			$.ajax({
-				cache:false,
-				type: "POST",
-				dataType: "json",
-				url:'data/funciones.php',
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true)
-					{
-						alert("Proyecto registrado con éxito");
-					}
-					else
-						alert("No se ha podido registrar el proyecto");
-				},
-				error: function(xhr,ajaxOption,x){
-					alert("Sin conexión");
+	var GuardaEmpresaProyecto = function(){
+		//Datos de la empresa
+		var a = $("#txtNombreEmpresa").val();
+		var b = $("#txtDireccion").val();
+		var c = $("#txtColonia").val();
+		var d = $("#txtCiudad").val();
+		var e = $("#txtCP").val();
+		var f = $("#txtTelefono").val();
+		var g = $("#txtEncargado").val();
+		var h = $("#txtPuesto").val();
+
+		//Datos del proyecto
+		var i = $("#txtNomProyecto").val();
+		var j = $("#txtCupos").val();
+		var k = $("#txtObjetivo").val();
+		var l = $("#txtJustificacion").val();
+		var m = $("#carrera").val();
+		var n = $("#txtNombreResponsable").val();
+		var o = $("#txtPuesto").val();
+		var parametros = "opc=guardaempresaproyecto"+"&nombre_empresa="+a
+							+"&direccion="+b
+							+"&colonia="+c
+							+"&ciudad="+d
+							+"&codigo_postal="+e
+							+"&telefono="+f
+							+"&encargado="+g
+							+"&puesto="+h
+							+"&nombre_proyecto="+i
+							+"&cupos="+j
+							+"&objetivo="+k
+							+"&justificacion="+l
+							+"&carrera="+m
+							+"&nombre_responsable="+n
+							+"&puesto_responsable="+o
+							+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:'data/funciones.php',
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("Proyecto registrado con éxito");
 				}
-			});
+				else
+					alert("No se ha podido registrar el proyecto");
+			},
+			error: function(xhr,ajaxOption,x){
+				alert("Sin conexión");
+			}
+		});
 		$("#altaProyectos").hide("slow");
 	}
 
@@ -334,7 +353,7 @@ var inicio = function(){
 	}
 
 	var Solicitaste = function(){
-		alert("Tu proyecto está en proceso de aceptación, podrás cargarlo una vez que éste sea validado");
+		alert("Tu proyecto esta en proceso de aceptacion, podras cargarlo una vez lo validemos");
 		$("#solicitaProyecto").hide();
 		$("#banco").hide();
 		$("#informacion").show();
@@ -373,20 +392,19 @@ var inicio = function(){
 		$("#entregas").hide("slow");
 		//traeSolicitud();
 		var parametros = "opc=LlenarTablaSolicitud"+"&id="+Math.random();
-			$.ajax({
-				cache:false,
-				url: "data/funs.php", //CAMBIE LA RUTA DE LAS FUNCIONES (paho)
-				type: "POST",
-				dataType: "json",
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true){
-						$("#tablaSolicitud").html(response.renglones);
-						$("#tablaSolicitud").show();
-					}
+		$.ajax({
+			cache:false,
+			url: "data/funs.php", //CAMBIE LA RUTA DE LAS FUNCIONES (paho)
+			type: "POST",
+			dataType: "json",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true){
+					$("#tablaSolicitud").html(response.renglones);
+					$("#tablaSolicitud").show();
 				}
-				
-			});
+			}
+		});
 	}
 /*
 	var traeSolicitud = function ()
@@ -431,10 +449,16 @@ var inicio = function(){
 				dataType: 'json',
 				data: parametros,
 				success:function(response){
-					if(response.respuesta)
+					if(response.respuesta){
 						alert("Tu solicitud ha sido enviada.");
-					else
-						alert("No se ha podido realizar la solicitud.");
+						$("#banco").hide();
+						$("#informacion").show();
+					}
+					else{
+						alert("No se a podido realizar la solicitud.");
+						$("#banco").hide();
+						$("#informacion").show();
+					}
 				},
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
@@ -502,7 +526,7 @@ var inicio = function(){
 	$("#txtClave").on("keypress",teclaClave);
 	$("#btnDivUsuarios").on("click",DivUsuarios);
 	$("#btnDivBanco").on("click",traeBanco);
-	$("#btnGuardaProyecto").on("click",GuardaProyecto);
+	$("#btnGuardaEmpresaProyecto").on("click",GuardaEmpresaProyecto);
 	$("#txtNombreUsuario").on("keypress",teclaNombreUsuario);
 	$("#btnDivDocumentacion").on("click",traeDocumentacion);
 	$("#btnEliminaUsuario").on("click",EliminaUsuario);
@@ -518,19 +542,10 @@ var inicio = function(){
 	//PAHO
 	//AGREGUE EVENTO PARA ENVIAR LAS SOLICITUDES
 	//$("#btnSolicita").on("click",Solicita);
-	$("#btnSolicitaProy").on("click",GuardaProyecto);
+	$("#btnSolicitaProy").on("click",GuardaEmpresaProyecto);
 	$("#btnCargarProy").on("click",CargarProy);
 	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
 	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);
 }
 
 $(document).on("ready",inicio);
-
-
-
-
-
-
-
-
-

@@ -5,9 +5,9 @@
 //conectaBDalumno(): Permite conectarnos a la BD segun el tipo de usuario, en este caso 'alumno'
 function conectaBDalumno($tipousuario)
 {
-    $conexion = mysql_connect('localhost',$tipousuario,'');
-    mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
-    return $conexion;
+  $conexion = mysql_connect('localhost',$tipousuario,'');
+  mysql_select_db('residenciasitc',$conexion) or die ('No es posible conectarse a la BD residenciasitc');
+  return $conexion;
 }
 
 //EntraAlumn(): Valida si el alumno esta en proceso de residencias, verifica
@@ -17,18 +17,23 @@ function EntraAlumn($u,$c)
       if(buscaralumno($u))
       {
         $consulta  = sprintf("select * from dalumn where aluctr=%s and alupas=%s",$u,$c);
+        $consulta2  = sprintf("select * from proyasignado where aluctr=%s",$u);
         //Ejecutamos la consulta.
         $resultado = mysql_query($consulta);
+        $resultado2 = mysql_query($consulta2);
         //Validamos los datos.
         $res = false; 
         $nombre = ""; 
+        $nomproyecto = "";
         //$fecha = date("y-m-d");
         //$hora = time("H:i:s");
         $registro = mysql_fetch_array($resultado);
+        $registro2 = mysql_fetch_array($resultado2);
         if($registro>0)
         {
           $res = true;
           $nombre = $registro["alunom"]." ".$registro["aluapp"];
+          $nomproyecto = $registro2["nombreproy"];
           /*$newToken = obtenToken(8);
           $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
                   VALUES('$nombre','$fecha','$hora','$newToken');";
@@ -39,7 +44,7 @@ function EntraAlumn($u,$c)
          $res = false;     
         }
         $salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre); //
+                  'nombre'    => $nombre, 'nomproyecto' => $nomproyecto); //
         //print json_encode($salidaJSON);
         return $salidaJSON;
         
