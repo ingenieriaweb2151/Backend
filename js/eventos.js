@@ -168,23 +168,6 @@ var inicio = function(){
 	
 	var traeBanco = function (){
 
-		//estoy me causaba ruido para traer la tabla de banco de proyectos
-		/*if(document.getElementById("usuario").innerHTML == ""){
-			var parametros = "opc=llenarTablaProy"+"&id="+Math.random();
-			$.ajax({
-				cache:false,
-				url: "data/funs.php", //CAMBIE LA RUTA DEL ARCHIVO (paho)
-				type: "POST",
-				dataType: "json",
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true){
-						$("#tablaproy").html(response.renglones);
-						$("#tablaproy").show();
-					}
-				}
-			});
-		}*/
 
 		
 		$("#informacion").hide();

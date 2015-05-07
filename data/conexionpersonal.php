@@ -204,7 +204,8 @@ function ProyectosAsignados($usuario,$tipousuario)
 {
 	$conexion = conectaBDpersonal('asesor');
   	$res = false;
-    if($tipousuario == 'asesor')
+/*************************PAHO*********************************/
+    if($tipousuario == 'asesor') //Muestra los proyectos que el maestro tiene asignados
     {
     	$consultlaProy = sprintf("SELECT * FROM proyAsignado WHERE percve=%s",$usuario);
     	$resultadoProy = mysql_query($consultlaProy);
@@ -227,6 +228,7 @@ function ProyectosAsignados($usuario,$tipousuario)
    		}
     }
     elseif ($tipousuario == 'divestpro' or $tipousuario =='vinculacion')
+    	//Muestra todos los proyectos de todos los alumnos 
     {
     	$consultlaProy = sprintf("SELECT * FROM proyAsignado");
     	$resultadoProy = mysql_query($consultlaProy);
@@ -249,12 +251,10 @@ function ProyectosAsignados($usuario,$tipousuario)
    		}
     }
     else
-    {
+    {	//Muestra los proyectos existentes, pero sin el radio boton para seleccionar y cargar
     	$consulta  = sprintf("SELECT * FROM BancoProy where numresi > 0");
-    //Ejecutamos la consulta.
     	$resultado = mysql_query($consulta);
-    //Validamos los datos.
-    //Saber el correcto
+
     	$renglones = "";
     	$renglones.="<tr>";
     	$renglones.="<th>Nombre Proyecto</th>";
