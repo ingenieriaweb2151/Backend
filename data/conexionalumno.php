@@ -17,18 +17,23 @@ function EntraAlumn($u,$c)
       if(buscaralumno($u))
       {
         $consulta  = sprintf("select * from dalumn where aluctr=%s and alupas=%s",$u,$c);
+        $consulta2  = sprintf("select * from proyasignado where aluctr=%s",$u);
         //Ejecutamos la consulta.
         $resultado = mysql_query($consulta);
+        $resultado2 = mysql_query($consulta2);
         //Validamos los datos.
         $res = false; 
         $nombre = ""; 
+        $nomproyecto = "";
         //$fecha = date("y-m-d");
         //$hora = time("H:i:s");
         $registro = mysql_fetch_array($resultado);
+        $registro2 = mysql_fetch_array($resultado2);
         if($registro>0)
         {
           $res = true;
           $nombre = $registro["alunom"]." ".$registro["aluapp"];
+          $nomproyecto = $registro2["nombreproy"];
           /*$newToken = obtenToken(8);
           $sql = "INSERT INTO sesiones (nomusuario, fecha, hora, token)
                   VALUES('$nombre','$fecha','$hora','$newToken');";
@@ -39,7 +44,7 @@ function EntraAlumn($u,$c)
          $res = false;     
         }
         $salidaJSON = array('respuesta' => $res,
-                  'nombre'    => $nombre); //
+                  'nombre'    => $nombre, 'nomproyecto' => $nomproyecto); //
         //print json_encode($salidaJSON);
         return $salidaJSON;
         

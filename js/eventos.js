@@ -56,10 +56,18 @@ var inicio = function(){
 						document.getElementById("usuario").innerHTML = response.nombre;
 
 						document.getElementById("pa").innerHTML = response.pnom;
+						if (document.getElementById("pa").innerHTML != ""){
+							$("#btnCargarProy").hide();
+							$("#btnSolicita").hide();
+							document.getElementById("btnDivBanco").innerHTML = "TU PROYECTO"
+						}
+
+						document.getElementById("pa").innerHTML = response.nomproyecto;
 						if (document.getElementById("pa").innerHTML == ""){
 							document.getElementById("pa").innerHTML = "No asignado"
 							$("#btnCargarProy").show();
 							$("#btnSolicita").show();
+							document.getElementById("btnDivBanco").innerHTML = "BANCO"
 						}
 
 						if(optionHTML == "Alumno"){
@@ -167,8 +175,6 @@ var inicio = function(){
 
 	
 	var traeBanco = function (){
-
-
 		
 		$("#informacion").hide();
 		$("#documentacion").hide();
@@ -182,9 +188,6 @@ var inicio = function(){
 		
 		//PAHO
 		llenarTablaProy(true);
-		$("#btnSolicita").show();
-		$("#btnCargarProy").show();
-
 	}
 
 	var traeDocumentacion = function(){
