@@ -73,7 +73,7 @@ var inicio = function(){
 						if(optionHTML == "Alumno"){
 							$("#proyectoasign").show();
 							$("#pa").show();
-							$("#btnGuardaProyecto").hide();
+							$("#btnGuardaEmpresaProyecto").hide();
 						}
 						if(optionHTML == "División de estudios profesionales"){
 							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
@@ -82,7 +82,7 @@ var inicio = function(){
 
 							$("#btnRegistrar").show();
 							$("#btnSolicitaProy").hide();
-							$("#btnGuardaProyecto").show();
+							$("#btnGuardaEmpresaProyecto").show();
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
@@ -95,7 +95,7 @@ var inicio = function(){
 
 							$("#btnRegistrar").show();
 							$("#btnSolicitaProy").hide();
-							$("#btnGuardaProyecto").show();
+							$("#btnGuardaEmpresaProyecto").show();
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
@@ -244,7 +244,7 @@ var inicio = function(){
 
 	var DivUsuarios = function(){
 		$("#altaProyectos").show("slow");
-		$("#btnGuardaProyecto").show();
+		$("#btnGuardaEmpresaProyecto").show();
 		$("#btnEliminaProyecto").hide();
 	}
 
@@ -261,16 +261,43 @@ var inicio = function(){
 		$("#docsGenerales").show("slow");
 	}
 
-	var GuardaProyecto = function(){
-		var u = $("#txtNombreEmpresa").val();
-		var n = $("#txtDireccion").val();
-		var a = $("#txtTelefono").val();
-		var t = $("#txtEncargado").val();
-		var e = $("#txtNombreProyecto").val();
-		var c = $("#txtCarrrera").val();
-		var r = $("#txtCupos").val();
+	var GuardaEmpresaProyecto = function(){
+
+		//Datos de la empresa
+		var a = $("#txtNombreEmpresa").val();
+		var b = $("#txtDireccion").val();
+		var c = $("#txtColonia").val();
+		var d = $("#txtCiudad").val();
+		var e = $("#txtCP").val();
+		var f = $("#txtTelefono").val();
+		var g = $("#txtEncargado").val();
+		var h = $("#txtPuesto").val();
+
+		//Datos del proyecto
+		var i = $("#txtNomProyecto").val();
+		var j = $("#txtCupos").val();
+		var k = $("#txtObjetivo").val();
+		var l = $("#txtJustificacion").val();
+		var m = $("#carrera").val();
+		var n = $("#txtNombreResponsable").val();
+		var o = $("#txtObjetivo").val();
 		
-			var parametros = "opc=guardaproyecto"+"&nombre_empresa="+u+"&direccion="+n+"&telefono="+a+"&encargado="+t+"&nombre_proyecto="+e+"&carrera="+c+"&cupos="+r+"&id="+Math.random();
+			var parametros = "opc=guardaempresaproyecto"+"&nombre_empresa="+a
+								+"&direccion="+b
+								+"&colonia="+c
+								+"&ciudad="+d
+								+"&codigo_postal="+e
+								+"&telefono="+f
+								+"&encargado="+g
+								+"&puesto="+h
+								+"&nombre_proyecto="+i
+								+"&cupos="+j
+								+"&objetivo="+k
+								+"&justificacion="+l
+								+"&carrera="+m
+								+"&nombre_responsable="+n
+								+"&objetivo="+o
+								+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -429,10 +456,16 @@ var CargarProy = function()
 				dataType: 'json',
 				data: parametros,
 				success:function(response){
-					if(response.respuesta)
+					if(response.respuesta){
 						alert("Tu solicitud ha sido enviada.");
-					else
+						$("#banco").hide();
+						$("#informacion").show();
+					}
+					else{
 						alert("No se a podido realizar la solicitud.");
+						$("#banco").hide();
+						$("#informacion").show();
+					}
 				},
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
@@ -500,7 +533,7 @@ var CargarProy = function()
 	$("#txtClave").on("keypress",teclaClave);
 	$("#btnDivUsuarios").on("click",DivUsuarios);
 	$("#btnDivBanco").on("click",traeBanco);
-	$("#btnGuardaProyecto").on("click",GuardaProyecto);
+	$("#btnGuardaEmpresaProyecto").on("click",GuardaEmpresaProyecto);
 	$("#txtNombreUsuario").on("keypress",teclaNombreUsuario);
 	$("#btnDivDocumentacion").on("click",traeDocumentacion);
 	$("#btnEliminaUsuario").on("click",EliminaUsuario);
@@ -516,7 +549,7 @@ var CargarProy = function()
 	//PAHO
 	//AGREGUE EVENTO PARA ENVIAR LAS SOLICITUDES
 	//$("#btnSolicita").on("click",Solicita);
-	$("#btnSolicitaProy").on("click",GuardaProyecto);
+	$("#btnSolicitaProy").on("click",GuardaEmpresaProyecto);
 	$("#btnCargarProy").on("click",CargarProy);
 	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
 	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);

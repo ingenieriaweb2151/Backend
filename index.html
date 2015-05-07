@@ -289,28 +289,41 @@
 	</div>
 
 		<div id="solicitaProyecto">
-		<article>
+		<article id="articleDE">
 			<h2>Datos de la Empresa</h2>
 			<input type="text" id="txtNombreEmpresa" class="form-control" placeholder="Nombre de la Empresa">
 			<input type="text" id="txtDireccion" class="form-control" placeholder="Direccion">
-			<input type="text" id="txtTelefono" class="form-control" placeholder="Telefono">
+			<input type="text" id="txtColonia" class="form-control" placeholder="Colonia">
+			<input type="text" id="txtCiudad" class="form-control" placeholder="Ciudad">
+			<input type="text" id="txtCP" class="form-control" placeholder="Codigo Postal">
+			<input type="text" id="Telefono" class="form-control" placeholder="Telefono">
 			<input type="text" id="txtEncargado" class="form-control" placeholder="Encargago">
-			<input type="text" id="txtNombreProyecto" class="form-control" placeholder="Nombre del Proyecto">
-			<input type="password" id="txtCarrrera" class="form-control" placeholder="Carrera">
-			<input type="password" id="txtCupos" class="form-control" placeholder="Cupos Disponibles">
+			<input type="text" id="txtPuesto" class="form-control" placeholder="Puesto">
 		</article>
-		<article>
+		<article id="articleDP">
 			<h2>Datos del Proyecto</h2>
-			<input type="text" id="txtNombreEmpresa" class="form-control" placeholder="Nombre de la Empresa">
-			<input type="text" id="txtDireccion" class="form-control" placeholder="Direccion">
-			<input type="text" id="txtTelefono" class="form-control" placeholder="Telefono">
-			<input type="text" id="txtEncargado" class="form-control" placeholder="Encargago">
-			<input type="text" id="txtNombreProyecto" class="form-control" placeholder="Nombre del Proyecto">
-			<input type="password" id="txtCarrrera" class="form-control" placeholder="Carrera">
-			<input type="password" id="txtCupos" class="form-control" placeholder="Cupos Disponibles">
+			<input type="text" id="txtNomProyecto" class="form-control" placeholder="Nombre del proyecto">
+			<input type="text" id="txtCupos" class="form-control" placeholder="Cupos Disponibles">
+			<input type="text" id="txtObjetivo" class="form-control" placeholder="Objetivo">
+			<input type="text" id="txtJustificacion" class="form-control" placeholder="Justificacion">
+			<select id="carrera" class="ddl ddl-default dropdown-toggle">
+			  <option value="ambiental" selected="selected">ING. AMBIENTAL</option>
+			  <option value="bioquimica" selected="selected">ING. BIOQUIMICA</option>
+			  <option value="electrica" selected="selected">ING. ELECTRICA</option>
+			  <option value="electronica" selected="selected">ING. ELECTRONICA</option>
+			  <option value="energiasreno" selected="selected">ING. EN ENERGIAS RENOVABLES</option>
+			  <option value="gestionempr" selected="selected">ING. EN GESTION EMPRESARIAL</option>
+			  <option value="industrial" selected="selected">ING. INDUSTRIAL</option>
+			  <option value="mecanica" selected="selected">ING. MECANICA</option>
+			  <option value="mecatronica" selected="selected">ING. MECATRONICA</option>
+			  <option value="sistemascomp" selected="selected">ING. EN SISTEMAS COMPUTACIONALES</option>
+			  <option value="tics" selected="selected">ING. EN TECNOLOGIAS DE LA INFORMACION Y COMUNICACION</option>
+			</select>
+			<input type="text" id="txtNombreResponsable" class="form-control" placeholder="Nombre del responsable">
+			<input type="text" id="txtPuesto" class="form-control" placeholder="Puesto del responsable">
 		</article>
 		<br><br>
-			<button id="btnGuardaProyecto" class="btn btn-success btn-lg btn-block">
+			<button id="btnGuardaEmpresaProyecto" class="btn btn-success btn-lg btn-block">
 				Guardar 
 			<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">	
 			</span>
