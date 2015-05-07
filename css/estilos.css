@@ -1,0 +1,358 @@
+body
+{
+  /*border: 1px solid #000088;*/
+  border-radius: 5px;
+  margin: 0 auto;
+ /* max-width: 1024px;
+  min-width: 1024px;
+*/
+ max-width: 1349px;
+  min-width: 1349px;
+}
+
+/*
+#logotec{
+  margin-top:15px;
+  position: absolute;
+  top: -10px;
+  left: 1000px;
+  width: 120px;
+  height: 120px;
+}
+*/
+#logoitc
+{
+  margin-top:15px;
+  position: absolute;
+  margin-top: -120px;
+  left: 160px;
+  width: 120px;
+  height: 120px;
+}
+#equipo
+{
+  margin-top: 50px;
+  position: relative;
+  left: 25%;  
+    width: 50%;
+  height: 50%;
+}
+.caption
+{
+  color: black;
+  margin-top: -18px;
+}
+#seccionInfo{
+    font-family: 'Open Sans', sans-serif;
+  margin-top: -10px;
+  position: relative;
+  left: 200px;
+}
+#divSolicitudes
+{
+  display: none;
+}
+#lm1
+{
+  margin-top: 65px;
+}
+#lm2
+{
+  margin-top: 50px;
+}
+#lm3
+{
+  margin-top: 40px;
+}
+#seccionInfo article
+{
+  color: black;
+  border-top-color: black;
+  border-top-style: inset;
+  margin: 20px 20px 20px 20px;
+  display: inline-block;
+  vertical-align: top;
+  width: 20%; 
+  position: relative;
+
+}
+footer
+{
+  font-weight: bold;
+  text-align: center;
+}
+
+header nav ul button
+{
+  width: 144px;
+  height: 18px;
+  height: 20%;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  background-color:transparent;
+  border: 0px;
+}
+header nav ul 
+{
+
+  left:25%;
+  position: absolute;
+  /*margin-top:20px;*/
+}
+
+header nav ul li
+{
+  display: inline-block;
+}
+
+
+.fecha{
+
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  position: absolute;
+  left: 400px;
+  margin-top: 50px;
+}
+
+header .pageheader
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  position: relative;
+  margin-top: 150px;
+  left: 480px; 
+}
+
+
+/*
+header nav ul
+{
+  text-align: center;
+}
+
+header nav ul li
+{
+  display: inline-block;
+}
+
+header .page-header
+{
+  margin-left: 15px;
+}
+*/
+
+
+#solicitaProyecto{
+  display: none;
+/*  margin: 0 auto;*/
+}
+#solicitaProyecto article{
+  display: none;
+  display: inline-block;
+  margin-left: 15%;
+  width: 350px;
+}
+
+#solicitaProyecto button{
+  width: 750px;
+  margin-left: 20%;
+}
+
+#altaProyectos
+{
+  display: none; /*Ocultamos el DIV*/
+  margin: 0 auto;
+  width: 350px;
+}
+
+#banco{
+  margin-top: 50px;
+  display: none;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+
+.usu
+{
+  color: orange;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  position: relative;
+  left: 500px;
+}
+
+#btnEntregas
+{
+  display: none;
+} 
+
+#btnSolicitud
+{
+  display: none;
+} 
+#l
+{
+  display: none;
+}
+#btnSalir
+{
+  display: none;
+} 
+
+#entregas{
+  margin-top: 50px;
+   display: none;
+}
+#seccionlinks
+{
+  position: relative;
+  margin-top: 50px;
+  left: 200px;
+}
+
+#proyectosbox{
+  display: none;
+}
+
+#nav2
+{
+  display: none;
+}
+
+#documentacion{
+  display: none;
+  text-align: center;
+}
+
+/*#seccionlinks article{
+  display: inline-block;
+  text-align: top;
+}*/
+
+#docsGenerales{
+  display: none;
+}
+
+#panelEntrada
+{
+  display:none;
+  margin: 0 auto;
+  width: 300px;
+margin-top: 100px;
+}
+
+#AmbosPlanes{
+  text-align: left;
+}
+
+
+#PlanNuevo{
+  text-align: left;
+}
+
+#PlanViejo{
+  text-align: left;
+}
+#btnRegistrar{
+  display: none;
+}
+
+#btnCargarProy{
+  display: none;
+  width: 600px;
+  margin-left: 25%;
+}
+
+#btnSolicita{
+  margin-left: 80%;
+  margin-top: -60px;
+  display: none;
+}
+
+/*
+#informacion{
+  text-align: center;
+}
+*/
+#infoarticle{
+  text-align: left;
+}
+
+#fecha{
+  color: gray;
+}
+
+#imgInicio
+{
+  position: relative;
+  margin-left: 20px;
+  width: 642px;
+  height: 429px;
+}
+
+#rp
+{
+  margin-top: -10px;
+	font-weight: bold;
+}
+
+#imgMini
+{
+  width: 250px;
+  height: 200px;
+}
+
+
+#ttipo{
+  display: none;
+}
+
+#usuario{
+  display: none;
+}
+
+#proyectoasign{
+  display: none;
+}
+
+#pa{
+  display: none;
+}
+
+.page-header{
+  height: 130;
+}
+
+.Titulos{
+  text-align: left;
+  font-size: bold;
+}
+
+.justificar{
+  text-align:justify; 
+  margin-bottom:0px;
+}
+
+.textoPro{
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.lista{
+  text-align:left;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.usuarios{
+  text-align: right;
+}
+
+
+
+
+
+
+
