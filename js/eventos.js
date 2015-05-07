@@ -155,6 +155,7 @@ var inicio = function(){
 		$("#informacion").show();
 		$("#documentacion").hide();
 		$("#banco").hide();
+		$("#solicitaProyecto").hide();
 		$("#entregas").hide();
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
@@ -189,6 +190,7 @@ var inicio = function(){
 		$("#entregas").hide();
 		$("#banco").show();
 		$("#panelEntrada").hide("slow");
+		$("#SeOculta").show();
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
@@ -203,6 +205,7 @@ var inicio = function(){
 		$("#informacion").hide();
 		$("#documentacion").show();
 		$("#banco").hide();
+		$("#solicitaProyecto").hide();
 		$("#entregas").hide();
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
@@ -215,6 +218,7 @@ var inicio = function(){
 		$("#informacion").hide();
 		$("#documentacion").hide();
 		$("#banco").hide();
+		$("#solicitaProyecto").hide();
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
 		$("#divSolicitudes").hide();
@@ -249,6 +253,7 @@ var inicio = function(){
 		$("#informacion").hide();
 		$("#entregas").hide();
 		$("#banco").hide();
+		$("#solicitaProyecto").hide();
 		$("#seccionlinks").show();
 		$("#documentacion").hide();
 		$("#docsAmbos").hide("slow");
@@ -324,7 +329,8 @@ var inicio = function(){
 
 	var solicitaProy =function(){
 
-		$("#solicitaProyecto").show();
+		$("#solicitaProyecto").toggle("slow");
+		$("#SeOculta").toggle("slow");
 	}
 
 	var Solicitaste = function(){
