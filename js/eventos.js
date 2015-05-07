@@ -76,6 +76,7 @@ var inicio = function(){
 							$("#btnGuardaProyecto").hide();
 						}
 						if(optionHTML == "División de estudios profesionales"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
 							$("#btnSolicitud").show("slow");
 							$("#l").show();
 
@@ -85,8 +86,19 @@ var inicio = function(){
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
+						}
 
-							
+						if(optionHTML == "Vinculación"){
+							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
+							$("#btnSolicitud").show("slow");
+							$("#l").show();
+
+							$("#btnRegistrar").show();
+							$("#btnSolicitaProy").hide();
+							$("#btnGuardaProyecto").show();
+
+							$("#btnSolicita").hide();
+							$("#btnCargarProy").hide();
 						}
 
 						if(optionHTML != "Alumno"){
