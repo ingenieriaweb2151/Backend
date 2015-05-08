@@ -128,4 +128,45 @@ function quitacomillas($cadena)
     return $nuevacadena;
 }
 
+
+//Esta funcion fue creada por ZAZUETA PEREZ JORGE ENRIQUE
+function subirArchivo()
+{
+  $cargarArchivo="true";
+  $tipo=$_FILES['archivoSubido'][type];
+  $size=$_FILES['archivoSubido'][size];
+  $file_name=$_FILES['archivoSubido'][name];
+  $URL="archivos/$file_name";
+  $tipodocx="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  $tipodoc="application/msword";
+
+  echo $_FILES['archivoSubido'][name];
+
+  if (!(($tipo ==$tipodocx) OR ($tipo ==$tipodoc))){
+    $msg=$msg." Tu archivo tiene que ser .doc, otros archivos no son permitidos<BR>";
+    $cargarArchivo="false";
+  }
+  if ($size>256000){
+    $msg=$msg."El archivo es mayor que 250KB, debes reduzcirlo antes de subirlo<BR>";
+    $cargarArchivo="false";
+  }
+
+  if($cargarArchivo=="true"){
+
+    if(move_uploaded_file ($_FILES['archivoSubido'][tmp_name], $URL)){
+      mysql_connect("localhost","root","");
+      mysql_select_db("pruebas");
+      mysql_query("INSERT INTO rutas VALUES ('$file_name','$URL')");
+      echo "Ha sido subido satisfactoriamente";
+    }
+    else{
+      echo "Error al subir el archivo";}
+    }
+    else{echo $msg;}
+}
+function buscaToken()
+{
+  
+}
+
 ?>
