@@ -1,7 +1,9 @@
  <?php
+ 
 require('conexionalumno.php');
 require('algoritmo.php');
 require('conexionpersonal.php');
+
 
 function ValidaEntrada()
 {	
@@ -13,7 +15,6 @@ function ValidaEntrada()
 	{
 		$respuesta = EntraAlumn($u,$c);
 		print json_encode($respuesta); 
-		
 	}
 
 	elseif ($tipousuario == 'asesor')
@@ -92,6 +93,32 @@ function CancelarProy()
 	print json_encode($BajaSol);
 	
 }
+
+function LlenarTablaEntregas()
+{
+	$tipousuario = $_POST["tUsuario"];
+	$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
+	if($tipousuario !='alumno')
+	{
+		$entregas = traeEntregas($tipousuario,$usuario);
+	}
+	else
+	{
+		$entregas = traeEntregasAlumno($usuario);
+	}
+	print json_encode($entregas);
+}
+
+/*function RevisionFrom()
+{
+	$tipousuario = $_POST["tUsuario"];
+	$seleccion = GetSQLValueString($_POST["rev"],"sincomillas");
+	$usuario = GetSQLValueString($_POST["usuario"],"sincomillas");
+	$aluctr = $_POST["alumno"];
+	$revision = Revisar($seleccion,$aluctr,$tipousuario);
+	print json_encode($revision);
+
+}*/
 //Sección de opciones para elegir la funcion correspondiente que pide el .js
 $opcion =  $_POST ["opc"];
 switch ($opcion) 
@@ -118,9 +145,17 @@ switch ($opcion)
 	case 'CancelarProy':
 		CancelarProy();
 		break;
+	case 'LlenarTablaEntregas':
+		LlenarTablaEntregas();
+		break;
+	/*case 'RevisionFrom':
+		RevisionFrom();
+		break;*/
 	default:
 		# code...
 		break;
 	
 }
+
+
 ?>

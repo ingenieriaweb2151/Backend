@@ -1,4 +1,5 @@
 <?php
+
 //require ('algoritmo.php');
 function conectaBDpersonal($tipousuario)
 {
@@ -202,7 +203,7 @@ function AsignarProyecto($aluctr,$asesor)
 //Funcion que permite al asesor visualizar los proyectos y alumnos que asesora !
 function ProyectosAsignados($usuario,$tipousuario)
 {
-	$conexion = conectaBDpersonal('asesor');
+	$conexion = conectaBDpersonal($tipousuario);
   	$res = false;
 /*************************PAHO*********************************/
     if($tipousuario == 'asesor') //Muestra los proyectos que el maestro tiene asignados
@@ -286,4 +287,174 @@ function ProyectosAsignados($usuario,$tipousuario)
             'renglones' => $renglones);
   	return $salidaJSON;
 }
+
+function traeEntregas($tipousuario,$usuario)
+{
+
+	$conexion = conectaBDpersonal($tipousuario);
+  	$res = false; 
+
+	if($tipousuario == 'asesor')
+	{															//QUITAR EL 0 XD
+		$contulta = sprintf("SELECT * FROM entregaDelAlumno WHERE (forcve = 0 OR 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 10 OR 11) AND percve=%s",$usuario);
+		$resultado = mysql_query($contulta);
+		$estado = "";
+		$renglones = "";
+    	$renglones.="<tr>";
+    	$renglones.="<th>Formato</th>";
+    	$renglones.="<th>Fecha de Entrega</th>";
+    	$renglones.="<th>Alumno</th>";
+    	$renglones.="<th>Archivo</th>";
+    	$renglones.="<th>Estado</th>";
+    	$renglones.="<th>Aprobar</th>";
+    	$renglones.="<th>Rechazar</th>";
+    	$renglones.="<th>Revisar</th>";
+    	$renglones.="</tr>";
+    	while ($registro = mysql_fetch_array($resultado) ) {
+    		$res=true;
+
+    		if($registro["estado"] == 0)
+       			 {$estado = "NO REVISADO";}
+      		elseif ($registro["estado"] == 1) {
+        		$estado = "APROBADO";
+      		}
+      		elseif($registro["estado"] == 2){
+        		$estado = "RECHAZADO";
+      		}
+      		$renglones.="<tr>";
+      		$renglones.="<td>".$registro["fornom"]."</td>";
+      		$renglones.="<td> SIN FECHA</td>";
+      		$renglones.="<td>".$registro["alunom"]." ".$registro["aluapp"]."</td>";
+      		$renglones.="<td>SIN ARCHIVO</td>";
+      		$renglones.="<td>".$estado."</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=1".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=2".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td><button class=' btnRevisar btn btn-success' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-ok' value=></span>
+						Enviar</td>";
+      		$renglones.="</tr>";		
+    	}
+    	$salidaJSON = array('respuesta' => $res,
+    						'renglones' => $renglones);
+     	return $salidaJSON;
+
+	}
+	elseif ($tipousuario == 'vinculacion') 
+	{	//no funciona la consulta u.u
+		$contulta = sprintf("SELECT * FROM entregaDelAlumno WHERE (forcve = 0 OR 4 OR 5 OR 7 OR 9)");
+		$resultado = mysql_query($contulta);
+		
+		$renglones = "";
+    	$renglones.="<tr>";
+    	$renglones.="<th>Formato</th>";
+    	$renglones.="<th>Fecha de Entrega</th>";
+    	$renglones.="<th>Alumno</th>";
+    	$renglones.="<th>Asesor</th>";
+    	$renglones.="<th>Archivo</th>";
+    	$renglones.="<th>Aprobar</th>";
+    	$renglones.="<th>Rechazar</th>";
+    	$renglones.="<th>Revisar</th>";
+    	$renglones.="</tr>";
+    	while ($registro = mysql_fetch_array($resultado) ) {
+    		$res=true;
+
+      		$renglones.="<tr>";
+      		$renglones.="<td>".$registro["fornom"]."</td>";
+      		$renglones.="<td> SIN FECHA</td>";
+      		$renglones.="<td>".$registro["alunom"]." ".$registro["aluapp"]."</td>";
+      		$renglones.="<td>".$registro["pernom"]." ".$registro["perape"]."</td>";
+      		$renglones.="<td>SIN ARCHIVO</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=1".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=2".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td><button class=' btnRevisar btn btn-success' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-ok' value=></span>
+						Enviar</td>";
+      		$renglones.="</tr>";		
+    	}
+    	$salidaJSON = array('respuesta' => $res,
+    						'renglones' => $renglones);
+     	return $salidaJSON;
+	}
+	elseif ($tipousuario == 'divestpro') 
+	{
+		$contulta = sprintf("SELECT * FROM entregaDelAlumno WHERE (forcve = 0 OR 2 OR 3 OR 5 OR 7 )");
+		$resultado = mysql_query($contulta);
+		
+		$renglones = "";
+    	$renglones.="<tr>";
+    	$renglones.="<th>Formato</th>";
+    	$renglones.="<th>Fecha de Entrega</th>";
+    	$renglones.="<th>Alumno</th>";
+    	$renglones.="<th>Asesor</th>";
+    	$renglones.="<th>Archivo</th>";
+    	$renglones.="<th>Aprobar</th>";
+    	$renglones.="<th>Rechazar</th>";
+    	$renglones.="<th>Revisar</th>";
+    	$renglones.="</tr>";
+    	while ($registro = mysql_fetch_array($resultado) ) {
+    		$res=true;
+
+      		$renglones.="<tr>";
+      		$renglones.="<td>".$registro["fornom"]."</td>";
+      		$renglones.="<td> SIN FECHA</td>";
+      		$renglones.="<td>".$registro["alunom"]." ".$registro["aluapp"]."</td>";
+      		$renglones.="<td>".$registro["pernom"]." ".$registro["perape"]."</td>";
+      		$renglones.="<td>SIN ARCHIVO</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=1".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td>"; //Asignamos al value del radio boton la clave del proyecto.
+      		$renglones.="<input type='radio' class='radProy' name='seleccionar' value=2".$registro["forcve"].">";
+      		$renglones.="</td>";
+      		$renglones.="<td><button class=' btnRevisar btn btn-success' value=".$registro["aluctr"].">
+						<span class='glyphicon glyphicon-ok' value=></span>
+						Enviar</td>";
+      		$renglones.="</tr>";		
+    	}
+    	$salidaJSON = array('respuesta' => $res,
+    						'renglones' => $renglones);
+     	return $salidaJSON;
+	}
+}
+
+function Revisar($selecion,$aluctr)
+{ //seleccion = radioboton, aluctr = boton
+	$conexion = conectaBDpersonal($tipousuario);
+	$res = false;
+	$tr = substr($selecion,0,1);
+	$for = substr($selecion,1);
+	var_dump($tr);
+	var_dump($for);
+	if($tr == 1)
+	{
+		$consulta = sprintf("UPDATE proyalumfor SET estado = 1 WHERE aluctr=%s AND forcve=%d",$aluctr,$for);
+		$resultado = mysql_query($consulta);
+		if(mysql_affected_rows()>0)
+			$res = true;
+		else
+			$res = false;
+	}
+	else
+	{
+		$consulta = sprintf("UPDATE proyalumfor SET estado = 2 WHERE aluctr=%s AND forcve=%d",$aluctr,$for);
+		$resultado = mysql_query($consulta);
+		if(mysql_affected_rows()>0)
+			$res = true;
+		else
+			$res = false;
+	}
+
+
+	$salidaJSON = array('respuesta' => $res);
+    return $salidaJSON;
+}
+
 ?>

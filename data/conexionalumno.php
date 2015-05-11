@@ -2,6 +2,7 @@
 //En este archivo se encuentran todas las funciones de las operaciones que puede realizar 
 //un usuario de tipo alumno
 
+
 //conectaBDalumno(): Permite conectarnos a la BD segun el tipo de usuario, en este caso 'alumno'
 function conectaBDalumno($tipousuario)
 {
@@ -231,5 +232,46 @@ function tieneProyecto($ncontrol)
     return true;
   else
     return false;
+}
+
+function traeEntregasAlumno($aluctr)
+{
+    $conexion = conectaBDalumno('alumno');
+    $consultlaEntr = sprintf("SELECT * FROM entregaDelAlumno WHERE aluctr=%s",$aluctr);
+    $res=false;
+    $estado = "";
+    $resultadoEntr = mysql_query($consultlaEntr);
+    $renglones = "";
+    $renglones.="<tr>";
+    $renglones.="<th>Formato</th>";
+    $renglones.="<th>Fecha de Entrega</th>";
+    $renglones.="<th>Alumno</th>";
+    $renglones.="<th>Asesor</th>";
+    $renglones.="<th>Archivo</th>";
+    $renglones.="<th>Revision</th>";
+    $renglones.="</tr>";
+    while($registro = mysql_fetch_array($resultadoEntr))
+    {
+      if($registro["estado"] == 0)
+        {$estado = "NO REVISADO";}
+      elseif ($registro["estado"] == 1) {
+        $estado = "APROBADO";
+      }
+      elseif($registro["estado"] == 2){
+        $estado = "RECHAZADO";
+      }
+      $res=true;
+      $renglones.="<tr>";
+      $renglones.="<td>".$registro["fornom"]."</td>";
+      $renglones.="<td> SIN FECHA</td>";
+      $renglones.="<td>".$registro["alunom"]." ".$registro["aluapp"]."</td>";
+      $renglones.="<td>".$registro["pernom"]." ".$registro["perape"]."</td>";
+      $renglones.="<td>SIN ARCHIVO</td>";
+      $renglones.="<td>".$estado."</td>";
+      $renglones.="</tr>";
+    }
+     $salidaJSON = array('respuesta' => $res,
+    'renglones' => $renglones);
+     return $salidaJSON;
 }
 ?>

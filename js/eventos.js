@@ -1,4 +1,5 @@
 
+
 var inicio = function(){
 	//PAHO
 	//VARIABLES GLOBALES QUE GUARDAN EL NUMERO DE CONTROL DEL ALUMNO Y TIPO DE USUARIO
@@ -73,7 +74,7 @@ var inicio = function(){
 						if(optionHTML == "Alumno"){
 							$("#proyectoasign").show();
 							$("#pa").show();
-							$("#btnGuardaEmpresaProyecto").hide();
+							$("#btnGuardaProyecto").hide();
 						}
 						if(optionHTML == "División de estudios profesionales"){
 							document.getElementById("btnDivBanco").innerHTML = "PROYECTOS"
@@ -82,7 +83,7 @@ var inicio = function(){
 
 							$("#btnRegistrar").show();
 							$("#btnSolicitaProy").hide();
-							$("#btnGuardaEmpresaProyecto").show();
+							$("#btnGuardaProyecto").show();
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
@@ -95,7 +96,7 @@ var inicio = function(){
 
 							$("#btnRegistrar").show();
 							$("#btnSolicitaProy").hide();
-							$("#btnGuardaEmpresaProyecto").show();
+							$("#btnGuardaProyecto").show();
 
 							$("#btnSolicita").hide();
 							$("#btnCargarProy").hide();
@@ -114,69 +115,127 @@ var inicio = function(){
 		}
 		else
 			alert("Llene todos campos");
+		// if(u=="pw" && c=="clave")
+		// {
+		// 	$("#panelEntrada").hide("slow");
+		// 	$("nav").show("slow");
+		// }
 	}
-
 	var llenarTablaProy = function(cargado){
 		var c = cargado;
 		//Agrege el numero de control del alumno a los parametros, para verificar tiene proyecto asignado
 		var parametros = "opc=llenarTablaProy"+"&cargado="+c+"&usuario="+datos["usuario"]+"&id="+Math.random()+"&tUsuario="+usuarioGlobal["tUsuario"];
 		$.ajax({
-			cache:false,
-			url: "data/funs.php",
-			type: "POST",
-			dataType: "json",
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true) 
-				{
-					//alert("Tabla proyecto");
-					$("#tablaproy").html(response.renglones);
-					$("#tablaproy").show();
+				cache:false,
+				url: "data/funs.php",
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true) 
+					{
+						//alert("Tabla proyecto");
+						$("#tablaproy").html(response.renglones);
+						$("#tablaproy").show();
+					}
+					else
+						alert("No hay proyectos");
+						$("#tablaproy").html(response.renglones);
 				}
-				else
-					alert("No hay proyectos");
-					$("#tablaproy").html(response.renglones);
-			}
-		});
+			});
 	}
 
-	
+
+/***************************PAHO*******************/	 
+	var llenaEntregas = function()
+	 {
+	 	//alert(usuarioGlobal["tUsuario"]);
+	 	var parametros = "opc=LlenarTablaEntregas"+"&usuario="+datos["usuario"]+"&tUsuario="+usuarioGlobal["tUsuario"]+"&id="+Math.random();
+		$.ajax({
+				cache:false,
+				url: "data/funs.php",
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true) 
+					{
+						//alert("Tabla proyecto");
+						$("#tablaEntreg").html(response.renglones);
+						$("#tablaEntreg").show();
+					}
+					else
+						alert("No hay proyectos");
+						$("#tablaEntreg").html(response.renglones);
+				}
+			});
+	 }
+
+	 	var traeEntregas = function(){
+	 	$("#entregas").show();
+		$("#informacion").hide();
+		$("#documentacion").hide();
+		$("#banco").hide();
+		$("#panelEntrada").hide("slow");
+		$("#altaProyectos").hide("slow");
+		$("#divSolicitudes").hide();
+		llenaEntregas();
+	 }
+
+
+	var validaAluProy = function(response){
+			
+		// if (nomproy != null){
+		// 	document.getElementById("tusuario").innerHTML = "Maestro: "
+		// 	$("#btnRegistrar").show("slow");s
+		// 	$("#proyectosbox").show("slow");
+
+		// 	//Cambio de nombre de botones
+		// 	document.getElementById("btnEntregas").innerHTML = "Revisiones"
+		// }
+		// else{
+		// 	document.getElementById("tusuario").innerHTML = "Alumno: "
+		// }
+	}
+
 	var anoalumno = function (){
 		var u = $("#txtUsuario").val();
 		var ano = parseInt(u.substring(0,2));
-		if(ano>=9){
-			$("#PlanViejo").hide();
-			$("#PlanNuevo").show();
-		}
-		else{
-			$("#PlanNuevo").hide();
-			$("#PlanViejo").show();
-		}
+			if(ano>=9){
+				$("#PlanViejo").hide();
+				$("#PlanNuevo").show();
+			}
+			else{
+				$("#PlanNuevo").hide();
+				$("#PlanViejo").show();
+			}
 	}
 
 	var traeInicio = function(){
+
 		$("#informacion").show();
 		$("#documentacion").hide();
 		$("#banco").hide();
-		$("#solicitaProyecto").hide();
 		$("#entregas").hide();
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
+
 	}
 
 	
 	var traeBanco = function (){
+		
 		$("#informacion").hide();
 		$("#documentacion").hide();
 		$("#entregas").hide();
 		$("#banco").show();
 		$("#panelEntrada").hide("slow");
-		$("#SeOculta").show();
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
+
 		
 		//PAHO
 		llenarTablaProy(true);
@@ -186,24 +245,16 @@ var inicio = function(){
 		$("#informacion").hide();
 		$("#documentacion").show();
 		$("#banco").hide();
-		$("#solicitaProyecto").hide();
 		$("#entregas").hide();
 		$("#panelEntrada").hide("slow");
 		$("#altaProyectos").hide("slow");
 		$("#entregas").hide("slow");
 		$("#divSolicitudes").hide();
+
 	}
 
-	var traeEntregas = function(){
-	 	$("#entregas").show();
-		$("#informacion").hide();
-		$("#documentacion").hide();
-		$("#banco").hide();
-		$("#solicitaProyecto").hide();
-		$("#panelEntrada").hide("slow");
-		$("#altaProyectos").hide("slow");
-		$("#divSolicitudes").hide();
-	 }
+	
+
 
 	var teclaUsuario = function(tecla){
 		if(tecla.which == 13) //Enter
@@ -223,7 +274,7 @@ var inicio = function(){
 
 	var DivUsuarios = function(){
 		$("#altaProyectos").show("slow");
-		$("#btnGuardaEmpresaProyecto").show();
+		$("#btnGuardaProyecto").show();
 		$("#btnEliminaProyecto").hide();
 	}
 
@@ -233,7 +284,6 @@ var inicio = function(){
 		$("#informacion").hide();
 		$("#entregas").hide();
 		$("#banco").hide();
-		$("#solicitaProyecto").hide();
 		$("#seccionlinks").show();
 		$("#documentacion").hide();
 		$("#docsAmbos").hide("slow");
@@ -241,59 +291,34 @@ var inicio = function(){
 		$("#docsGenerales").show("slow");
 	}
 
-	var GuardaEmpresaProyecto = function(){
-		//Datos de la empresa
-		var a = $("#txtNombreEmpresa").val();
-		var b = $("#txtDireccion").val();
-		var c = $("#txtColonia").val();
-		var d = $("#txtCiudad").val();
-		var e = $("#txtCP").val();
-		var f = $("#txtTelefono").val();
-		var g = $("#txtEncargado").val();
-		var h = $("#txtPuesto").val();
-
-		//Datos del proyecto
-		var i = $("#txtNomProyecto").val();
-		var j = $("#txtCupos").val();
-		var k = $("#txtObjetivo").val();
-		var l = $("#txtJustificacion").val();
-		var m = $("#carrera").val();
-		var n = $("#txtNombreResponsable").val();
-		var o = $("#txtPuesto").val();
-		var parametros = "opc=guardaempresaproyecto"+"&nombre_empresa="+a
-							+"&direccion="+b
-							+"&colonia="+c
-							+"&ciudad="+d
-							+"&codigo_postal="+e
-							+"&telefono="+f
-							+"&encargado="+g
-							+"&puesto="+h
-							+"&nombre_proyecto="+i
-							+"&cupos="+j
-							+"&objetivo="+k
-							+"&justificacion="+l
-							+"&carrera="+m
-							+"&nombre_responsable="+n
-							+"&puesto_responsable="+o
-							+"&id="+Math.random();
-		$.ajax({
-			cache:false,
-			type: "POST",
-			dataType: "json",
-			url:'data/funciones.php',
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					alert("Proyecto registrado con éxito");
+	var GuardaProyecto = function(){
+		var u = $("#txtNombreEmpresa").val();
+		var n = $("#txtDireccion").val();
+		var a = $("#txtTelefono").val();
+		var t = $("#txtEncargado").val();
+		var e = $("#txtNombreProyecto").val();
+		var c = $("#txtCarrrera").val();
+		var r = $("#txtCupos").val();
+		
+			var parametros = "opc=guardaproyecto"+"&nombre_empresa="+u+"&direccion="+n+"&telefono="+a+"&encargado="+t+"&nombre_proyecto="+e+"&carrera="+c+"&cupos="+r+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'data/funciones.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						alert("Proyecto registrado con éxito");
+					}
+					else
+						alert("No se ha podido registrar el proyecto");
+				},
+				error: function(xhr,ajaxOption,x){
+					alert("Sin conexión");
 				}
-				else
-					alert("No se ha podido registrar el proyecto");
-			},
-			error: function(xhr,ajaxOption,x){
-				alert("Sin conexión");
-			}
-		});
+			});
 		$("#altaProyectos").hide("slow");
 	}
 
@@ -334,8 +359,7 @@ var inicio = function(){
 
 	var solicitaProy =function(){
 
-		$("#solicitaProyecto").toggle("slow");
-		$("#SeOculta").toggle("slow");
+		$("#solicitaProyecto").show();
 	}
 
 	var Solicitaste = function(){
@@ -343,27 +367,6 @@ var inicio = function(){
 		$("#solicitaProyecto").hide();
 		$("#banco").hide();
 		$("#informacion").show();
-	}
-
-	var EliminaUsuario = function(){
-		var u = $("#txtNombreUsuario").val();
-		var parametros = "opc=EliminaUsuario"+"&usuario="+u+"&id="+Math.random();
-		$.ajax({
-			cache: false,
-			url: "data/funciones.php",
-			type: "POST",
-			dataType: "json",
-			data:parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					alert("El usuario ha sido dado de baja");
-					$("#altaUsuarios > input").val("");
-				}
-			},
-			error: function(xhr,ajaxOption,x){
-			}
-		});
 	}
 
 	var Solicitudes = function()
@@ -378,21 +381,41 @@ var inicio = function(){
 		$("#entregas").hide("slow");
 		//traeSolicitud();
 		var parametros = "opc=LlenarTablaSolicitud"+"&id="+Math.random();
-		$.ajax({
-			cache:false,
-			url: "data/funs.php", //CAMBIE LA RUTA DE LAS FUNCIONES (paho)
-			type: "POST",
-			dataType: "json",
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true){
-					$("#tablaSolicitud").html(response.renglones);
-					$("#tablaSolicitud").show();
+			$.ajax({
+				cache:false,
+				url: "data/funs.php", //CAMBIE LA RUTA DE LAS FUNCIONES (paho)
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true){
+						$("#tablaSolicitud").html(response.renglones);
+						$("#tablaSolicitud").show();
+					}
 				}
-			}
-		});
+				
+			});
 	}
+/*
+	var traeSolicitud = function ()
+	{
+		var parametros = "opc=LlenarTablaSolicitud"+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				url: "data/funciones.php",
+				type: "POST",
+				dataType: "json",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true){
+						$("#tablaSolicitud").html(response.renglones);
+						$("#tablaSolicitud").show();
+					}
+				}
 
+			});
+				
+	}*/
 	var cambiaTexto = function (){
 		if (this.innerHTML == "Ver más")
 			this.innerHTML = "Ver menos";
@@ -400,9 +423,9 @@ var inicio = function(){
 			this.innerHTML = "Ver más";
 	}
 
-	//PAHO
-	//FUNCION PARA CARGAR PROYECTO 
-	var CargarProy = function()
+//PAHO
+//FUNCION PARA CARGAR PROYECTO 
+var CargarProy = function()
 	{
 		var seleccion = $("input[name='seleccionar']:checked").val();
 		var parametros = "opc=enviarSolicitud"+"&cargarproy="+seleccion+"&usuario="+datos["usuario"]+"&id="+Math.random();
@@ -416,16 +439,10 @@ var inicio = function(){
 				dataType: 'json',
 				data: parametros,
 				success:function(response){
-					if(response.respuesta){
+					if(response.respuesta)
 						alert("Tu solicitud ha sido enviada.");
-						$("#banco").hide();
-						$("#informacion").show();
-					}
-					else{
+					else
 						alert("No se a podido realizar la solicitud.");
-						$("#banco").hide();
-						$("#informacion").show();
-					}
 				},
 				error:function(xhr,ajaxOptions,x){
 					alert("Error de conexión.");
@@ -434,6 +451,7 @@ var inicio = function(){
 		}
 		else
 			alert("Selecciona un proyecto");
+		
 	}
 
 	//PAHO
@@ -444,23 +462,22 @@ var inicio = function(){
 		//alert("ID del asesor: "+asesor);
 		var parametros = "opc=AsignaProy"+"&usuario="+valorBoton+"&asesor="+asesor+"&id="+Math.random();
 		$.ajax({
-			cache: false,
-			url: 'data/funs.php',
-			type: 'POST',
-			dataType: 'json',
-			data: parametros,
-			success:function(response){
-				if(response.respuesta)
-					alert("Proyecto asignado correctamente.");
-				else
-					alert("No se pudo asignar el proyecto.");
-			},
-			error:function(xhr,ajaxOptions,x){
-				alert("Error de conexión.");
-			}
-		});
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Proyecto asignado correctamente.");
+					else
+						alert("No se pudo asignar el proyecto.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
 	}
-
 //AUN NO FUNCIONA :c
 	var CancelarProy = function()
 	{
@@ -468,22 +485,51 @@ var inicio = function(){
 		alert("funciono "+valorBoton);
 		var parametros = "opc=CancelarProy"+"&usuario="+valorBoton+"&id="+Math.random();
 		$.ajax({
-			cache: false,
-			url: 'data/funs.php',
-			type: 'POST',
-			dataType: 'json',
-			data: parametros,
-			success:function(response){
-				if(response.respuesta)
-					alert("Solicitud cancelada.");
-				else
-					alert("No se pudo dar de baja la solicitud.");
-			},
-			error:function(xhr,ajaxOptions,x){
-				alert("Error de conexión.");
-			}
-		});
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Solicitud cancelada.");
+					else
+						alert("No se pudo dar de baja la solicitud.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
 	}
+/*********************************************/
+var RevisarFrom = function()
+{
+	/*var valorBoton = $(".btnRevisar").attr("value");
+	var seleccion = $("input[name='seleccionar']:checked").val();
+	var parametros = "opc=RevisionFrom"+"&rev="+seleccion+"&usuario="+datos["usuario"]+"&id="+Math.random()+"&alumno="+valorBoton;
+		
+		/*if($('.radRev').is(':checked'))
+		{
+			$.ajax({
+				cache: false,
+				url: 'data/funs.php',
+				type: 'POST',
+				dataType: 'json',
+				data: parametros,
+				success:function(response){
+					if(response.respuesta)
+						alert("Revisión realizada.");
+					else
+						alert("No se pudo realizar la revisión.");
+				},
+				error:function(xhr,ajaxOptions,x){
+					alert("Error de conexión.");
+				}
+			});
+		}
+		else
+			alert("Selecciona tu revisión");*/
+}
 
 	//Configuramos los eventos.
 	$("#btnEntrar").on("click",validaUsuario);
@@ -493,10 +539,10 @@ var inicio = function(){
 	$("#txtClave").on("keypress",teclaClave);
 	$("#btnDivUsuarios").on("click",DivUsuarios);
 	$("#btnDivBanco").on("click",traeBanco);
-	$("#btnGuardaEmpresaProyecto").on("click",GuardaEmpresaProyecto);
+	$("#btnGuardaProyecto").on("click",GuardaProyecto);
 	$("#txtNombreUsuario").on("keypress",teclaNombreUsuario);
 	$("#btnDivDocumentacion").on("click",traeDocumentacion);
-	$("#btnEliminaUsuario").on("click",EliminaUsuario);
+	//$("#btnEliminaUsuario").on("click",EliminaUsuario);
 	$("#btnSolicitud").on("click",Solicitudes);
 	
 	$("#btnIngresar").on("click",Ingresar);
@@ -509,10 +555,21 @@ var inicio = function(){
 	//PAHO
 	//AGREGUE EVENTO PARA ENVIAR LAS SOLICITUDES
 	//$("#btnSolicita").on("click",Solicita);
-	$("#btnSolicitaProy").on("click",GuardaEmpresaProyecto);
+	$("#btnSolicitaProy").on("click",GuardaProyecto);
 	$("#btnCargarProy").on("click",CargarProy);
 	$("#tablaSolicitud").on("click",".btnAsignar",AsignaProy);
 	$("#tablaSolicitud").on("click",".btnCancelar",CancelarProy);
+	$("#tablaEntregables").on("click",".btnRevisar",RevisarFrom);
+
 }
 
 $(document).on("ready",inicio);
+
+
+
+
+
+
+
+
+
